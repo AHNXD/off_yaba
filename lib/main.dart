@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Home.routeName,
       routes: {
-        Home.routeName: (context) => const Home(),
+        Home.routeName: (context) => Home(),
         Search.routeName: (context) => const Search(),
         Resturant.routeName: (context) => const Resturant(),
         Offers.routeName: (context) => const Offers(),
