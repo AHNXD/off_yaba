@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/categoriesScreen.dart';
 import 'package:off_yaba/screens/home.dart';
+import 'package:off_yaba/screens/restaurantScreen.dart';
 
 import 'package:off_yaba/screens/search.dart';
 import 'package:off_yaba/screens/select.dart';
@@ -26,7 +28,9 @@ class MyApp extends StatelessWidget {
       routes: {
         Home.routeName: (context) => const Home(),
         Search.routeName: (context) => const Search(),
-        Select.routeName: (context) => const Select()
+        Select.routeName: (context) => const Select(),
+        CategoriesScreen.routeName: (context) => const CategoriesScreen(),
+        RestaurabtScreen.routeName: (context) => const RestaurabtScreen()
       },
     );
   }

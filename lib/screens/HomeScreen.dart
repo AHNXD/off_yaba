@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/categoriesScreen.dart';
+import 'package:off_yaba/screens/restaurantScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -77,17 +79,20 @@ class HomeScreen extends StatelessWidget {
                       ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Text(
+                      const Text(
                         "الأقسام",
                         style: TextStyle(color: Colors.grey, fontSize: 16),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.category_outlined, color: appColor),
-                      ),
-                      SizedBox(
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, CategoriesScreen.routeName);
+                          },
+                          icon: const Icon(Icons.category_outlined,
+                              color: appColor)),
+                      const SizedBox(
                         height: 32,
                         child: Expanded(
                           child: VerticalDivider(
@@ -97,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Directionality(
                           textDirection: TextDirection.rtl,
                           child: TextField(
@@ -217,22 +222,28 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (BuildContext, index) {
                       return Column(
                         children: [
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
-                                  offset: const Offset(
-                                      0, 1), // changes position of shadow
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RestaurabtScreen.routeName);
+                            },
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 3,
+                                    offset: const Offset(
+                                        0, 1), // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(16),
+                                image: const DecorationImage(
+                                  image: AssetImage("assets/images/pic2.jpg"),
+                                  fit: BoxFit.fill,
                                 ),
-                              ],
-                              borderRadius: BorderRadius.circular(16),
-                              image: const DecorationImage(
-                                image: AssetImage("assets/images/pic2.jpg"),
-                                fit: BoxFit.fill,
                               ),
                             ),
                           ),

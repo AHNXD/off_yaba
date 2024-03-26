@@ -5,7 +5,7 @@ import 'package:off_yaba/screens/HomeScreen.dart';
 
 import 'package:off_yaba/screens/offersScreen.dart';
 import 'package:off_yaba/screens/scannerScreen.dart';
-import 'package:off_yaba/screens/settings.dart';
+import 'package:off_yaba/screens/settingsScreen.dart';
 
 class Home extends StatefulWidget {
   static const routeName = '/home';

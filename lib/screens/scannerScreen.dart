@@ -91,83 +91,66 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 const SizedBox(
                   height: 8,
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            camOn = !camOn;
+                            camOncolor = camOn ? Colors.blue : Colors.red;
+                            if (camOn) {
+                              controller?.resumeCamera();
+                            } else {
+                              controller?.stopCamera();
+                            }
+                          });
+                        },
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: camOncolor,
+                        )),
+                    IconButton(
+                      onPressed: () async {
+                        await controller?.toggleFlash();
+                        setState(() {});
+                      },
+                      icon: FutureBuilder<bool?>(
+                        future: controller?.getFlashStatus(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.data != null) {
+                            return snapshot.data!
+                                ? const Icon(
+                                    Icons.flash_on,
+                                    color: Colors.blue,
+                                  )
+                                : const Icon(
+                                    Icons.flash_off,
+                                    color: Colors.red,
+                                  );
+                          } else {
+                            return const Icon(
+                              Icons.flash_off,
+                              color: Colors.red,
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () async {
+                          await controller?.flipCamera();
+                          setState(() {});
+                        },
+                        icon: const Icon(
+                          Icons.switch_camera,
+                          color: Colors.white,
+                        ))
+                  ],
+                ),
               ],
             )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  color: appColor,
-                  borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(20))),
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      camOn = !camOn;
-                      camOncolor = camOn ? Colors.blue : Colors.red;
-                      if (camOn) {
-                        controller?.resumeCamera();
-                      } else {
-                        controller?.stopCamera();
-                      }
-                    });
-                  },
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: camOncolor,
-                  )),
-            ),
-            Container(
-                decoration: const BoxDecoration(
-                  color: appColor,
-                ),
-                child: IconButton(
-                  onPressed: () async {
-                    await controller?.toggleFlash();
-                    setState(() {});
-                  },
-                  icon: FutureBuilder<bool?>(
-                    future: controller?.getFlashStatus(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.data != null) {
-                        return snapshot.data!
-                            ? const Icon(
-                                Icons.flash_on,
-                                color: Colors.blue,
-                              )
-                            : const Icon(
-                                Icons.flash_off,
-                                color: Colors.red,
-                              );
-                      } else {
-                        return const Icon(
-                          Icons.flash_off,
-                          color: Colors.red,
-                        );
-                      }
-                    },
-                  ),
-                )),
-            Container(
-              decoration: const BoxDecoration(
-                  color: appColor,
-                  borderRadius:
-                      BorderRadius.only(bottomRight: Radius.circular(20))),
-              child: IconButton(
-                  onPressed: () async {
-                    await controller?.flipCamera();
-                    setState(() {});
-                  },
-                  icon: const Icon(
-                    Icons.switch_camera,
-                    color: Colors.white,
-                  )),
-            )
-          ],
-        ),
         SizedBox(
           height: MediaQuery.sizeOf(context).height,
           child: Padding(
@@ -189,13 +172,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
                             offset: Offset(0.0, 0.75))
                       ],
                     ),
-                    padding: const EdgeInsets.all(10),
                     height: MediaQuery.of(context).size.height / 2,
                     width: double.infinity,
                     child: Stack(
                       children: [
                         QRView(
                           key: qrKey,
+                          overlayMargin: const EdgeInsets.all(16),
                           onQRViewCreated: _onQRViewCreated,
                           overlay: QrScannerOverlayShape(
                               borderWidth: 15,
@@ -203,7 +186,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                               borderLength: 20,
                               borderRadius: 10,
                               cutOutSize:
-                                  MediaQuery.of(context).size.width * 0.8),
+                                  MediaQuery.of(context).size.width * 0.6),
                         ),
                         !camOn
                             ? Container(
@@ -234,9 +217,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
                                 style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               )
-                            : const Text('Scan a code',
+                            : const Text('امسح الرمز',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                                    fontSize: 20,
+                                    fontFamily: "cocon-next-arabic",
+                                    fontWeight: FontWeight.bold)),
                         Center(
                             child: Text(
                           errorMasseg,
