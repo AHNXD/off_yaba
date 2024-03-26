@@ -36,7 +36,7 @@ class Select extends StatelessWidget {
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.all(32)),
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Login",
                           style: TextStyle(
                               color: appColor,
