@@ -1,6 +1,4 @@
 // Import libraries
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 
@@ -197,17 +195,17 @@ class Home extends StatelessWidget {
                                       fontWeight: FontWeight.bold))
                             ],
                           ),
-                          Expanded(
+                          SizedBox(
+                            height: 60,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 5,
+                                itemCount: 50,
                                 itemBuilder: (BuildContext, index) {
-                                  return Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: CircleAvatar(
-                                        backgroundColor: appColor,
-                                      ),
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: CircleAvatar(
+                                      backgroundColor: appColor,
+                                      child: Text(index.toString()),
                                     ),
                                   );
                                 }),
