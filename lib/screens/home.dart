@@ -4,7 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Home extends StatefulWidget {
   static const routeName = '/home';
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -13,14 +13,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _page = 0;
 
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
-        index: 0,
+        index: 2,
         height: 60.0,
         items: const <Widget>[
           Icon(Icons.qr_code, size: 30, color: Colors.white),
@@ -173,7 +173,7 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: MediaQuery.sizeOf(context).height,
             child: Padding(
-              padding: const EdgeInsets.only(left: 32, right: 32),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: ListView(
                 primary: true,
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -227,7 +227,7 @@ class _HomeState extends State<Home> {
                         itemCount: 50,
                         itemBuilder: (BuildContext, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
                                 SizedBox(
@@ -238,6 +238,9 @@ class _HomeState extends State<Home> {
                                         "assets/images/logo1.jpg"),
                                     backgroundColor: appColor,
                                   ),
+                                ),
+                                const SizedBox(
+                                  height: 2,
                                 ),
                                 const Text("اسم المطعم"),
                               ],
@@ -281,6 +284,9 @@ class _HomeState extends State<Home> {
                                   fit: BoxFit.fill,
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
