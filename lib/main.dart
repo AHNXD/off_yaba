@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:off_yaba/home.dart';
-import 'package:off_yaba/manager.dart';
-import 'package:off_yaba/market.dart';
-import 'package:off_yaba/offers.dart';
-import 'package:off_yaba/prop.dart';
-import 'package:off_yaba/search.dart';
-import 'package:off_yaba/select.dart';
+import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/home.dart';
+import 'package:off_yaba/screens/manager.dart';
+import 'package:off_yaba/screens/market.dart';
+import 'package:off_yaba/screens/offers.dart';
+import 'package:off_yaba/screens/prop.dart';
+import 'package:off_yaba/screens/search.dart';
+import 'package:off_yaba/screens/select.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Off-Yaba',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'Hacen Beirut',
+        colorScheme: ColorScheme.fromSeed(seedColor: appColor),
         useMaterial3: true,
       ),
       initialRoute: Home.routeName,
