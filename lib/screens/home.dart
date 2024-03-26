@@ -1,4 +1,5 @@
 // Import libraries
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 
@@ -22,8 +23,8 @@ class Home extends StatelessWidget {
               //   ),
               // ),
               child: SafeArea(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                  child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   Container(
                       padding: const EdgeInsets.only(
@@ -35,8 +36,8 @@ class Home extends StatelessWidget {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset:
-                                  Offset(0, 3), // changes position of shadow
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ],
                           color: appColor,
@@ -154,64 +155,158 @@ class Home extends StatelessWidget {
                         ],
                       )),
                   Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
-                                  offset: const Offset(
-                                      0, 1), // changes position of shadow
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(32),
-                              image: const DecorationImage(
-                                image: AssetImage("assets/images/pic1.jpg"),
-                                fit: BoxFit.fill,
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 6),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 3,
+                                offset: const Offset(
+                                    0, 1), // changes position of shadow
                               ),
+                            ],
+                            borderRadius: BorderRadius.circular(32),
+                            image: const DecorationImage(
+                              image: AssetImage("assets/images/pic1.jpg"),
+                              fit: BoxFit.fill,
                             ),
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "المزيد",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Text("اقوى التخفيضات",
-                                  style: TextStyle(
-                                      fontFamily: "cocon-next-arabic",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                          SizedBox(
-                            height: 60,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 50,
-                                itemBuilder: (BuildContext, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: appColor,
-                                      child: Text(index.toString()),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "المزيد",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Text("اقوى التخفيضات",
+                                style: TextStyle(
+                                    fontFamily: "cocon-next-arabic",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 120,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 50,
+                              itemBuilder: (BuildContext, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 80,
+                                        width: 80,
+                                        child: CircleAvatar(
+                                          backgroundImage: const AssetImage(
+                                              "assets/images/avatar.jpg"),
+                                          backgroundColor: appColor,
+                                        ),
+                                      ),
+                                      Text(index.toString()),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                        const Divider(
+                          thickness: 2,
+                        ),
+                        const Align(
+                          alignment: Alignment.centerRight,
+                          child: Text("التخفيضات القريبة منك",
+                              style: TextStyle(
+                                  fontFamily: "cocon-next-arabic",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: 50,
+                            itemBuilder: (BuildContext, index) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 3,
+                                          offset: const Offset(0,
+                                              1), // changes position of shadow
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(16),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/pic2.jpg"),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                  );
-                                }),
-                          )
-                        ],
-                      ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            "كم",
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                          const Text(
+                                            "0.6",
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                          Icon(
+                                            Icons.pin_drop,
+                                            color: appColor,
+                                          )
+                                        ],
+                                      ),
+                                      const Text("اسم المطعم",
+                                          style: TextStyle(
+                                              fontFamily: "cocon-next-arabic",
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold))
+                                    ],
+                                  ),
+                                  const Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "النوع",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: appColor,
+                                  )
+                                ],
+                              );
+                            })
+                      ],
                     ),
                   )
                 ],
