@@ -37,9 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   qr_code_scanner: ^1.0.1
-  audioplayers: ^5.2.1
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:
