@@ -91,63 +91,68 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 const SizedBox(
                   height: 8,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          setState(() {
-                            camOn = !camOn;
-                            camOncolor = camOn ? Colors.blue : Colors.red;
-                            if (camOn) {
-                              controller?.resumeCamera();
-                            } else {
-                              controller?.stopCamera();
-                            }
-                          });
-                        },
-                        icon: Icon(
-                          Icons.camera_alt,
-                          color: camOncolor,
-                        )),
-                    IconButton(
-                      onPressed: () async {
-                        await controller?.toggleFlash();
-                        setState(() {});
-                      },
-                      icon: FutureBuilder<bool?>(
-                        future: controller?.getFlashStatus(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.data != null) {
-                            return snapshot.data!
-                                ? const Icon(
-                                    Icons.flash_on,
-                                    color: Colors.blue,
-                                  )
-                                : const Icon(
-                                    Icons.flash_off,
-                                    color: Colors.red,
-                                  );
-                          } else {
-                            return const Icon(
-                              Icons.flash_off,
-                              color: Colors.red,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                    IconButton(
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              camOn = !camOn;
+                              camOncolor = camOn ? Colors.green : Colors.red;
+                              if (camOn) {
+                                controller?.resumeCamera();
+                              } else {
+                                controller?.stopCamera();
+                              }
+                            });
+                          },
+                          icon: Icon(
+                            Icons.camera_alt,
+                            color: camOncolor,
+                          )),
+                      IconButton(
                         onPressed: () async {
-                          await controller?.flipCamera();
+                          await controller?.toggleFlash();
                           setState(() {});
                         },
-                        icon: const Icon(
-                          Icons.switch_camera,
-                          color: Colors.white,
-                        ))
-                  ],
+                        icon: FutureBuilder<bool?>(
+                          future: controller?.getFlashStatus(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.data != null) {
+                              return snapshot.data!
+                                  ? const Icon(
+                                      Icons.flash_on,
+                                      color: Colors.green,
+                                    )
+                                  : const Icon(
+                                      Icons.flash_off,
+                                      color: Colors.red,
+                                    );
+                            } else {
+                              return const Icon(
+                                Icons.flash_off,
+                                color: Colors.red,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            await controller?.flipCamera();
+                            setState(() {});
+                          },
+                          icon: const Icon(
+                            Icons.switch_camera,
+                            color: appColor,
+                          ))
+                    ],
+                  ),
                 ),
               ],
             )),
@@ -178,7 +183,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
                       children: [
                         QRView(
                           key: qrKey,
-                          overlayMargin: const EdgeInsets.all(16),
                           onQRViewCreated: _onQRViewCreated,
                           overlay: QrScannerOverlayShape(
                               borderWidth: 15,
