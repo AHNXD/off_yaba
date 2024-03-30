@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/categoriesScreen.dart';
+import 'package:off_yaba/screens/codeScreen.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
 import 'package:off_yaba/screens/searchScreen.dart';
 import 'package:off_yaba/screens/authScreen.dart';
+import 'package:off_yaba/screens/signInScreen.dart';
+import 'package:off_yaba/screens/signUpScreen.dart';
 import 'package:off_yaba/screens/splashScreen.dart';
 import 'package:off_yaba/screens/routerScreen.dart';
 
@@ -31,7 +34,10 @@ class MyApp extends StatelessWidget {
         AuthScreen.routeName: (context) => const AuthScreen(),
         CategoriesScreen.routeName: (context) => const CategoriesScreen(),
         RestaurantScreen.routeName: (context) => const RestaurantScreen(),
-        SplashScreen.routeName: (contex) => SplashScreen()
+        SplashScreen.routeName: (contex) => const SplashScreen(),
+        SignInScreen.routeName: (context) => const SignInScreen(),
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
+        CodeScreen.routeName: (context) => const CodeScreen()
       },
     );
   }

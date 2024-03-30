@@ -3,12 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/authScreen.dart';
-import 'package:off_yaba/screens/routerScreen.dart';
 import 'package:off_yaba/services/apiService.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash';
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -75,6 +74,5 @@ class _SplashScreenState extends State<SplashScreen>
         ),
       ),
     );
-    ;
   }
 }
