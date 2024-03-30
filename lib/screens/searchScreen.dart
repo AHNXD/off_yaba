@@ -1,9 +1,9 @@
 // Import libraries
 import 'package:flutter/material.dart';
 
-class Search extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
   static const routeName = '/search';
-  const Search({super.key});
+  const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 
-class RestaurabtScreen extends StatefulWidget {
+class RestaurantScreen extends StatefulWidget {
   static const routeName = '/restaurant';
-  const RestaurabtScreen({super.key});
+  const RestaurantScreen({super.key});
 
   @override
-  State<RestaurabtScreen> createState() => _RestaurabtScreenState();
+  State<RestaurantScreen> createState() => _RestaurabtScreenState();
 }
 
-class _RestaurabtScreenState extends State<RestaurabtScreen> {
+class _RestaurabtScreenState extends State<RestaurantScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

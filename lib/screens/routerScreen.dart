@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -7,16 +9,21 @@ import 'package:off_yaba/screens/offersScreen.dart';
 import 'package:off_yaba/screens/scannerScreen.dart';
 import 'package:off_yaba/screens/settingsScreen.dart';
 
-class Home extends StatefulWidget {
-  static const routeName = '/home';
-  const Home({super.key});
+class RouterScreen extends StatefulWidget {
+  static const routeName = '/router';
+  const RouterScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<RouterScreen> createState() => _RouterScreenState();
 }
 
-class _HomeState extends State<Home> {
-  List pages = [const HomeScreen(), const ScannerScreen(), const OffersScreen(), const Settings()];
+class _RouterScreenState extends State<RouterScreen> {
+  List pages = [
+    const HomeScreen(),
+    const ScannerScreen(),
+    const OffersScreen(),
+    const Settings()
+  ];
   int _page = 0;
 
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();

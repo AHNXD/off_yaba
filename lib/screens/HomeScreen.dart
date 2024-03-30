@@ -225,7 +225,7 @@ class HomeScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, RestaurabtScreen.routeName);
+                                  context, RestaurantScreen.routeName);
                             },
                             child: Container(
                               height: 200,

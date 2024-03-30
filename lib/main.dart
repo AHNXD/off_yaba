@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/categoriesScreen.dart';
-import 'package:off_yaba/screens/home.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
-
-import 'package:off_yaba/screens/search.dart';
-import 'package:off_yaba/screens/select.dart';
+import 'package:off_yaba/screens/searchScreen.dart';
+import 'package:off_yaba/screens/authScreen.dart';
+import 'package:off_yaba/screens/splashScreen.dart';
+import 'package:off_yaba/screens/routerScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,13 +24,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: appColor),
         useMaterial3: true,
       ),
-      initialRoute: Home.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
-        Home.routeName: (context) => const Home(),
-        Search.routeName: (context) => const Search(),
-        Select.routeName: (context) => const Select(),
+        RouterScreen.routeName: (context) => const RouterScreen(),
+        SearchScreen.routeName: (context) => const SearchScreen(),
+        AuthScreen.routeName: (context) => const AuthScreen(),
         CategoriesScreen.routeName: (context) => const CategoriesScreen(),
-        RestaurabtScreen.routeName: (context) => const RestaurabtScreen()
+        RestaurantScreen.routeName: (context) => const RestaurantScreen(),
+        SplashScreen.routeName: (contex) => SplashScreen()
       },
     );
   }

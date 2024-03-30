@@ -1,10 +1,11 @@
 // Import libraries
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/routerScreen.dart';
 
-class Select extends StatelessWidget {
+class AuthScreen extends StatelessWidget {
   static const routeName = '/select';
-  const Select({super.key});
+  const AuthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,25 +18,31 @@ class Select extends StatelessWidget {
               height: double.infinity,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/background.png"),
+                  image: AssetImage("assets/background2.png"),
                   fit: BoxFit.fill,
                 ),
               ),
               child: SafeArea(
                   child: ListView(
                 children: [
+                  SizedBox(height: 32),
                   Padding(
                     padding: const EdgeInsets.all(32.0),
                     child: Image.asset("assets/offYaba.png"),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding: const EdgeInsets.only(
+                        right: 60.0, left: 60, top: 32, bottom: 16),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             shadowColor: appColor,
                             backgroundColor: Colors.white,
-                            padding: const EdgeInsets.all(32)),
-                        onPressed: () {},
+                            padding: const EdgeInsets.all(16)),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.of(context)
+                              .push(goRoute(x: const RouterScreen()));
+                        },
                         child: const Text(
                           "Login",
                           style: TextStyle(
@@ -45,13 +52,18 @@ class Select extends StatelessWidget {
                         )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding:
+                        const EdgeInsets.only(right: 60.0, left: 60, top: 16),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.white,
+                            shadowColor: Colors.black,
                             backgroundColor: appColor,
-                            padding: const EdgeInsets.all(32)),
-                        onPressed: () {},
+                            padding: const EdgeInsets.all(16)),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.of(context)
+                              .push(goRoute(x: const RouterScreen()));
+                        },
                         child: const Text(
                           "Register",
                           style: TextStyle(
