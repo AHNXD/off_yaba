@@ -46,7 +46,6 @@ class SignInScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30)),
                     child: IntlPhoneField(
                       decoration: const InputDecoration(
-                        hintText: "9xxxxxxxx",
                         labelText: 'Phone Number',
                         border: OutlineInputBorder(
                             borderRadius:
