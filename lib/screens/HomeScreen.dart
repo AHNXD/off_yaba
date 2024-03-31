@@ -36,6 +36,12 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.notifications_active,
+                          color: Colors.white,
+                        )),
                     RichText(
                       textAlign: TextAlign.center,
                       text: const TextSpan(children: [
@@ -54,12 +60,6 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold))
                       ]),
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.notifications_active,
-                          color: Colors.white,
-                        ))
                   ],
                 ),
                 const SizedBox(
@@ -81,17 +81,22 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   child: Row(
                     children: [
-                      const Text(
-                        "الأقسام",
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              hintText: lang == "ar" ? "البحث" : "Search",
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              )),
+                        ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, CategoriesScreen.routeName);
-                          },
-                          icon: const Icon(Icons.category_outlined,
-                              color: appColor)),
                       const SizedBox(
                         height: 32,
                         child: Expanded(
@@ -102,25 +107,18 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Expanded(
-                        child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: TextField(
-                            decoration: InputDecoration(
-                                focusedBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                hintText: "البحث",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey,
-                                )),
-                          ),
-                        ),
-                      )
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, CategoriesScreen.routeName);
+                          },
+                          icon: const Icon(Icons.category_outlined,
+                              color: appColor)),
+                      Text(
+                        lang == "ar" ? "الأقسام" : "Categories",
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
                     ],
                   ),
                 ),
@@ -131,8 +129,6 @@ class HomeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: ListView(
-              primary: true,
-              physics: const AlwaysScrollableScrollPhysics(),
               shrinkWrap: true,
               children: [
                 const SizedBox(
@@ -161,18 +157,18 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "المزيد",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    Text("اقوى التخفيضات",
-                        style: TextStyle(
+                    Text(lang == "ar" ? "اقوى التخفيضات" : "Best Deals",
+                        style: const TextStyle(
                             fontFamily: "cocon-next-arabic",
                             fontSize: 20,
-                            fontWeight: FontWeight.bold))
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                      lang == "ar" ? "المزيد" : "More",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -182,11 +178,11 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: 50,
                       itemBuilder: (BuildContext, index) {
-                        return const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 80,
                                 width: 80,
                                 child: CircleAvatar(
@@ -195,10 +191,12 @@ class HomeScreen extends StatelessWidget {
                                   backgroundColor: appColor,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 2,
                               ),
-                              Text("اسم المطعم"),
+                              Text(lang == "ar"
+                                  ? "اسم المطعم"
+                                  : "Restaurant Name"),
                             ],
                           ),
                         );
@@ -207,10 +205,15 @@ class HomeScreen extends StatelessWidget {
                 const Divider(
                   thickness: 2,
                 ),
-                const Align(
-                  alignment: Alignment.centerRight,
-                  child: Text("التخفيضات القريبة منك",
-                      style: TextStyle(
+                Align(
+                  alignment: lang == "ar"
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Text(
+                      lang == "ar"
+                          ? "التخفيضات القريبة منك"
+                          : "Best Deals Near you",
+                      style: const TextStyle(
                           fontFamily: "cocon-next-arabic",
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
@@ -250,38 +253,43 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              Text(
+                                  lang == "ar"
+                                      ? "اسم المطعم"
+                                      : "Restaurant Name",
+                                  style: const TextStyle(
+                                      fontFamily: "cocon-next-arabic",
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(
-                                    "كم",
-                                    style: TextStyle(color: Colors.grey),
+                                  const Icon(
+                                    Icons.pin_drop,
+                                    color: appColor,
                                   ),
-                                  Text(
+                                  const Text(
                                     "0.6",
                                     style: TextStyle(color: Colors.grey),
                                   ),
-                                  Icon(
-                                    Icons.pin_drop,
-                                    color: appColor,
-                                  )
+                                  Text(
+                                    lang == "ar" ? "كم" : "km",
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
                                 ],
                               ),
-                              Text("اسم المطعم",
-                                  style: TextStyle(
-                                      fontFamily: "cocon-next-arabic",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold))
                             ],
                           ),
-                          const Align(
-                            alignment: Alignment.centerRight,
+                          Align(
+                            alignment: lang == "ar"
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                             child: Text(
-                              "النوع",
-                              style: TextStyle(color: Colors.grey),
+                              lang == "ar" ? "النوع" : "Type",
+                              style: const TextStyle(color: Colors.grey),
                             ),
                           ),
                           const Divider(

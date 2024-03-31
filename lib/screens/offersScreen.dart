@@ -98,30 +98,30 @@ class _OffersScreenState extends State<OffersScreen> {
                                   bottomLeft: Radius.circular(15),
                                   topRight: Radius.circular(50),
                                   bottomRight: Radius.circular(50))),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(),
-                              Text(
-                                "انقر للعرض",
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    fontFamily: "cocon-next-arabic"),
-                              ),
-                              Row(
+                              const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  CircleAvatar(
+                                    radius: 15,
+                                    backgroundColor: Colors.white,
+                                  ),
                                   Icon(
                                     Icons.qr_code_2,
                                     color: Colors.black,
                                     size: 80,
                                   ),
-                                  CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor: Colors.white,
-                                  )
                                 ],
-                              )
+                              ),
+                              Text(
+                                lang == "ar" ? "انقر للعرض" : "Tap to show",
+                                style: const TextStyle(
+                                    fontSize: 24,
+                                    fontFamily: "cocon-next-arabic"),
+                              ),
+                              const SizedBox(),
                             ],
                           ),
                         );

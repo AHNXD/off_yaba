@@ -217,12 +217,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         _isloading
                             ? Text(
                                 textAlign: TextAlign.center,
-                                "ID : ${result!.code}}",
+                                lang == "ar"
+                                    ? "تم المسج"
+                                    : "Scanning is completed",
                                 style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               )
-                            : const Text('امسح الرمز',
-                                style: TextStyle(
+                            : Text(
+                                lang == "ar" ? 'امسح الرمز' : "Scan the Code",
+                                style: const TextStyle(
                                     fontSize: 20,
                                     fontFamily: "cocon-next-arabic",
                                     fontWeight: FontWeight.bold)),
@@ -232,7 +235,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           style: TextStyle(color: errorColor),
                         )),
                         ElevatedButton(
-                            onPressed: () {}, child: const Text("إضافة العرض"))
+                            onPressed: () {},
+                            child: Text(
+                                lang == "ar" ? "إضافة العرض" : "Add Offer"))
                       ],
                     ),
                   ),

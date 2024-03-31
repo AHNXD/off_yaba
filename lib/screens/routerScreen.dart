@@ -30,32 +30,35 @@ class _RouterScreenState extends State<RouterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        index: 0,
-        height: 60.0,
-        items: const <Widget>[
-          Icon(Icons.home, size: 30, color: Colors.white),
-          Icon(Icons.qr_code, size: 30, color: Colors.white),
-          Icon(Icons.card_giftcard, size: 30, color: Colors.white),
-          Icon(Icons.settings, size: 30, color: Colors.white),
-        ],
-        color: appColor,
-        buttonBackgroundColor: Colors.black,
+    return Directionality(
+      textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
+      child: Scaffold(
+        bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: 0,
+          height: 60.0,
+          items: const <Widget>[
+            Icon(Icons.home, size: 30, color: Colors.white),
+            Icon(Icons.qr_code, size: 30, color: Colors.white),
+            Icon(Icons.card_giftcard, size: 30, color: Colors.white),
+            Icon(Icons.settings, size: 30, color: Colors.white),
+          ],
+          color: appColor,
+          buttonBackgroundColor: Colors.black,
+          backgroundColor: Colors.white,
+          animationCurve: Curves.easeInOut,
+          animationDuration: const Duration(milliseconds: 400),
+          onTap: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
+          letIndexChange: (index) => true,
+        ),
+        // Set background color
         backgroundColor: Colors.white,
-        animationCurve: Curves.easeInOut,
-        animationDuration: const Duration(milliseconds: 400),
-        onTap: (index) {
-          setState(() {
-            _page = index;
-          });
-        },
-        letIndexChange: (index) => true,
+        body: SafeArea(child: pages[_page]),
       ),
-      // Set background color
-      backgroundColor: Colors.white,
-      body: SafeArea(child: pages[_page]),
     );
   }
 }

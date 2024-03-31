@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
 
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return ListView(physics: const NeverScrollableScrollPhysics(), children: [
@@ -67,47 +72,67 @@ class Settings extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Icon(Icons.edit), Text("تعديل الملف الشخصي")],
+                      children: [
+                        Text(lang == "ar"
+                            ? "تعديل الملف الشخصي"
+                            : "Edit Profile"),
+                        const Icon(Icons.edit),
+                      ],
                     ),
                   )),
               ElevatedButton(
                   onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Icon(Icons.favorite), Text("المفضلة")],
+                      children: [
+                        Text(lang == "ar" ? "المفضلة" : "Favorites"),
+                        const Icon(Icons.favorite),
+                      ],
                     ),
                   )),
               ElevatedButton(
                   onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Icon(Icons.privacy_tip), Text("الخصوصية")],
+                      children: [
+                        Text(lang == "ar" ? "الخصوصية" : "Privacy"),
+                        const Icon(Icons.privacy_tip),
+                      ],
+                    ),
+                  )),
+              ElevatedButton(
+                  onPressed: () {
+                    lang = lang == "ar" ? "en" : "ar";
+                    setState(() {});
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(lang == "ar" ? "اللغة" : "Language"),
+                        const Icon(Icons.language),
+                      ],
                     ),
                   )),
               ElevatedButton(
                   onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Icon(Icons.language), Text("اللغة")],
-                    ),
-                  )),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Icon(Icons.info), Text("حول التطبيق")],
+                      children: [
+                        Text(lang == "ar" ? "حول التطبيق" : "About"),
+                        const Icon(Icons.info),
+                      ],
                     ),
                   )),
             ],
