@@ -70,6 +70,7 @@ class SignInScreen extends StatelessWidget {
                           backgroundColor: Colors.white,
                           padding: const EdgeInsets.all(16)),
                       onPressed: () {
+                        isLogin = true;
                         Navigator.pop(context);
                         Navigator.of(context)
                             .push(goRoute(x: const CodeScreen()));

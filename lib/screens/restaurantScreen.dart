@@ -117,18 +117,18 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      lang == "ar" ? "كم" : "km",
-                      style: const TextStyle(color: Colors.grey),
+                    const Icon(
+                      Icons.pin_drop,
+                      color: appColor,
                     ),
                     const Text(
                       "0.6",
                       style: TextStyle(color: Colors.grey),
                     ),
-                    const Icon(
-                      Icons.pin_drop,
-                      color: appColor,
-                    )
+                    Text(
+                      lang == "ar" ? "كم" : "km",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
                   ],
                 ),
                 Text(

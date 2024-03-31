@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/authScreen.dart';
-import 'package:off_yaba/services/apiService.dart';
+import 'package:off_yaba/screens/routerScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash';
@@ -49,7 +49,11 @@ class _SplashScreenState extends State<SplashScreen>
         //       Colors.red, context);
         // }
         Navigator.pop(context);
-        Navigator.of(context).push(goRoute(x: const AuthScreen()));
+        if (isLogin) {
+          Navigator.of(context).push(goRoute(x: const RouterScreen()));
+        } else {
+          Navigator.of(context).push(goRoute(x: const AuthScreen()));
+        }
       });
     }
 

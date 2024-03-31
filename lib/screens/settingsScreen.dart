@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/splashScreen.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -112,6 +113,9 @@ class _SettingsState extends State<Settings> {
                   onPressed: () {
                     lang = lang == "ar" ? "en" : "ar";
                     setState(() {});
+                    Navigator.pop(context);
+                    Navigator.of(context)
+                        .push(goRoute(x: const SplashScreen()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
