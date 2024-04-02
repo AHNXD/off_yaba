@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:off_yaba/screens/HomeScreen.dart';
+import 'package:off_yaba/screens/homeScreen.dart';
 
 import 'package:off_yaba/screens/offersScreen.dart';
 import 'package:off_yaba/screens/scannerScreen.dart';
