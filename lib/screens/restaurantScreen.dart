@@ -154,7 +154,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                           height: 150,
                           margin: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(15),
                             color: appColor,
                           ),
                           child: Row(
@@ -207,7 +207,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                                     fit: BoxFit.fill,
                                   ),
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
+                                      BorderRadius.all(Radius.circular(15)),
                                   color: appColor,
                                 ),
                               ),

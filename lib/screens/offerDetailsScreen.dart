@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:qr_flutter/qr_flutter.dart';
