@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/categoriesScreen.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
@@ -108,10 +109,16 @@ class HomeScreen extends StatelessWidget {
                           },
                           icon: const Icon(Icons.category_outlined,
                               color: appColor)),
-                      Text(
-                        lang == "ar" ? "الأقسام" : "Categories",
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 16),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, CategoriesScreen.routeName);
+                        },
+                        child: Text(
+                          lang == "ar" ? "الأقسام" : "Categories",
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 16),
+                        ),
                       ),
                     ],
                   ),
