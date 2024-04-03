@@ -45,22 +45,20 @@ class SignUpScreen extends StatelessWidget {
                         ],
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30)),
-                    child: Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            focusedBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            hintText: lang == "ar"
-                                ? "أدخل اللإسم"
-                                : "Enter your name",
-                            label: Text(lang == "ar" ? "الأسم" : "Name"),
-                            hintStyle: const TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: appColor,
+                        ),
+                        focusedBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        hintText:
+                            lang == "ar" ? "أدخل الإسم" : "Enter your name",
+                        label: Text(lang == "ar" ? "الأسم" : "Name"),
+                        hintStyle: const TextStyle(
+                          color: Colors.grey,
                         ),
                       ),
                     )),
@@ -78,20 +76,26 @@ class SignUpScreen extends StatelessWidget {
                       ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30)),
-                  child: IntlPhoneField(
-                    decoration: InputDecoration(
-                      focusedBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      labelText: lang == "ar" ? "رقم الهاتف" : "Phone Number",
-                      border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                          borderSide: BorderSide(style: BorderStyle.solid)),
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: IntlPhoneField(
+                      disableLengthCheck: true,
+                      languageCode: lang,
+                      decoration: InputDecoration(
+                        focusedBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        labelText: lang == "ar" ? "رقم الهاتف" : "Phone Number",
+                        border: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.0)),
+                            borderSide: BorderSide(style: BorderStyle.solid)),
+                      ),
+                      initialCountryCode: 'IQ',
+                      onChanged: (phone) {
+                        print(phone.completeNumber);
+                      },
                     ),
-                    initialCountryCode: 'IQ',
-                    onChanged: (phone) {
-                      print(phone.completeNumber);
-                    },
                   ),
                 ),
                 Padding(

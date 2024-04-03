@@ -12,7 +12,8 @@ class HomeScreen extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         Container(
-            padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
+            padding:
+                const EdgeInsets.only(left: 32, right: 32, bottom: 16, top: 16),
             margin: const EdgeInsets.only(left: 8, right: 8),
             decoration: BoxDecoration(
                 boxShadow: [
@@ -29,10 +30,8 @@ class HomeScreen extends StatelessWidget {
                     bottomRight: Radius.circular(50))),
             width: double.infinity,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(
-                  height: 16,
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -62,9 +61,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
                 Container(
                   padding: const EdgeInsets.only(left: 12, right: 12),
                   decoration: BoxDecoration(
@@ -78,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(30)),
                   child: Row(
                     children: [
                       Expanded(
@@ -99,12 +95,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 32,
-                        child: Expanded(
-                          child: VerticalDivider(
-                            thickness: 2,
-                            width: 16,
-                            color: Colors.grey,
-                          ),
+                        child: VerticalDivider(
+                          thickness: 2,
+                          width: 16,
+                          color: Colors.grey,
                         ),
                       ),
                       IconButton(
@@ -177,18 +171,24 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: 50,
-                      itemBuilder: (BuildContext, index) {
+                      itemBuilder: (BC2, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              const SizedBox(
+                              SizedBox(
                                 height: 80,
                                 width: 80,
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage("assets/images/logo1.jpg"),
-                                  backgroundColor: appColor,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RestaurantScreen.routeName);
+                                  },
+                                  child: const CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage("assets/images/logo1.jpg"),
+                                    backgroundColor: appColor,
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -222,7 +222,7 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 10,
-                    itemBuilder: (BuildContext, index) {
+                    itemBuilder: (BC, index) {
                       return Column(
                         children: [
                           GestureDetector(

@@ -39,7 +39,7 @@ class _RouterScreenState extends State<RouterScreen> {
           height: 60.0,
           items: const <Widget>[
             Icon(Icons.home, size: 30, color: Colors.white),
-            Icon(Icons.qr_code, size: 30, color: Colors.white),
+            Icon(Icons.qr_code_scanner, size: 30, color: Colors.white),
             Icon(Icons.card_giftcard, size: 30, color: Colors.white),
             Icon(Icons.settings, size: 30, color: Colors.white),
           ],

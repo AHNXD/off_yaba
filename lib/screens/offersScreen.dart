@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/offerDetailsScreen.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
@@ -78,51 +79,57 @@ class _OffersScreenState extends State<OffersScreen> {
                       shrinkWrap: true,
                       itemCount: 20,
                       itemBuilder: (BuildContext, index) {
-                        return Container(
-                          height: 100,
-                          padding: const EdgeInsets.all(8),
-                          margin: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                              color: appColor,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  bottomLeft: Radius.circular(15),
-                                  topRight: Radius.circular(50),
-                                  bottomRight: Radius.circular(50))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor: Colors.white,
-                                  ),
-                                  Icon(
-                                    Icons.qr_code_2,
-                                    color: Colors.black,
-                                    size: 80,
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, OfferDetailsScreen.routeName);
+                          },
+                          child: Container(
+                            height: 100,
+                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
                                   ),
                                 ],
-                              ),
-                              Text(
-                                lang == "ar" ? "انقر للعرض" : "Tap to show",
-                                style: const TextStyle(
-                                    fontSize: 24,
-                                    fontFamily: "cocon-next-arabic"),
-                              ),
-                              const SizedBox(),
-                            ],
+                                color: appColor,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15),
+                                    topRight: Radius.circular(50),
+                                    bottomRight: Radius.circular(50))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 15,
+                                      backgroundColor: Colors.white,
+                                    ),
+                                    Icon(
+                                      Icons.qr_code,
+                                      color: Colors.black,
+                                      size: 80,
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  lang == "ar" ? "انقر للعرض" : "Tap to show",
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontFamily: "cocon-next-arabic"),
+                                ),
+                                const SizedBox(),
+                              ],
+                            ),
                           ),
                         );
                       }),

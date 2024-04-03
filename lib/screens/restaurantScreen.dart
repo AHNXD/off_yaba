@@ -144,10 +144,10 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                   style: const TextStyle(color: Colors.grey, fontSize: 25),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 2.1,
+                  height: MediaQuery.sizeOf(context).height / 2.2,
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: 10,
                       itemBuilder: (BuildContext, index) {
                         return Container(
                           width: double.infinity,
@@ -162,7 +162,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                             children: [
                               const SizedBox(),
                               Text(
-                                "%$index",
+                                "%${index + 1}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

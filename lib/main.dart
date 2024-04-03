@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/categoriesScreen.dart';
 import 'package:off_yaba/screens/codeScreen.dart';
+import 'package:off_yaba/screens/offerDetailsScreen.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
 import 'package:off_yaba/screens/searchScreen.dart';
 import 'package:off_yaba/screens/authScreen.dart';
@@ -34,10 +35,11 @@ class MyApp extends StatelessWidget {
         AuthScreen.routeName: (context) => const AuthScreen(),
         CategoriesScreen.routeName: (context) => const CategoriesScreen(),
         RestaurantScreen.routeName: (context) => const RestaurantScreen(),
-        SplashScreen.routeName: (contex) => const SplashScreen(),
+        SplashScreen.routeName: (context) => const SplashScreen(),
         SignInScreen.routeName: (context) => const SignInScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
-        CodeScreen.routeName: (context) => const CodeScreen()
+        CodeScreen.routeName: (context) => const CodeScreen(),
+        OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen()
       },
     );
   }

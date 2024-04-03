@@ -45,20 +45,26 @@ class SignInScreen extends StatelessWidget {
                       ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30)),
-                  child: IntlPhoneField(
-                    decoration: InputDecoration(
-                      focusedBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      labelText: lang == "ar" ? "رقم الهاتف" : "Phone Number",
-                      border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                          borderSide: BorderSide(style: BorderStyle.solid)),
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: IntlPhoneField(
+                      disableLengthCheck: true,
+                      languageCode: lang,
+                      decoration: InputDecoration(
+                        focusedBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        labelText: lang == "ar" ? "رقم الهاتف" : "Phone Number",
+                        border: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.0)),
+                            borderSide: BorderSide(style: BorderStyle.solid)),
+                      ),
+                      initialCountryCode: 'IQ',
+                      onChanged: (phone) {
+                        print(phone.completeNumber);
+                      },
                     ),
-                    initialCountryCode: 'IQ',
-                    onChanged: (phone) {
-                      print(phone.completeNumber);
-                    },
                   ),
                 ),
                 Padding(
