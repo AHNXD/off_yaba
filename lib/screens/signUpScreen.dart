@@ -28,7 +28,8 @@ class SignUpScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 16),
                 Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.only(
+                      left: 64.0, right: 64.0, top: 64.0, bottom: 16),
                   child: Image.asset("assets/offYaba.png"),
                 ),
                 Container(
@@ -117,7 +118,8 @@ class SignUpScreen extends StatelessWidget {
                         style: const TextStyle(
                             color: appColor,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "cocon-next-arabic"),
                       )),
                 ),
               ],

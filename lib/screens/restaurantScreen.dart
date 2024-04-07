@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 
 class RestaurantScreen extends StatefulWidget {
@@ -30,89 +31,105 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                     ),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              width: MediaQuery.sizeOf(context).width / 3,
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                  color: appColor,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(),
-                                  Text(
-                                    lang == "ar" ? "العروض" : "Offers",
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                  const Icon(
-                                    Icons.discount,
-                                    color: Colors.white,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.sizeOf(context).width / 3,
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(),
-                                  Text(
-                                    lang == "ar" ? "التفاصيل" : "Details",
-                                    style: const TextStyle(color: appColor),
-                                  ),
-                                  const Icon(
-                                    Icons.info,
-                                    color: appColor,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
                       Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 32.0, right: 16, left: 16),
                           child: IconButton(
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                               icon: const Icon(
                                 Icons.arrow_back_ios,
-                                color: Colors.black,
+                                color: Colors.white,
                               )),
                         ),
                       ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  width: MediaQuery.sizeOf(context).width / 3,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 16),
+                                  decoration: BoxDecoration(
+                                      color: appColor,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(),
+                                      Text(
+                                        lang == "ar" ? "العروض" : "Offers",
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                      const Icon(
+                                        Icons.discount,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.sizeOf(context).width / 3,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 16),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(),
+                                      Text(
+                                        lang == "ar" ? "التفاصيل" : "Details",
+                                        style: const TextStyle(color: appColor),
+                                      ),
+                                      const Icon(
+                                        Icons.info,
+                                        color: appColor,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              width: double.infinity,
+                              height: 50,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      topRight: Radius.circular(50))),
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                lang == "ar" ? "اسم المطعم" : "Restaurant Name",
+                                style: const TextStyle(
+                                    fontFamily: "cocon-next-arabic",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 35),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
-                ),
-                Text(
-                  lang == "ar" ? "اسم المطعم" : "Restaurant Name",
-                  style: const TextStyle(
-                      fontFamily: "cocon-next-arabic",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -144,7 +161,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                   style: const TextStyle(color: Colors.grey, fontSize: 25),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 2.2,
+                  height: MediaQuery.sizeOf(context).height / 1.9,
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: 10,

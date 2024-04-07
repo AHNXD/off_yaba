@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: ScaleTransition(
               scale: _scaleAnimation,
               child: Padding(
-                padding: const EdgeInsets.all(50.0),
+                padding: const EdgeInsets.all(64.0),
                 child: Image.asset("assets/offYaba.png"),
               )),
         ),

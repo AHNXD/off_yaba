@@ -29,7 +29,8 @@ class AuthScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 32),
                 Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.only(
+                      left: 64.0, right: 64.0, top: 64.0, bottom: 16),
                   child: Image.asset("assets/offYaba.png"),
                 ),
                 Padding(
@@ -50,7 +51,8 @@ class AuthScreen extends StatelessWidget {
                         style: const TextStyle(
                             color: appColor,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "cocon-next-arabic"),
                       )),
                 ),
                 Padding(
@@ -71,7 +73,8 @@ class AuthScreen extends StatelessWidget {
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "cocon-next-arabic"),
                       )),
                 ),
               ],
