@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/showCategoryScreen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   static const routeName = '/category';
@@ -91,37 +92,43 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             childAspectRatio: 1.0, // Aspect ratio of items
                           ),
                           itemBuilder: (BuildContext, index) {
-                            return Container(
-                              margin: const EdgeInsets.only(top: 8),
-                              decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/categories.jpg"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 5,
-                                      blurRadius: 20,
-                                      offset: const Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                  color: appColor,
-                                  borderRadius: BorderRadius.circular(30)),
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, ShowCategoryScreen.routeName);
+                              },
                               child: Container(
+                                margin: const EdgeInsets.only(top: 8),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.grey.withOpacity(0.6)),
-                                child: Center(
-                                    child: Text(
-                                  lang == "ar" ? "اسم الفئة" : "Category",
-                                  style: const TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "cocon-next-arabic"),
-                                )),
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/categories.jpg"),
+                                      fit: BoxFit.fill,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 5,
+                                        blurRadius: 20,
+                                        offset: const Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: appColor,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.grey.withOpacity(0.6)),
+                                  child: Center(
+                                      child: Text(
+                                    lang == "ar" ? "اسم الفئة" : "Category",
+                                    style: const TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "cocon-next-arabic"),
+                                  )),
+                                ),
                               ),
                             );
                           })),

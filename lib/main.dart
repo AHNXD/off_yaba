@@ -6,6 +6,7 @@ import 'package:off_yaba/screens/offerDetailsScreen.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
 import 'package:off_yaba/screens/searchScreen.dart';
 import 'package:off_yaba/screens/authScreen.dart';
+import 'package:off_yaba/screens/showCategoryScreen.dart';
 import 'package:off_yaba/screens/signInScreen.dart';
 import 'package:off_yaba/screens/signUpScreen.dart';
 import 'package:off_yaba/screens/splashScreen.dart';
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
         SignInScreen.routeName: (context) => const SignInScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
         CodeScreen.routeName: (context) => const CodeScreen(),
-        OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen()
+        OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen(),
+        ShowCategoryScreen.routeName: (context) => const ShowCategoryScreen()
       },
     );
   }
