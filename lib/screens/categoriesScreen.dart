@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -16,8 +17,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
         body: SafeArea(
-          child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
+          child: Column(
             children: [
               Container(
                   padding:
@@ -73,58 +73,59 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           )),
                     ],
                   )),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height - 180,
-                child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: 20,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Number of columns
-                          crossAxisSpacing: 10.0, // Spacing between columns
-                          mainAxisSpacing: 10.0, // Spacing between rows
-                          childAspectRatio: 1.0, // Aspect ratio of items
-                        ),
-                        itemBuilder: (BuildContext, index) {
-                          return Container(
-                            margin: const EdgeInsets.only(top: 8),
-                            decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/categories.jpg"),
-                                  fit: BoxFit.fill,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 5,
-                                    blurRadius: 20,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                                color: appColor,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Container(
+              Expanded(
+                child: SizedBox(
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: 20,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of columns
+                            crossAxisSpacing: 10.0, // Spacing between columns
+                            mainAxisSpacing: 10.0, // Spacing between rows
+                            childAspectRatio: 1.0, // Aspect ratio of items
+                          ),
+                          itemBuilder: (BuildContext, index) {
+                            return Container(
+                              margin: const EdgeInsets.only(top: 8),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.grey.withOpacity(0.6)),
-                              child: Center(
-                                  child: Text(
-                                lang == "ar" ? "اسم الفئة" : "Category",
-                                style: const TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "cocon-next-arabic"),
-                              )),
-                            ),
-                          );
-                        })),
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/categories.jpg"),
+                                    fit: BoxFit.fill,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 5,
+                                      blurRadius: 20,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  color: appColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: Colors.grey.withOpacity(0.6)),
+                                child: Center(
+                                    child: Text(
+                                  lang == "ar" ? "اسم الفئة" : "Category",
+                                  style: const TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "cocon-next-arabic"),
+                                )),
+                              ),
+                            );
+                          })),
+                ),
               )
             ],
           ),

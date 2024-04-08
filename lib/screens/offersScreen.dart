@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/offerDetailsScreen.dart';
 
@@ -12,8 +13,7 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: [
         Container(
             padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
@@ -57,85 +57,70 @@ class _OffersScreenState extends State<OffersScreen> {
                   ]),
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
               ],
             )),
-        SizedBox(
-          height: MediaQuery.sizeOf(context).height,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
-            child: ListView(
-              primary: true,
-              physics: const AlwaysScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height - 200,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 20,
-                      itemBuilder: (BuildContext, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, OfferDetailsScreen.routeName);
-                          },
-                          child: Container(
-                            height: 100,
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                                color: appColor,
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15),
-                                    topRight: Radius.circular(50),
-                                    bottomRight: Radius.circular(50))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                    Icon(
-                                      Icons.qr_code,
-                                      color: Colors.black,
-                                      size: 80,
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  lang == "ar" ? "انقر للعرض" : "Tap to show",
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontFamily: "cocon-next-arabic"),
-                                ),
-                                const SizedBox(),
-                              ],
+        Expanded(
+          child: SizedBox(
+            height: MediaQuery.sizeOf(context).height - 200,
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 20,
+                itemBuilder: (BuildContext, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, OfferDetailsScreen.routeName);
+                    },
+                    child: Container(
+                      height: 100,
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
+                          ],
+                          color: appColor,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              bottomLeft: Radius.circular(15),
+                              topRight: Radius.circular(50),
+                              bottomRight: Radius.circular(50))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                radius: 15,
+                                backgroundColor: Colors.white,
+                              ),
+                              Icon(
+                                Icons.qr_code,
+                                color: Colors.black,
+                                size: 80,
+                              ),
+                            ],
                           ),
-                        );
-                      }),
-                )
-              ],
-            ),
+                          Text(
+                            lang == "ar" ? "انقر للعرض" : "Tap to show",
+                            style: const TextStyle(
+                                fontSize: 24, fontFamily: "cocon-next-arabic"),
+                          ),
+                          const SizedBox(),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
           ),
         )
       ],

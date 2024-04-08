@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
@@ -9,8 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: [
         Container(
             padding:
@@ -125,187 +125,189 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             )),
-        SizedBox(
-          height: MediaQuery.sizeOf(context).height - 250,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        offset:
-                            const Offset(0, 1), // changes position of shadow
+        Expanded(
+          child: SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          offset:
+                              const Offset(0, 1), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(32),
+                      image: const DecorationImage(
+                        image: AssetImage("assets/images/pic1.jpg"),
+                        fit: BoxFit.fill,
                       ),
-                    ],
-                    borderRadius: BorderRadius.circular(32),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/pic1.jpg"),
-                      fit: BoxFit.fill,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(lang == "ar" ? "اقوى التخفيضات" : "Best Deals",
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(lang == "ar" ? "اقوى التخفيضات" : "Best Deals",
+                          style: const TextStyle(
+                              fontFamily: "cocon-next-arabic",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                      Text(
+                        lang == "ar" ? "المزيد" : "More",
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 120,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 50,
+                        itemBuilder: (BC2, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 80,
+                                  width: 80,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, RestaurantScreen.routeName);
+                                    },
+                                    child: const CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage("assets/images/logo1.jpg"),
+                                      backgroundColor: appColor,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                Text(lang == "ar"
+                                    ? "اسم المطعم"
+                                    : "Restaurant Name"),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  Align(
+                    alignment: lang == "ar"
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Text(
+                        lang == "ar"
+                            ? "التخفيضات القريبة منك"
+                            : "Best Deals Near you",
                         style: const TextStyle(
                             fontFamily: "cocon-next-arabic",
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
-                    Text(
-                      lang == "ar" ? "المزيد" : "More",
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 120,
-                  child: ListView.builder(
+                  ),
+                  ListView.builder(
                       shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 50,
-                      itemBuilder: (BC2, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 80,
-                                width: 80,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RestaurantScreen.routeName);
-                                  },
-                                  child: const CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage("assets/images/logo1.jpg"),
-                                    backgroundColor: appColor,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 10,
+                      itemBuilder: (BC, index) {
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RestaurantScreen.routeName);
+                              },
+                              child: Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 3,
+                                      offset: const Offset(
+                                          0, 1), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(16),
+                                  image: const DecorationImage(
+                                    image: AssetImage("assets/images/pic2.jpg"),
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 2,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    lang == "ar"
+                                        ? "اسم المطعم"
+                                        : "Restaurant Name",
+                                    style: const TextStyle(
+                                        fontFamily: "cocon-next-arabic",
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.pin_drop,
+                                      color: appColor,
+                                    ),
+                                    const Text(
+                                      "0.6",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text(
+                                      lang == "ar" ? "كم" : "km",
+                                      style:
+                                          const TextStyle(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: lang == "ar"
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: Text(
+                                lang == "ar" ? "النوع" : "Type",
+                                style: const TextStyle(color: Colors.grey),
                               ),
-                              Text(lang == "ar"
-                                  ? "اسم المطعم"
-                                  : "Restaurant Name"),
-                            ],
-                          ),
+                            ),
+                            const Divider(
+                              color: appColor,
+                            )
+                          ],
                         );
-                      }),
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                Align(
-                  alignment: lang == "ar"
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Text(
-                      lang == "ar"
-                          ? "التخفيضات القريبة منك"
-                          : "Best Deals Near you",
-                      style: const TextStyle(
-                          fontFamily: "cocon-next-arabic",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (BC, index) {
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, RestaurantScreen.routeName);
-                            },
-                            child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 3,
-                                    offset: const Offset(
-                                        0, 1), // changes position of shadow
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(16),
-                                image: const DecorationImage(
-                                  image: AssetImage("assets/images/pic2.jpg"),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  lang == "ar"
-                                      ? "اسم المطعم"
-                                      : "Restaurant Name",
-                                  style: const TextStyle(
-                                      fontFamily: "cocon-next-arabic",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.pin_drop,
-                                    color: appColor,
-                                  ),
-                                  const Text(
-                                    "0.6",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  Text(
-                                    lang == "ar" ? "كم" : "km",
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Align(
-                            alignment: lang == "ar"
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
-                            child: Text(
-                              lang == "ar" ? "النوع" : "Type",
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                          const Divider(
-                            color: appColor,
-                          )
-                        ],
-                      );
-                    })
-              ],
+                      })
+                ],
+              ),
             ),
           ),
         )

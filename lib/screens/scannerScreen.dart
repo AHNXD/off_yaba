@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -44,8 +45,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: [
         Container(
             padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
@@ -156,93 +156,99 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 ),
               ],
             )),
-        SizedBox(
-          height: MediaQuery.sizeOf(context).height,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
-            child: ListView(
-              primary: true,
-              physics: const AlwaysScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                    decoration: const BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: appColor,
-                            blurRadius: 15.0,
-                            offset: Offset(0.0, 0.75))
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.height / 2,
-                    width: double.infinity,
-                    child: Stack(
-                      children: [
-                        QRView(
-                          key: qrKey,
-                          onQRViewCreated: _onQRViewCreated,
-                          overlay: QrScannerOverlayShape(
-                              borderWidth: 15,
-                              borderColor: appColor,
-                              borderLength: 20,
-                              borderRadius: 10,
-                              cutOutSize:
-                                  MediaQuery.of(context).size.width * 0.6),
-                        ),
-                        !camOn
-                            ? Container(
-                                height: MediaQuery.of(context).size.height / 2,
-                                width: double.infinity,
-                                color: appColor)
-                            : Container()
-                      ],
-                    )),
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 10.0,
-                        offset: Offset(0.0, 2))
-                  ], borderRadius: BorderRadius.circular(10), color: appColor),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        _isloading
-                            ? Text(
-                                textAlign: TextAlign.center,
-                                lang == "ar"
-                                    ? "تم المسج"
-                                    : "Scanning is completed",
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                              )
-                            : Text(
-                                lang == "ar" ? 'امسح الرمز' : "Scan the Code",
-                                style: const TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: "cocon-next-arabic",
-                                    fontWeight: FontWeight.bold)),
-                        Center(
-                            child: Text(
-                          errorMasseg,
-                          style: TextStyle(color: errorColor),
-                        )),
-                        ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                                lang == "ar" ? "إضافة العرض" : "Add Offer"))
-                      ],
+        Expanded(
+          child: SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: ListView(
+                primary: true,
+                physics: const AlwaysScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                      decoration: const BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: appColor,
+                              blurRadius: 15.0,
+                              offset: Offset(0.0, 0.75))
+                        ],
+                      ),
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: double.infinity,
+                      child: Stack(
+                        children: [
+                          QRView(
+                            key: qrKey,
+                            onQRViewCreated: _onQRViewCreated,
+                            overlay: QrScannerOverlayShape(
+                                borderWidth: 15,
+                                borderColor: appColor,
+                                borderLength: 20,
+                                borderRadius: 10,
+                                cutOutSize:
+                                    MediaQuery.of(context).size.width * 0.6),
+                          ),
+                          !camOn
+                              ? Container(
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                  width: double.infinity,
+                                  color: appColor)
+                              : Container()
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                        boxShadow: const <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.black,
+                              blurRadius: 10.0,
+                              offset: Offset(0.0, 2))
+                        ],
+                        borderRadius: BorderRadius.circular(10),
+                        color: appColor),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          _isloading
+                              ? Text(
+                                  textAlign: TextAlign.center,
+                                  lang == "ar"
+                                      ? "تم المسج"
+                                      : "Scanning is completed",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : Text(
+                                  lang == "ar" ? 'امسح الرمز' : "Scan the Code",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "cocon-next-arabic",
+                                      fontWeight: FontWeight.bold)),
+                          Center(
+                              child: Text(
+                            errorMasseg,
+                            style: TextStyle(color: errorColor),
+                          )),
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                  lang == "ar" ? "إضافة العرض" : "Add Offer"))
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         )

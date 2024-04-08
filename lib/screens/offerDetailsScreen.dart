@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -14,8 +15,7 @@ class OfferDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: SafeArea(
             child: Center(
-          child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
+          child: Column(
             children: [
               Container(
                   padding:
@@ -71,83 +71,83 @@ class OfferDetailsScreen extends StatelessWidget {
                           )),
                     ],
                   )),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height - 180,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: ListView(
-                    primary: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                              color: Colors.white,
-                              border: Border.all(color: appColor, width: 5),
-                              borderRadius: BorderRadius.circular(15)),
-                          child: QrImageView(
-                            errorStateBuilder: (cxt, err) {
-                              return Center(
-                                child: Text(
-                                  lang == "ar"
-                                      ? "حدث خطأما..."
-                                      : 'Uh oh! Something went wrong...',
-                                  textAlign: TextAlign.center,
-                                ),
-                              );
-                            },
-                            semanticsLabel: lang == "ar" ? "تدجريب" : "Testing",
-                            dataModuleStyle: const QrDataModuleStyle(
-                              color: Colors.black,
+              Expanded(
+                child: SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: Colors.white,
+                                border: Border.all(color: appColor, width: 5),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: QrImageView(
+                              errorStateBuilder: (cxt, err) {
+                                return Center(
+                                  child: Text(
+                                    lang == "ar"
+                                        ? "حدث خطأما..."
+                                        : 'Uh oh! Something went wrong...',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                );
+                              },
+                              semanticsLabel:
+                                  lang == "ar" ? "تجريب" : "Testing",
+                              dataModuleStyle: const QrDataModuleStyle(
+                                color: Colors.black,
+                              ),
+                              eyeStyle: const QrEyeStyle(color: Colors.black),
+                              data: lang == "ar" ? "تجريب" : "Testing",
                             ),
-                            eyeStyle: const QrEyeStyle(color: Colors.black),
-                            data: lang == "ar" ? "تدجريب" : "Testing",
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Center(
-                        child: Container(
-                          alignment: Alignment.center,
+                        const SizedBox(
                           height: 50,
-                          width: MediaQuery.sizeOf(context).width * 0.75,
-                          decoration: BoxDecoration(
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                              color: Colors.white,
-                              border: Border.all(color: appColor, width: 5),
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Text(
-                            lang == "ar" ? "تجريب" : "Testing",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: MediaQuery.sizeOf(context).width * 0.75,
+                            decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: Colors.white,
+                                border: Border.all(color: appColor, width: 5),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Text(
+                              lang == "ar" ? "تجريب" : "Testing",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               )
