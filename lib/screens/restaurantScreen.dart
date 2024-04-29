@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/models/store_model.dart';
+import 'package:off_yaba/models/store_offer_model.dart';
+import 'package:off_yaba/services/network/stores_service.dart';
 
 class RestaurantScreen extends StatefulWidget {
   static const routeName = '/restaurant';
@@ -14,6 +15,8 @@ class RestaurantScreen extends StatefulWidget {
 class _RestaurabtScreenState extends State<RestaurantScreen> {
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    StoreModel store = arguments['store'];
     return Directionality(
       textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
@@ -23,9 +26,9 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
               Container(
                 width: double.infinity,
                 height: 300,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/pic3.jpg"),
+                    image: NetworkImage(store.image!),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -117,7 +120,8 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                                     topRight: Radius.circular(50))),
                             child: Text(
                               textAlign: TextAlign.center,
-                              lang == "ar" ? "اسم المطعم" : "Restaurant Name",
+                              // lang == "ar" ? "اسم المطعم" : "Restaurant Name",
+                              store.name!,
                               style: const TextStyle(
                                   fontFamily: "cocon-next-arabic",
                                   fontWeight: FontWeight.bold,
@@ -137,9 +141,9 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                     Icons.pin_drop,
                     color: appColor,
                   ),
-                  const Text(
-                    "0.6",
-                    style: TextStyle(color: Colors.grey),
+                  Text(
+                    store.distance!.round().toString(),
+                    style: const TextStyle(color: Colors.grey),
                   ),
                   Text(
                     lang == "ar" ? "كم" : "km",
@@ -148,7 +152,8 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                 ],
               ),
               Text(
-                lang == "ar" ? "النوع" : "Type",
+                // lang == "ar" ? "النوع" : "Type",
+                store.section!.name!,
                 style: const TextStyle(color: Colors.grey, fontSize: 25),
               ),
               const Divider(
@@ -161,75 +166,100 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
               ),
               Expanded(
                 child: SizedBox(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext, index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 150,
-                          margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: appColor,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(),
-                              Text(
-                                "%${index + 1}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 30),
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(50),
-                                            bottomRight: Radius.circular(50))),
+                  child: FutureBuilder(
+                      future: StoreService.getStoreOffers(storeId: store.id!),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<StoreOfferModel> offers = snapshot.data!;
+                          if (snapshot.data!.isEmpty) {
+                            return const Center(
+                              child: Text("لا يوجد عروض بعد."),
+                            );
+                          }
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: offers.length,
+                              itemBuilder: (BuildContext, index) {
+                                return Container(
+                                  width: double.infinity,
+                                  height: 150,
+                                  margin: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: appColor,
                                   ),
-                                  const SizedBox(
-                                    height: 60,
-                                    child: VerticalDivider(
-                                      thickness: 2,
-                                      color: Colors.white,
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(),
+                                      SizedBox(
+                                        width: 50,
+                                        child: Text(
+                                          textAlign: TextAlign.center,
+                                          "%${offers[index].discount.toString()}",
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25),
+                                        ),
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(50),
+                                                    bottomRight:
+                                                        Radius.circular(50))),
+                                          ),
+                                          const SizedBox(
+                                            height: 60,
+                                            child: VerticalDivider(
+                                              thickness: 2,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(50),
+                                                    topRight:
+                                                        Radius.circular(50))),
+                                          )
+                                        ],
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width /
+                                                1.5,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                offers[index].image!),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(15)),
+                                          color: appColor,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(50),
-                                            topRight: Radius.circular(50))),
-                                  )
-                                ],
-                              ),
-                              Container(
-                                width: MediaQuery.sizeOf(context).width / 1.5,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/images/pic1.jpg"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: appColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                                );
+                              });
+                        }
+                        return const Center(child: CircularProgressIndicator());
                       }),
                 ),
               ),

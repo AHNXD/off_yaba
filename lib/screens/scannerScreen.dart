@@ -1,9 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/services/network/code_scanner_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class ScannerScreen extends StatefulWidget {
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
-  bool _isloading = false;
+  final bool _isloading = false;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
@@ -204,49 +205,49 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        boxShadow: const <BoxShadow>[
-                          BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 10.0,
-                              offset: Offset(0.0, 2))
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                        color: appColor),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          _isloading
-                              ? Text(
-                                  textAlign: TextAlign.center,
-                                  lang == "ar"
-                                      ? "تم المسج"
-                                      : "Scanning is completed",
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              : Text(
-                                  lang == "ar" ? 'امسح الرمز' : "Scan the Code",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "cocon-next-arabic",
-                                      fontWeight: FontWeight.bold)),
-                          Center(
-                              child: Text(
-                            errorMasseg,
-                            style: TextStyle(color: errorColor),
-                          )),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: Text(
-                                  lang == "ar" ? "إضافة العرض" : "Add Offer"))
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.all(16),
+                  //   decoration: BoxDecoration(
+                  //       boxShadow: const <BoxShadow>[
+                  //         BoxShadow(
+                  //             color: Colors.black,
+                  //             blurRadius: 10.0,
+                  //             offset: Offset(0.0, 2))
+                  //       ],
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       color: appColor),
+                  //   child: Center(
+                  //     child: Column(
+                  //       children: [
+                  //         _isloading
+                  //             ? Text(
+                  //                 textAlign: TextAlign.center,
+                  //                 lang == "ar"
+                  //                     ? "تم المسح "
+                  //                     : "Scanning is completed",
+                  //                 style: const TextStyle(
+                  //                     fontSize: 15,
+                  //                     fontWeight: FontWeight.bold),
+                  //               )
+                  //             : Text(
+                  //                 lang == "ar" ? 'امسح الرمز' : "Scan the Code",
+                  //                 style: const TextStyle(
+                  //                     fontSize: 20,
+                  //                     fontFamily: "cocon-next-arabic",
+                  //                     fontWeight: FontWeight.bold)),
+                  //         Center(
+                  //             child: Text(
+                  //           errorMasseg,
+                  //           style: TextStyle(color: errorColor),
+                  //         )),
+                  //         ElevatedButton(
+                  //             onPressed: () {},
+                  //             child: Text(
+                  //                 lang == "ar" ? "إضافة العرض" : "Add Offer"))
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -259,20 +260,39 @@ class _ScannerScreenState extends State<ScannerScreen> {
   void _onQRViewCreated(QRViewController controller) async {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
-      if (result == null || result?.code != scanData.code) {
-        result = scanData;
-        setState(() {
-          errorColor = appColor;
-          errorMasseg = "Please wait...";
-        });
-        player.play(AssetSource(audioasset));
+      controller.pauseCamera();
+      // player.play(AssetSource(audioasset));
 
-        _isloading = true;
-        setState(() {
-          errorColor = Colors.black;
-          errorMasseg = "";
-        });
-      }
+      CodeScannerService.scanCode(code: scanData.code!)
+          .then((value) => showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                  title: Center(child: Text("تمت العملية بنجاح")),
+                ),
+              ).then((value) => controller.resumeCamera()))
+          .onError((error, stackTrace) => showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                  title: Center(child: Text("قد تم استهلاك هذا الرمز")),
+                ),
+              ).then((value) => controller.resumeCamera()));
+
+      print(scanData.code!);
+
+      // if (result == null || result?.code != scanData.code) {
+      //   log("not found yet");
+      //   result = scanData;
+      //   setState(() {
+      //     errorColor = appColor;
+      //     errorMasseg = "Please wait...";
+      //   });
+
+      //   setState(() {
+      //     _isloading = true;
+      //     errorColor = Colors.black;
+      //     errorMasseg = "";
+      //   });
+      // }
     });
   }
 }

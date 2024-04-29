@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -9,6 +8,9 @@ class OfferDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    String code = arguments['code'].toString();
+
     return Directionality(
       textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
@@ -114,38 +116,38 @@ class OfferDetailsScreen extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               eyeStyle: const QrEyeStyle(color: Colors.black),
-                              data: lang == "ar" ? "تجريب" : "Testing",
+                              data: code,
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        Center(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 50,
-                            width: MediaQuery.sizeOf(context).width * 0.75,
-                            decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black45,
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                                color: Colors.white,
-                                border: Border.all(color: appColor, width: 5),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Text(
-                              lang == "ar" ? "تجريب" : "Testing",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ),
+                        // const SizedBox(
+                        //   height: 50,
+                        // ),
+                        // Center(
+                        //   child: Container(
+                        //     alignment: Alignment.center,
+                        //     height: 50,
+                        //     width: MediaQuery.sizeOf(context).width * 0.75,
+                        //     decoration: BoxDecoration(
+                        //         boxShadow: const [
+                        //           BoxShadow(
+                        //             color: Colors.black45,
+                        //             spreadRadius: 5,
+                        //             blurRadius: 7,
+                        //             offset: Offset(
+                        //                 0, 3), // changes position of shadow
+                        //           ),
+                        //         ],
+                        //         color: Colors.white,
+                        //         border: Border.all(color: appColor, width: 5),
+                        //         borderRadius: BorderRadius.circular(15)),
+                        //     child: Text(
+                        //       lang == "ar" ? "تجريب" : "Testing",
+                        //       style: const TextStyle(
+                        //           fontWeight: FontWeight.bold, fontSize: 20),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

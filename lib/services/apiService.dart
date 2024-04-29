@@ -1,80 +1,10 @@
-// ignore_for_file: file_names, non_constant_identifier_names
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static var ip = "http://ahnxdx-001-site1.atempurl.com/api/Student/";
-  static String? token;
-  //get
-  static Future getUser({String code = ""}) async {
-    final Uri getUser;
-    if (code == "") {
-      getUser = Uri.parse("${ip}Get");
-    } else {
-      getUser = Uri.parse("${ip}Get?code=$code");
-    }
-    final response = await http.get(getUser,
-        headers: {HttpHeaders.authorizationHeader: "Bearer ${token!}"});
-    return json.decode(response.body);
-  }
-
-  //post
-  static Future register(
-      {required String code,
-      required String name,
-      required String pass,
-      required String amount}) async {
-    int price = int.parse(amount);
-    final regisetrUser = Uri.parse(
-        "${ip}Register?code=$code&name=$name&password=$pass&amount=$price");
-    var response = await http.post(regisetrUser,
-        headers: {HttpHeaders.authorizationHeader: "Bearer ${token!}"});
-    return response.statusCode;
-  }
-
-  static Future Activate({
-    required String code,
-  }) async {
-    final act = Uri.parse("${ip}Activate?code=$code");
-    final response = await http.post(act,
-        headers: {HttpHeaders.authorizationHeader: "Bearer ${token!}"});
-    return response.statusCode;
-  }
-
-  static Future deactivate({
-    required String code,
-  }) async {
-    final deact = Uri.parse("${ip}Deactivate?code=$code");
-    final response = await http.post(deact,
-        headers: {HttpHeaders.authorizationHeader: "Bearer ${token!}"});
-    return response.statusCode;
-  }
-
-  static Future pay({
-    required String code,
-    required String amount,
-    required String notes,
-  }) async {
-    int price = int.parse(amount);
-    final regisetrUser =
-        Uri.parse("${ip}Pay?code=$code&amount=$price&notes=$notes");
-    final response = await http.post(regisetrUser,
-        headers: {HttpHeaders.authorizationHeader: "Bearer ${token!}"});
-    return response.statusCode;
-  }
-
-  static Future adminLogin(String code, String password) async {
-    final loginUrl = Uri.parse("${ip}AdminLogin?code=$code&password=$password");
-    final response = await http.post(loginUrl);
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      token = jsonResponse['token'];
-    } else {
-      token = null;
-    }
-    return response.statusCode;
-  }
+  static var ip = "";
+  static String? token =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNjA5ZDU4NjhjOTJjZGFjN2NiOGQwODVjMDg0Y2NmMWYzMzI2NjAxOTNkZDFhZjk3YjY3OGVjZDkzYjRiZmIyYmFjMGYxYzA4OWFkYjc5ZDUiLCJpYXQiOjE3MTMxMjAxMDMuODYxNjE2LCJuYmYiOjE3MTMxMjAxMDMuODYxNjE5LCJleHAiOjE3NDQ2NTYxMDMuODQ5MDYxLCJzdWIiOiIxIiwic2NvcGVzIjpbInVzZXIiXX0.iX-izXBWrCloT61jLOiNkE7s4q41FOou-09Q9tkGRUI2A78Z0ONfl_RuVACDs3eaa3aw9k3FbqV9fmhlE1IbJxbXqUFB3NgYeMLSjrhyq3WgJSHASf0nGZJO2b1PEFJ_Z3_qVY_JB4EExA2f6r2lH3X9TLoa6Xe8Zm2SpyiOf6Hzk_jfjq8SWzDw4__mX8g3FEtQpBIPJ5Tk26pavtbQI3No4KNH4jHYz5I1i3ZQo1xps8X3eMYOm2ASikV_2v_vZDYBMZptASP9eDIWbpKZjbBGzaExAIBYlQjryxFv2l757Jixq8qBuXunukuu2zZbYLKRTjdk6XJ2usPgGmy6-qf9xrJ_8YK4z05jMR_PB83tAFCmcJdm6Nrom_VRle3HE1mYuDd4RrSydFGRcod99Lu67ZxsM7sIxIxWHeRM2MHMldO0vrsfTrpOtYVxxkAxZrTt9TN9Bkl8DR6gg8rSxt59DH7dYhs1KTExxMAQY_joyXm28F1oZsEy2NRP5YHO_-pMz84iWvWVrm8BeK5FXGO05k5G9ilRPyRai4mAE7Y4dhwgBrRJpf7wHsPMpUbW54HFnX5-J31G4traMyiYRVT6QJWOP17YEQ1HqayY05qO5Xb2Lv_PZSXY8Zzu-ukmUQIX0k5kg85ZPm4_edIeR9zzWGoHqmXM9UFN0H9Ws1k";
 }

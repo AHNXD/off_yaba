@@ -11,8 +11,13 @@ import 'package:off_yaba/screens/signInScreen.dart';
 import 'package:off_yaba/screens/signUpScreen.dart';
 import 'package:off_yaba/screens/splashScreen.dart';
 import 'package:off_yaba/screens/routerScreen.dart';
+import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/services/cache_helper.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DioHelper.init();
+  await CacheHelper.init();
   runApp(const MyApp());
 }
 

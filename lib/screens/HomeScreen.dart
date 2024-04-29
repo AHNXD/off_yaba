@@ -1,13 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/categoriesScreen.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
+import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/services/network/stores_service.dart';
+import 'package:off_yaba/widgets/store_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,6 +88,9 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: TextField(
+                          onChanged: (value) {
+                            // showSearch(context: context, delegate:);
+                          },
                           decoration: InputDecoration(
                               focusedBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
@@ -174,38 +185,73 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 120,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 50,
-                        itemBuilder: (BC2, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 80,
-                                  width: 80,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, RestaurantScreen.routeName);
-                                    },
-                                    child: const CircleAvatar(
-                                      backgroundImage:
-                                          AssetImage("assets/images/logo1.jpg"),
-                                      backgroundColor: appColor,
+                    child: FutureBuilder<List<StoreModel>?>(
+                        future: StoreService.getStoresWithBestOffers(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<StoreModel> stores = snapshot.data!;
+                            print(stores);
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: stores.length,
+                                itemBuilder: (BC2, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 80,
+                                          width: 80,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  RestaurantScreen.routeName,
+                                                  arguments: {
+                                                    "store": stores[index]
+                                                  });
+                                            },
+                                            child: stores[index].image == null
+                                                ? const CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        "assets/images/no-image-found.png"),
+                                                    backgroundColor: appColor,
+                                                  )
+                                                : CircleAvatar(
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                            stores[index]
+                                                                .image!),
+                                                    backgroundColor: appColor,
+                                                  ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 2,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          child: Text(
+                                            stores[index].name!,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          ),
+                                        ),
+                                        // Text(lang == "ar"
+                                        //     ? "اسم المطعم"
+                                        //     : "Restaurant Name"),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 2,
-                                ),
-                                Text(lang == "ar"
-                                    ? "اسم المطعم"
-                                    : "Restaurant Name"),
-                              ],
-                            ),
+                                  );
+                                });
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         }),
                   ),
@@ -225,86 +271,30 @@ class HomeScreen extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                   ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 10,
-                      itemBuilder: (BC, index) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, RestaurantScreen.routeName);
-                              },
-                              child: Container(
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 2,
-                                      blurRadius: 3,
-                                      offset: const Offset(
-                                          0, 1), // changes position of shadow
-                                    ),
-                                  ],
-                                  borderRadius: BorderRadius.circular(16),
-                                  image: const DecorationImage(
-                                    image: AssetImage("assets/images/pic2.jpg"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    lang == "ar"
-                                        ? "اسم المطعم"
-                                        : "Restaurant Name",
-                                    style: const TextStyle(
-                                        fontFamily: "cocon-next-arabic",
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold)),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(
-                                      Icons.pin_drop,
-                                      color: appColor,
-                                    ),
-                                    const Text(
-                                      "0.6",
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                    Text(
-                                      lang == "ar" ? "كم" : "km",
-                                      style:
-                                          const TextStyle(color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Align(
-                              alignment: lang == "ar"
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: Text(
-                                lang == "ar" ? "النوع" : "Type",
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                            const Divider(
-                              color: appColor,
-                            )
-                          ],
-                        );
+                  FutureBuilder<List<StoreModel>?>(
+                      future: StoreService.getStoresByCoords(
+                          page: 1, longitude: 33, latitude: 30),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          return Container(
+                            color: Colors.red,
+                            child: const Text("حدث خطأ يرجى المحاولة مرة أخرى"),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<StoreModel> stores = snapshot.data!;
+
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (BC, index) {
+                                return StoreCard(store: stores[index]);
+                              });
+                        }
+
+                        return const Center(child: CircularProgressIndicator());
                       })
                 ],
               ),
