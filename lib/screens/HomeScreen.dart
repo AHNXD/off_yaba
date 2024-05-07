@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/categoriesScreen.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
-import 'package:off_yaba/services/network/apiService.dart';
 import 'package:off_yaba/services/network/stores_service.dart';
 import 'package:off_yaba/widgets/store_card.dart';
 

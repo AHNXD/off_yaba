@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/restaurantScreen.dart';
-import 'package:off_yaba/services/network/apiService.dart';
 
 class StoreCard extends StatelessWidget {
   const StoreCard({
