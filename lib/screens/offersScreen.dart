@@ -58,7 +58,7 @@ class _OffersScreenState extends State<OffersScreen> {
                   ]),
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 8,
                 ),
               ],
             )),
