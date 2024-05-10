@@ -121,7 +121,7 @@ class _OffersScreenState extends State<OffersScreen> {
                                       ),
                                       Icon(
                                         Icons.qr_code,
-                                        color: Colors.white,
+                                        color: Colors.black,
                                         size: 80,
                                       ),
                                       // QrImageView(
@@ -145,16 +145,16 @@ class _OffersScreenState extends State<OffersScreen> {
                                     children: [
                                       const Text(
                                         "صالح",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.black),
                                       ),
                                       Text(
                                         codes[index].numberOfUsage.toString(),
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                            color: Colors.black),
                                       ),
                                       const Text(
                                         "مرة",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.black),
                                       ),
                                     ],
                                   ),
@@ -169,15 +169,16 @@ class _OffersScreenState extends State<OffersScreen> {
                                     children: [
                                       const Text(
                                         "صالح لغاية",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.black),
                                       ),
                                       Text(
                                         codes[index].expAt!,
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                            color: Colors.black),
                                       ),
                                     ],
-                                  )
+                                  ),
+                                  const SizedBox()
                                   // Text(
                                   //   lang == "ar" ? "انقر للعرض" : "Tap to show",
                                   //   style: const TextStyle(

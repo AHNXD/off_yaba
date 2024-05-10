@@ -38,11 +38,20 @@ class OfferDetailsScreen extends StatelessWidget {
                           bottomLeft: Radius.circular(50),
                           bottomRight: Radius.circular(50))),
                   width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        height: 16,
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                            size: 30,
+                          )),
+                      const Spacer(
+                        flex: 1,
                       ),
                       RichText(
                         textAlign: TextAlign.center,
@@ -62,15 +71,12 @@ class OfferDetailsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold))
                         ]),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 30,
-                          )),
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      const SizedBox(
+                        width: 50,
+                      ),
                     ],
                   )),
               Expanded(

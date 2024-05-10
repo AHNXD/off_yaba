@@ -249,8 +249,15 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                                                 offers[index].image!),
                                             fit: BoxFit.fill,
                                           ),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
+                                          borderRadius: lang == "ar"
+                                              ? const BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  bottomLeft:
+                                                      Radius.circular(15))
+                                              : const BorderRadius.only(
+                                                  topRight: Radius.circular(15),
+                                                  bottomRight:
+                                                      Radius.circular(15)),
                                           color: appColor,
                                         ),
                                       ),
