@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const appColor = Color(0xFF58aad6);
-String lang = "ar";
+String lang = "ar"; // get the device language
 bool isLogin = false;
 
 void message(String error, Color c, BuildContext context) {

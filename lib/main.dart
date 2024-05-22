@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    lang = Localizations.localeOf(context).languageCode;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Off-Yaba',
