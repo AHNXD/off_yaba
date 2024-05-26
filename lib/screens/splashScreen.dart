@@ -37,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    lang = Localizations.localeOf(context).languageCode;
     void next() async {
       await Future.delayed(const Duration(milliseconds: 2000), () async {
         // int res = await ApiService.adminLogin("admin", "123");
