@@ -4,7 +4,7 @@ import 'package:off_yaba/models/store_details_model.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
 import 'package:off_yaba/services/location_service.dart';
-import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/services/network/api_service.dart';
 
 class StoreService {
   static Future<List<StoreModel>> getStoresByCoords({

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/services/network/api_service.dart';
 
 class StoreOfferModel {
   int? discount;

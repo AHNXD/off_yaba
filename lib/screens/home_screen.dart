@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
-import 'package:off_yaba/screens/categoriesScreen.dart';
-import 'package:off_yaba/screens/restaurantScreen.dart';
+import 'package:off_yaba/screens/categories_screen.dart';
+import 'package:off_yaba/screens/resturant_screen.dart';
 import 'package:off_yaba/services/network/stores_service.dart';
 import 'package:off_yaba/widgets/custom_search_deleget.dart';
 import 'package:off_yaba/widgets/store_card.dart';
@@ -214,7 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<StoreModel> stores = snapshot.data!;
-                          print(stores);
                           return ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
@@ -305,10 +304,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (snapshot.hasData) {
                         List<StoreModel> stores = snapshot.data!;
 
-                        return ListView.builder(
+                        return ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  height: 25,
+                                ),
                             itemBuilder: (BC, index) {
                               return StoreCard(store: stores[index]);
                             });

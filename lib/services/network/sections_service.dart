@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:off_yaba/models/section_model.dart';
-import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/services/network/api_service.dart';
 
 class SectionsService {
   static Future<List<SectionModel>> getSections() async {

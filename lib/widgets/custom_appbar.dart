@@ -4,8 +4,9 @@ import 'package:off_yaba/constant.dart';
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
+    this.isBackable = true,
   });
-
+  final bool isBackable;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,15 +50,16 @@ class CustomAppBar extends StatelessWidget {
                         fontWeight: FontWeight.bold))
               ]),
             ),
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 30,
-                )),
+            if (isBackable)
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                    size: 30,
+                  )),
           ],
         ));
   }

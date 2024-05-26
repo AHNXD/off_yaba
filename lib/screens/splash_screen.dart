@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/screens/authScreen.dart';
-import 'package:off_yaba/screens/routerScreen.dart';
+import 'package:off_yaba/screens/auth_screen.dart';
+import 'package:off_yaba/screens/router_screen.dart';
 import 'package:off_yaba/services/cache_helper.dart';
 
 class SplashScreen extends StatefulWidget {

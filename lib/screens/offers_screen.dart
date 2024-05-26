@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/code_scanner_model.dart';
-import 'package:off_yaba/screens/offerDetailsScreen.dart';
-import 'package:off_yaba/services/network/code_scanner_service.dart';
+import 'package:off_yaba/screens/offer_details_screen.dart';
+import 'package:off_yaba/services/network/qr_service.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
@@ -66,7 +66,7 @@ class _OffersScreenState extends State<OffersScreen> {
           child: SizedBox(
             height: MediaQuery.sizeOf(context).height - 200,
             child: FutureBuilder<List<CodeScannerModel>?>(
-                future: CodeScannerService.getUserCodes(),
+                future: QRService.getUserCodes(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Center(

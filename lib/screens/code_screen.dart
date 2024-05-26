@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/employe/employee_scan_screen.dart';
-import 'package:off_yaba/screens/routerScreen.dart';
+import 'package:off_yaba/screens/router_screen.dart';
 import 'package:off_yaba/services/network/auth_service.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 

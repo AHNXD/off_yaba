@@ -1,10 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/services/network/code_scanner_service.dart';
+import 'package:off_yaba/services/network/qr_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -220,7 +219,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
       controller.pauseCamera();
       await player.play(AssetSource(audioasset));
 
-      CodeScannerService.scanUserCode(code: scanData.code!)
+      QRService.scanUserCode(code: scanData.code!)
           .then((value) => showDialog(
                 context: context,
                 builder: (context) => const AlertDialog(

@@ -4,6 +4,8 @@ import 'package:off_yaba/models/store_details_model.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
 import 'package:off_yaba/services/network/stores_service.dart';
+import 'package:off_yaba/widgets/details_list_tile.dart';
+import 'package:off_yaba/widgets/offer_card.dart';
 
 class RestaurantScreen extends StatefulWidget {
   static const routeName = '/restaurant';
@@ -212,84 +214,15 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                     }
                     if (snapshot.hasData) {
                       List<StoreOfferModel> offers = snapshot.data!;
-                      return ListView.builder(
+
+                      return ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: offers.length,
-                          itemBuilder: (BuildContext, index) {
-                            return Container(
-                              width: double.infinity,
-                              height: 150,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: appColor,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(),
-                                  SizedBox(
-                                    width: 50,
-                                    child: Text(
-                                      textAlign: TextAlign.center,
-                                      "%${offers[index].discount.toString()}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25),
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(50),
-                                                bottomRight:
-                                                    Radius.circular(50))),
-                                      ),
-                                      const SizedBox(
-                                        height: 60,
-                                        child: VerticalDivider(
-                                          thickness: 2,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(50),
-                                                topRight: Radius.circular(50))),
-                                      )
-                                    ],
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width / 1.5,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image:
-                                            NetworkImage(offers[index].image!),
-                                        fit: BoxFit.fill,
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(15)),
-                                      color: appColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(),
+                          itemBuilder: (context, index) {
+                            return OfferCard(offer: offers[index]);
                           });
                     }
                     return SizedBox(
@@ -367,45 +300,6 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                   child: CircularProgressIndicator(),
                 );
               }),
-        ],
-      ),
-    );
-  }
-}
-
-class DetailsListTile extends StatelessWidget {
-  const DetailsListTile({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.icon,
-  });
-
-  final String title;
-  final String value;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(
-        value,
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: appColor),
-          ),
-          Icon(
-            icon,
-            color: appColor,
-          ),
         ],
       ),
     );

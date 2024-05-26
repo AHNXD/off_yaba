@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/services/cache_helper.dart';
-import 'package:off_yaba/services/network/code_scanner_service.dart';
+import 'package:off_yaba/services/network/qr_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class EmployeeScreen extends StatefulWidget {
@@ -221,7 +220,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
       controller.pauseCamera();
       await player.play(AssetSource(audioasset));
 
-      CodeScannerService.scanEmployeeCode(code: scanData.code!)
+      QRService.scanEmployeeCode(code: scanData.code!)
           .then((value) => showDialog(
                 context: context,
                 builder: (context) => const AlertDialog(

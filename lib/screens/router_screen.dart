@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:off_yaba/screens/homeScreen.dart';
+import 'package:off_yaba/screens/home_screen.dart';
 
-import 'package:off_yaba/screens/offersScreen.dart';
-import 'package:off_yaba/screens/scannerScreen.dart';
-import 'package:off_yaba/screens/settingsScreen.dart';
+import 'package:off_yaba/screens/offers_screen.dart';
+import 'package:off_yaba/screens/scanner_screen.dart';
+import 'package:off_yaba/screens/settings_screen.dart';
 
 class RouterScreen extends StatefulWidget {
   static const routeName = '/router';
@@ -41,7 +41,7 @@ class _RouterScreenState extends State<RouterScreen> {
             Icon(Icons.home, size: 30, color: Colors.white),
             Icon(Icons.qr_code_scanner, size: 30, color: Colors.white),
             Icon(Icons.card_giftcard, size: 30, color: Colors.white),
-            Icon(Icons.settings, size: 30, color: Colors.white),
+            Icon(Icons.person, size: 30, color: Colors.white),
           ],
           color: appColor,
           buttonBackgroundColor: Colors.black,

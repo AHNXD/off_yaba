@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/screens/codeScreen.dart';
-import 'package:off_yaba/screens/signInScreen.dart';
+import 'package:off_yaba/screens/code_screen.dart';
+import 'package:off_yaba/screens/signIn_screen.dart';
 import 'package:off_yaba/services/network/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {

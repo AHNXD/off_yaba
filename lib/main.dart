@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
-import 'package:off_yaba/screens/categoriesScreen.dart';
-import 'package:off_yaba/screens/codeScreen.dart';
-import 'package:off_yaba/screens/offerDetailsScreen.dart';
+import 'package:off_yaba/screens/categories_screen.dart';
+import 'package:off_yaba/screens/code_screen.dart';
+import 'package:off_yaba/screens/offer_details_screen.dart';
 import 'package:off_yaba/screens/reports_screen.dart';
-import 'package:off_yaba/screens/restaurantScreen.dart';
-import 'package:off_yaba/screens/searchScreen.dart';
-import 'package:off_yaba/screens/authScreen.dart';
-import 'package:off_yaba/screens/showCategoryScreen.dart';
-import 'package:off_yaba/screens/signInScreen.dart';
-import 'package:off_yaba/screens/signUpScreen.dart';
-import 'package:off_yaba/screens/splashScreen.dart';
-import 'package:off_yaba/screens/routerScreen.dart';
-import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/screens/resturant_screen.dart';
+import 'package:off_yaba/screens/search_screen.dart';
+import 'package:off_yaba/screens/auth_screen.dart';
+import 'package:off_yaba/screens/show_category_screen.dart';
+import 'package:off_yaba/screens/signIn_screen.dart';
+import 'package:off_yaba/screens/signup_screen.dart';
+import 'package:off_yaba/screens/splash_screen.dart';
+import 'package:off_yaba/screens/router_screen.dart';
+import 'package:off_yaba/screens/subscriptions_screen.dart';
+import 'package:off_yaba/services/network/api_service.dart';
 import 'package:off_yaba/services/cache_helper.dart';
 
 void main() async {
@@ -33,10 +34,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Off-Yaba',
       theme: ThemeData(
-          fontFamily: 'Hacen Beirut',
-          colorScheme: ColorScheme.fromSeed(seedColor: appColor),
-          useMaterial3: true,
-          scaffoldBackgroundColor: Colors.grey.shade300),
+        fontFamily: 'Hacen Beirut',
+        colorScheme: ColorScheme.fromSeed(seedColor: appColor),
+        useMaterial3: true,
+        // scaffoldBackgroundColor: Colors.grey.shade300,
+        scaffoldBackgroundColor: Colors.white,
+      ),
       initialRoute: SplashScreen.routeName,
       routes: {
         RouterScreen.routeName: (context) => const RouterScreen(),
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
         ShowCategoryScreen.routeName: (context) => const ShowCategoryScreen(),
         AllDiscountsScreen.routeName: (context) => const AllDiscountsScreen(),
         ReportsScreen.routeName: (context) => const ReportsScreen(),
+        SubscriptionsScreen.routeName: (context) => const SubscriptionsScreen(),
       },
     );
   }

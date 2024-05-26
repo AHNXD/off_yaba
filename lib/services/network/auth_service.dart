@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:off_yaba/models/auth_error_model.dart';
 import 'package:off_yaba/models/user_model.dart';
 import 'package:off_yaba/services/cache_helper.dart';
-import 'package:off_yaba/services/network/apiService.dart';
+import 'package:off_yaba/services/network/api_service.dart';
 
 class AuthApiService {
   static Future<Either<void, ApiFailure>> register(
