@@ -35,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/background2.png"),
+                image: AssetImage(bg),
                 fit: BoxFit.cover,
               ),
             ),

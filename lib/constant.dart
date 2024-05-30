@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const appColor = Color(0xFF58aad6);
 String lang = "ar";
 
+const String bg = "assets/BG.jpg";
 void message(String error, Color c, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     backgroundColor: c,

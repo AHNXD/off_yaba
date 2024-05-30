@@ -20,7 +20,7 @@ class PickUserScreen extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/background-u-type.png"),
+                image: AssetImage(bg),
                 fit: BoxFit.cover, // convert to cover
               ),
             ),
