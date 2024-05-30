@@ -107,7 +107,7 @@ class StoreService {
             "latitude": position?.latitude,
           });
       return StoreDetailsModel.fromMap(response!.data["data"]);
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }

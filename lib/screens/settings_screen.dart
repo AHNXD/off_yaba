@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/reports_screen.dart';
-import 'package:off_yaba/screens/splash_screen.dart';
 import 'package:off_yaba/screens/subscriptions_screen.dart';
 import 'package:off_yaba/services/network/auth_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';

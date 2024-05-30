@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/resturant_screen.dart';
 import 'package:off_yaba/services/network/api_service.dart';
-import 'package:off_yaba/widgets/store_card.dart';
 
 class StoreSearchDelegate extends SearchDelegate {
   Future<List> searchStores(String query) async {

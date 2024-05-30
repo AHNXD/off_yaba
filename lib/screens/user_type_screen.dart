@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/signIn_screen.dart';
-import 'package:off_yaba/screens/signup_screen.dart';
 import 'package:off_yaba/widgets/circular_button.dart';
 
 class PickUserScreen extends StatelessWidget {
