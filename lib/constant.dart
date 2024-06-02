@@ -4,6 +4,7 @@ const appColor = Color(0xFF58aad6);
 String lang = "ar";
 
 const String bg = "assets/BG.jpg";
+const String logo = 'assets/offYaba.png';
 void message(String error, Color c, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     backgroundColor: c,

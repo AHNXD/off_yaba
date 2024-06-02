@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
+import 'package:off_yaba/screens/clothes_section.dart';
+import 'package:off_yaba/screens/clothing_item_details.dart';
 import 'package:off_yaba/screens/code_screen.dart';
 import 'package:off_yaba/screens/offer_details_screen.dart';
 import 'package:off_yaba/screens/reports_screen.dart';
@@ -9,7 +11,7 @@ import 'package:off_yaba/screens/resturant_screen.dart';
 import 'package:off_yaba/screens/search_screen.dart';
 import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/show_category_screen.dart';
-import 'package:off_yaba/screens/signIn_screen.dart';
+import 'package:off_yaba/screens/signIn_screen.dart'; 
 import 'package:off_yaba/screens/signup_screen.dart';
 import 'package:off_yaba/screens/splash_screen.dart';
 import 'package:off_yaba/screens/router_screen.dart';
@@ -37,8 +39,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Hacen Beirut',
         colorScheme: ColorScheme.fromSeed(seedColor: appColor),
         useMaterial3: true,
-        // scaffoldBackgroundColor: Colors.grey.shade300,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.grey.shade200,
+
+        // scaffoldBackgroundColor: Colors.white,
       ),
       initialRoute: SplashScreen.routeName,
       routes: {
@@ -56,6 +59,10 @@ class MyApp extends StatelessWidget {
         AllDiscountsScreen.routeName: (context) => const AllDiscountsScreen(),
         ReportsScreen.routeName: (context) => const ReportsScreen(),
         SubscriptionsScreen.routeName: (context) => const SubscriptionsScreen(),
+        ClothesSectionScreen.routeName: (context) =>
+            const ClothesSectionScreen(),
+        ClothingItemDetailsScreen.routeName: (context) =>
+            const ClothingItemDetailsScreen(),
       },
     );
   }

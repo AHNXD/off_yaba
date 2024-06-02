@@ -22,7 +22,6 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
     StoreModel store = arguments['store'];
-
     return Directionality(
       textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(

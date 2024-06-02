@@ -12,17 +12,18 @@ class CustomAppBar extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
         margin: const EdgeInsets.only(left: 8, right: 8),
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
+        decoration: const BoxDecoration(
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.grey.withOpacity(0.5),
+            //     spreadRadius: 5,
+            //     blurRadius: 7,
+            //     offset: const Offset(0, 3), // changes position of shadow
+            //   ),
+            // ],
+            gradient: LinearGradient(colors: [Colors.blue, appColor]),
             color: appColor,
-            borderRadius: const BorderRadius.only(
+            borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50))),
         width: double.infinity,
@@ -38,10 +39,10 @@ class CustomAppBar extends StatelessWidget {
                 TextSpan(
                     text: "Off ",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        shadows: [])),
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    )),
                 TextSpan(
                     text: "Yaba",
                     style: TextStyle(

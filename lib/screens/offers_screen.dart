@@ -28,7 +28,7 @@ class _OffersScreenState extends State<OffersScreen> {
                     offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
-                color: appColor,
+                gradient: const LinearGradient(colors: [Colors.blue, appColor]),
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50))),
@@ -100,6 +100,13 @@ class _OffersScreenState extends State<OffersScreen> {
                                           0, 3), // changes position of shadow
                                     ),
                                   ],
+                                  gradient: codes[index].isValid!
+                                      ? const LinearGradient(
+                                          colors: [Colors.blue, appColor])
+                                      : const LinearGradient(colors: [
+                                          Colors.red,
+                                          Colors.redAccent,
+                                        ]),
                                   color: codes[index].isValid!
                                       ? appColor
                                       : Colors.red,

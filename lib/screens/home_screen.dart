@@ -29,17 +29,18 @@ class _HomeScreenState extends State<HomeScreen> {
             padding:
                 const EdgeInsets.only(left: 32, right: 32, bottom: 16, top: 16),
             margin: const EdgeInsets.only(left: 8, right: 8),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
+                  // BoxShadow(
+                  //   color: Colors.grey.withOpacity(0.5),
+                  //   spreadRadius: 5,
+                  //   blurRadius: 7,
+                  //   offset: const Offset(0, 3), // changes position of shadow
+                  // ),
                 ],
                 color: appColor,
-                borderRadius: const BorderRadius.only(
+                gradient: LinearGradient(colors: [Colors.blue, appColor]),
+                borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50))),
             width: double.infinity,
@@ -92,32 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Expanded(
-                      //   child: TextField(
-                      //     onTap: () {
-                      // showSearch(
-                      //     context: context,
-                      //     delegate: StoreSearchDelegate());
-                      //     },
-                      //     decoration: InputDecoration(
-                      //         focusedBorder: InputBorder.none,
-                      //         disabledBorder: InputBorder.none,
-                      //         enabledBorder: InputBorder.none,
-                      //         hintText: lang == "ar" ? "البحث" : "Search",
-                      //         hintStyle: const TextStyle(
-                      //           color: Colors.grey,
-                      //         ),
-                      //         prefixIcon: const Icon(
-                      //           Icons.search,
-                      //           color: Colors.grey,
-                      //         )),
-                      //   ),
-                      // ),
-                      // IconButton(
-                      // onPressed: () => showSearch(
-                      //     context: context,
-                      //     delegate: StoreSearchDelegate()),
-                      //     icon: const Icon(Icons.search)),
                       ElevatedButton.icon(
                         onPressed: () => showSearch(
                             context: context, delegate: StoreSearchDelegate()),

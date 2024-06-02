@@ -23,9 +23,12 @@ class CircularButtonWithTitle extends StatelessWidget {
             radius: MediaQuery.of(context).size.width * 0.1,
             child: icon,
           ),
+          const SizedBox(
+            height: 4,
+          ),
           Text(
             title,
-            style: const TextStyle(color: Colors.black, shadows: [
+            style: const TextStyle(color: Colors.white, shadows: [
               Shadow(
                 color: Colors.black45,
                 blurRadius: 7,

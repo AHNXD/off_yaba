@@ -6,7 +6,7 @@ class DioHelper {
   static Dio? dio;
   // static String? token;
   // static String baseUrl = "https://3c5d-169-150-218-138.ngrok-free.app/api/";
-  static String baseUrl = "https://medhouse40.000webhostapp.com/api/";
+  static String baseUrl = "http://5he.b12.mytemp.website/api/";
   static init() async {
     dio = Dio(BaseOptions(
       baseUrl: baseUrl,
@@ -59,6 +59,7 @@ class DioHelper {
       headers = {...additionalHeaders};
     }
     headers['Authorization'] = await CacheHelper.getData(key: 'token');
+
     headers["Accept"] = "application/json";
     return await dio?.get(path,
         queryParameters: queryParameters, options: Options(headers: headers));

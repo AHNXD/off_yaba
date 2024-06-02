@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/section_model.dart';
+import 'package:off_yaba/screens/clothes_section.dart';
 import 'package:off_yaba/screens/show_category_screen.dart';
 import 'package:off_yaba/services/network/sections_service.dart';
 
@@ -118,6 +119,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   itemBuilder: (BuildContext, index) {
                                     return GestureDetector(
                                       onTap: () {
+                                        if (sectionNames[index] == "الملابس") {
+                                          Navigator.of(context).pushNamed(
+                                              ClothesSectionScreen.routeName);
+                                          return;
+                                        }
                                         Navigator.pushNamed(context,
                                             ShowCategoryScreen.routeName,
                                             arguments: {

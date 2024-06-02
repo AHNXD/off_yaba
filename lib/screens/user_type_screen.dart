@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/signIn_screen.dart';
-import 'package:off_yaba/screens/signup_screen.dart';
 import 'package:off_yaba/widgets/circular_button.dart';
 
 class PickUserScreen extends StatelessWidget {
@@ -39,7 +37,10 @@ class PickUserScreen extends StatelessWidget {
                 Center(
                     child: Text(
                   "اختر نوع الحساب",
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w100,
+                      fontStyle: FontStyle.italic),
                 )),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,

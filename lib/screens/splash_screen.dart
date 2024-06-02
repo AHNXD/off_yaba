@@ -19,8 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/intro.mp4')
-      ..initialize().then((_) {
+    _controller = VideoPlayerController.asset(
+      'assets/intro.mp4',
+    )..initialize().then((_) {
         _controller!.play();
         _controller!.setLooping(false);
         setState(() {});
@@ -48,8 +49,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: _controller?.value.isInitialized ?? false
-          ? VideoPlayer(_controller!)
+          ? Container(
+              color: const Color(0xff1c617e),
+              child: Center(
+                child: AspectRatio(
+                    aspectRatio: _controller!.value.aspectRatio,
+                    child: VideoPlayer(_controller!)),
+              ),
+            )
           : Container(
               width: double.infinity,
               height: double.infinity,

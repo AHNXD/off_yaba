@@ -50,6 +50,9 @@ dependencies:
   dartz: ^0.10.1
   carousel_slider: ^4.2.1
   video_player: ^2.8.6
+  string_to_color: ^2.0.0
+  uni_color_name: ^0.7.0
+
 
 dev_dependencies:
   flutter_test:

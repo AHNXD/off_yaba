@@ -51,6 +51,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
             margin: const EdgeInsets.only(left: 8, right: 8),
             decoration: BoxDecoration(
+                gradient: const LinearGradient(colors: [Colors.blue, appColor]),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -59,7 +60,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
-                color: appColor,
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50))),

@@ -176,7 +176,8 @@ class _CodeScreenState extends State<CodeScreen> {
                                   log(authType);
                                   Map<String, dynamic> data = {
                                     "code": code,
-                                    "phone_number": arguments["phone_number"],
+                                    "phone_number":
+                                        "+964" + arguments["phone_number"],
                                     "name": arguments["name"]
                                   };
 

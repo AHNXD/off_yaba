@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:off_yaba/models/code_scanner_model.dart';
@@ -53,7 +52,7 @@ class QRService {
           )
           .toList();
       return subs;
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }

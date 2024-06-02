@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/coupon_offers_model.dart';
@@ -36,30 +35,9 @@ class SubscriptionsScreen extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       SubscriptionModel sub = subs[index];
-                      return Container(
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                                color: Colors.grey.withOpacity(0.2), width: 4)),
-                        child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: ListTile(
-                            leading: Text(
-                              "${sub.period} أشهر",
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
-                            trailing: Text(
-                              "${sub.totalWithDiscount} د.ع",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(color: appColor),
-                            ),
-                          ),
-                        ),
+                      return SubscriptionCard(
+                        sub: sub,
+                        isGold: sub == subs.last,
                       );
                     },
                   );
@@ -69,6 +47,56 @@ class SubscriptionsScreen extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class SubscriptionCard extends StatelessWidget {
+  const SubscriptionCard({
+    super.key,
+    required this.sub,
+    this.isGold = false,
+  });
+
+  final SubscriptionModel sub;
+  final bool isGold;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+          gradient: isGold
+              ? const LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.yellow,
+                    Color(0xffad9c00),
+                  ],
+                )
+              : LinearGradient(colors: [Colors.blue.shade600, appColor]),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: Colors.grey.withOpacity(0.2), width: 4)),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: ListTile(
+          leading: Text(
+            "${sub.period} أشهر",
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(color: Colors.white),
+          ),
+          trailing: Text(
+            "${sub.totalWithDiscount} د.ع",
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: Colors.white),
+          ),
+        ),
       ),
     );
   }
@@ -84,69 +112,4 @@ class SubscriptionsScreen extends StatelessWidget {
 //   ),
 // );
 
-class SubscriptionCard extends StatelessWidget {
-  const SubscriptionCard({
-    super.key,
-    required this.sub,
-  });
 
-  final SubscriptionModel sub;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      margin: const EdgeInsets.all(8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Colors.blueAccent, Colors.lightBlueAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 10.0,
-          ),
-          title: Text(
-            'Period: ${sub.period} month(s)',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Number of Usage: ${sub.numberOfUsage}',
-                  style: const TextStyle(color: Colors.white70),
-                ),
-                Text(
-                  'Cost in One Month: ${sub.costInOneMonth}',
-                  style: const TextStyle(color: Colors.white70),
-                ),
-                Text(
-                  'Total: ${sub.total}',
-                  style: const TextStyle(color: Colors.white70),
-                ),
-                Text(
-                  'Total with Discount: ${sub.totalWithDiscount}',
-                  style: const TextStyle(color: Colors.white70),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

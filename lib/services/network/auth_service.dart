@@ -14,14 +14,14 @@ class AuthApiService {
       log(phone);
       Response? response =
           await DioHelper.postData(path: 'user/register', data: {
-        "phone_number": phone,
+        "phone_number": "+964$phone",
         "name": name,
       });
-      log(response!.data["data"]["code"].toString());
-      print(response.data);
+
       return const Left(null);
     } on DioException catch (e) {
-      print(e.response?.data);
+      print(e);
+
       int statusCode = e.response!.statusCode!;
       if (e.response!.statusCode == 400) {
         return Right(ApiFailure(
@@ -45,24 +45,28 @@ class AuthApiService {
       await CacheHelper.setString(key: "token", value: "Bearer ${user.token!}");
       return Left(user);
     } on DioException catch (e) {
-      if (e.response!.statusCode == 400) {
-        return Right(ApiFailure(
-            message: "الرمز المدخل خاطء", statusCode: e.response!.statusCode));
-      }
-      return Right(ApiFailure(
-          message: "لقد حدث خطأ ما يرجى المحاولة لاحقا", statusCode: 500));
+      print(e.response!.data);
+      return Right(ApiFailure());
+      // if (e.response!.statusCode == 400) {
+      //   return Right(ApiFailure(
+      //       message: "الرمز المدخل خاطء", statusCode: e.response!.statusCode));
+      // }
+      // return Right(ApiFailure(
+      //     message: "لقد حدث خطأ ما يرجى المحاولة لاحقا", statusCode: 500));
     }
   }
 
   static Future<Either<void, ApiFailure>> loginUser(
       {required String phoneNumber}) async {
     try {
+      log(phoneNumber);
       var response = await DioHelper.postData(path: 'user/login', data: {
-        "phone_number": phoneNumber,
+        "phone_number": "+964$phoneNumber",
       });
-      log(response!.data["data"]["code"].toString());
+
       return const Left(null);
     } on DioException catch (e) {
+      print(e.response!.data);
       return Right(ApiFailure(
           message: e.response!.data["message"],
           statusCode: e.response!.statusCode));
