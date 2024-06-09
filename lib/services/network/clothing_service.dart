@@ -8,7 +8,7 @@ class ClothingService {
       Response? response =
           await DioHelper.getAuthorizedData(path: 'clothing-items');
       print(response);
-      List<dynamic> dynamicItems = response!.data["data"];
+      List<dynamic> dynamicItems = response!.data["data"]["clothes"];
       List<ClothingItemModel> items = dynamicItems
           .map(
             (e) => ClothingItemModel.fromMap(e),

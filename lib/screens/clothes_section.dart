@@ -25,26 +25,28 @@ class _ClothesSectionScreenState extends State<ClothesSectionScreen> {
               future: ClothingService.getClothingItems(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  print(snapshot.error);
+                  return Center(child: Text('Error: ${snapshot.stackTrace}'));
                 }
-                if (snapshot.hasData) {
-                  var items = snapshot.data;
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: items!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // Number of columns
-                            crossAxisSpacing: 10.0, // Spacing between columns
-                            mainAxisSpacing: 10.0, // Spacing between rows
-                            childAspectRatio: 0.44),
-                    itemBuilder: (context, index) => ClothingItemCard(
-                      clothingItem: items[index],
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: appColor,
                     ),
                   );
                 }
-                return const CircularProgressIndicator(
-                  color: appColor,
+                var items = snapshot.data!;
+                return GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: items.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: _getCrossAxisCount(context),
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                    childAspectRatio: 0.48,
+                  ),
+                  itemBuilder: (context, index) => ClothingItemCard(
+                    clothingItem: items[index],
+                  ),
                 );
               },
             ),
@@ -52,5 +54,12 @@ class _ClothesSectionScreenState extends State<ClothesSectionScreen> {
         ],
       ),
     );
+  }
+
+  int _getCrossAxisCount(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth >= 1200) return 4;
+    if (screenWidth >= 800) return 3;
+    return 2;
   }
 }

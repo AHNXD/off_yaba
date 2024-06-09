@@ -56,10 +56,13 @@ class CustomAppBar extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                    size: 30,
+                  icon: const Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   )),
           ],
         ));

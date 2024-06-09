@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -219,7 +220,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
       await player.play(AssetSource(audioasset));
-
+      log("codeee");
       QRService.scanEmployeeCode(code: scanData.code!)
           .then((value) => showDialog(
                 context: context,

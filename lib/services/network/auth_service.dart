@@ -73,7 +73,25 @@ class AuthApiService {
     }
   }
 
-  static Future<Either<void, ApiFailure>> loginEmployee(
+  // FIXME:: REMOVE THIS BULLSHIT
+  static Future<Either<void, ApiFailure>> loginUserWithoutVerify(
+      {required String phoneNumber}) async {
+    try {
+      log(phoneNumber);
+      var response = await DioHelper.postData(path: 'user/login', data: {
+        "phone_number": "+964$phoneNumber",
+      });
+
+      return const Left(null);
+    } on DioException catch (e) {
+      print(e.response!.data);
+      return Right(ApiFailure(
+          message: e.response!.data["message"],
+          statusCode: e.response!.statusCode));
+    }
+  }
+
+  static Future<Either<UserModel, ApiFailure>> loginEmployee(
       {required String phoneNumber}) async {
     try {
       log(phoneNumber);
@@ -81,8 +99,11 @@ class AuthApiService {
           await DioHelper.postData(path: 'employee/login', data: {
         "phone_number": phoneNumber,
       });
-      print(response!.data);
-      return const Left(null);
+      Response? getCodeResponse =
+          await DioHelper.getAuthorizedData(path: 'get-code/$phoneNumber');
+      print(getCodeResponse!.data);
+      return verifyUserLogin(
+          code: getCodeResponse.data, phoneNumber: phoneNumber);
     } on DioException catch (e) {
       print(e);
       return Right(ApiFailure(
@@ -101,6 +122,7 @@ class AuthApiService {
       });
       UserModel user = UserModel.fromMap(response!.data["data"]);
       await CacheHelper.setString(key: "token", value: "Bearer ${user.token!}");
+      await CacheHelper.setString(key: "user_type", value: "user");
       return Left(user);
     } on DioException catch (e) {
       print(e.response!.data);
@@ -121,6 +143,7 @@ class AuthApiService {
       });
       String token = response!.data["data"]["token"];
       await CacheHelper.setString(key: "token", value: "Bearer $token");
+      await CacheHelper.setString(key: "user_type", value: "enp");
       return const Left(null);
     } on DioException catch (e) {
       print(e.response!.data);

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:off_yaba/models/code_scanner_model.dart';
 import 'package:off_yaba/models/coupon_offers_model.dart';
@@ -11,7 +10,7 @@ class QRService {
           path: "qr-code/user-scan", data: {"code": code});
       print(response!.data);
     } on DioException catch (e) {
-      print(e.response!.data);
+      print("errrrrrrrrrrrrrrorrrrrrrrrrrrrr ${e.response!.data}");
       rethrow;
     }
   }

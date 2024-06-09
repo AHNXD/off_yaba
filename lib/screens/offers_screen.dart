@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/code_scanner_model.dart';
 import 'package:off_yaba/screens/offer_details_screen.dart';
+import 'package:off_yaba/screens/scanner_screen.dart';
 import 'package:off_yaba/services/network/qr_service.dart';
 
 class OffersScreen extends StatefulWidget {
@@ -17,51 +18,64 @@ class _OffersScreenState extends State<OffersScreen> {
     return Column(
       children: [
         Container(
-            padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
-            margin: const EdgeInsets.only(left: 8, right: 8),
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-                gradient: const LinearGradient(colors: [Colors.blue, appColor]),
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50))),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(children: [
-                    TextSpan(
-                        text: "Off ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            shadows: [])),
-                    TextSpan(
-                        text: "Yaba",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold))
-                  ]),
-                ),
-                const SizedBox(
-                  height: 16,
+          padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
+          margin: const EdgeInsets.only(left: 8, right: 8),
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
-            )),
+              gradient: const LinearGradient(colors: [Colors.blue, appColor]),
+              borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50))),
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.13,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // const SizedBox(
+              //   height: 16,
+              // ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ScannerScreen.routeName);
+                },
+                icon: const Icon(
+                  Icons.qr_code_scanner,
+                  color: Colors.white,
+                  weight: 2,
+                ),
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: const TextSpan(children: [
+                  TextSpan(
+                      text: "Off ",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          shadows: [])),
+                  TextSpan(
+                      text: "Yaba",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold))
+                ]),
+              ),
+
+              // const SizedBox(
+              //   height: 16,
+              // ),
+            ],
+          ),
+        ),
         Expanded(
           child: SizedBox(
             height: MediaQuery.sizeOf(context).height - 200,

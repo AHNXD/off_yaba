@@ -21,9 +21,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(
-                  isBackable: false,
-                ),
+                const CustomAppBar(),
                 // Image Section
                 Padding(
                   padding:
@@ -121,7 +119,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                                 Text(
                                   '${(clothingItem.price! - (clothingItem.price! * clothingItem.discount! / 100)).toStringAsFixed(2)}د.ع',
                                   style: const TextStyle(
-                                    color: Colors.red,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -288,27 +286,6 @@ class ClothingItemDetailsScreen extends StatelessWidget {
             color: Colors.white,
           ),
         ));
-  }
-
-  List<Widget> _buildSizeWidgets(List sizes) {
-    return (sizes ?? []).map((size) {
-      return Container(
-        width: 50,
-        height: 50,
-        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey.shade700, width: 2),
-        ),
-        child: Center(
-          child: Text(
-            size,
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
-    }).toList();
   }
 
   List<Widget> _buildColorWidgets(List colors) {

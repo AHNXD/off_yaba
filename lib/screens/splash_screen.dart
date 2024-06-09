@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:off_yaba/screens/employe/employee_scan_screen.dart';
 import 'package:video_player/video_player.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/auth_screen.dart';
@@ -19,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     _controller = VideoPlayerController.asset(
       'assets/intro.mp4',
     )..initialize().then((_) {
@@ -33,8 +35,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void checkTokenAndNavigate() async {
     String? token = await CacheHelper.getData(key: "token");
+    String? userType = await CacheHelper.getData(key: "user_type");
     if (token != null) {
+      if (userType == "emp") {
+        Navigator.of(context)
+            .pushReplacement(goRoute(x: const EmployeeScreen()));
+        return;
+      }
       Navigator.of(context).pushReplacement(goRoute(x: const RouterScreen()));
+      return;
     } else {
       Navigator.of(context).pushReplacement(goRoute(x: const AuthScreen()));
     }

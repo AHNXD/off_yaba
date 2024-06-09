@@ -8,10 +8,11 @@ import 'package:off_yaba/screens/code_screen.dart';
 import 'package:off_yaba/screens/offer_details_screen.dart';
 import 'package:off_yaba/screens/reports_screen.dart';
 import 'package:off_yaba/screens/resturant_screen.dart';
+import 'package:off_yaba/screens/scanner_screen.dart';
 import 'package:off_yaba/screens/search_screen.dart';
 import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/show_category_screen.dart';
-import 'package:off_yaba/screens/signIn_screen.dart'; 
+import 'package:off_yaba/screens/signIn_screen.dart';
 import 'package:off_yaba/screens/signup_screen.dart';
 import 'package:off_yaba/screens/splash_screen.dart';
 import 'package:off_yaba/screens/router_screen.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
             const ClothesSectionScreen(),
         ClothingItemDetailsScreen.routeName: (context) =>
             const ClothingItemDetailsScreen(),
+        ScannerScreen.routeName: (context) => const ScannerScreen(),
       },
     );
   }
