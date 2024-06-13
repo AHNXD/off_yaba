@@ -17,13 +17,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
   final bool _isloading = false;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
-  QRViewController? controller;
   String audioasset = "audios/beep.mp3";
   final player = AudioPlayer();
   String errorMasseg = "";
   Color errorColor = Colors.black;
-  bool camOn = true;
-  Color camOncolor = Colors.blue;
+
   // ignore: prefer_typing_uninitialized_variables
   late var response;
 
@@ -228,7 +226,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   void _onQRViewCreated(QRViewController controller) async {
-    this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
       await player.play(AssetSource(audioasset));

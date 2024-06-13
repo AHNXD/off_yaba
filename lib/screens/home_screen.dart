@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/models/app_bar_model.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
@@ -25,109 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Container(
-            padding:
-                const EdgeInsets.only(left: 32, right: 32, bottom: 16, top: 16),
-            margin: const EdgeInsets.only(left: 8, right: 8),
-            decoration: const BoxDecoration(
-                boxShadow: [
-                  // BoxShadow(
-                  //   color: Colors.grey.withOpacity(0.5),
-                  //   spreadRadius: 5,
-                  //   blurRadius: 7,
-                  //   offset: const Offset(0, 3), // changes position of shadow
-                  // ),
-                ],
-                color: appColor,
-                gradient: LinearGradient(colors: [Colors.blue, appColor]),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50))),
-            width: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.notifications_active,
-                          color: Colors.white,
-                        )),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(children: [
-                        TextSpan(
-                            text: "Off ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                shadows: [])),
-                        TextSpan(
-                            text: "Yaba",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold))
-                      ]),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () => showSearch(
-                            context: context, delegate: StoreSearchDelegate()),
-                        icon: const Icon(Icons.search),
-                        label: const Text("البحث"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          elevation: 0,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 32,
-                        child: VerticalDivider(
-                          thickness: 2,
-                          width: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () => Navigator.pushNamed(
-                            context, CategoriesScreen.routeName),
-                        icon: const Icon(Icons.category_outlined),
-                        label: const Text("الأقسام"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          elevation: 0,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )),
+        AppBarModel(
+            backArrow: false, bell: true, search: true, cameraSettings: false),
         SizedBox(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 const appColor = Color(0xFF58aad6);
 String lang = "ar";
+// for camera
+QRViewController? controller;
+bool camOn = true;
+Color camOncolor = Colors.blue;
 
 const String bg = "assets/BG.jpg";
 const String logo = 'assets/offYaba.png';

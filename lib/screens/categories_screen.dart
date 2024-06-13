@@ -1,9 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/models/app_bar_model.dart';
+import 'package:off_yaba/models/category_model.dart';
 import 'package:off_yaba/models/section_model.dart';
 import 'package:off_yaba/screens/clothes_section.dart';
 import 'package:off_yaba/screens/show_category_screen.dart';
 import 'package:off_yaba/services/network/sections_service.dart';
+import 'package:off_yaba/widgets/custom_search_deleget.dart';
 
 class CategoriesScreen extends StatefulWidget {
   static const routeName = '/category';
@@ -22,66 +27,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              Container(
-                  padding:
-                      const EdgeInsets.only(left: 32, right: 32, bottom: 16),
-                  margin: const EdgeInsets.only(left: 8, right: 8),
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      color: appColor,
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50))),
-                  width: double.infinity,
-                  child: Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 30,
-                          )),
-                      const Spacer(
-                        flex: 1,
-                      ),
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: const TextSpan(children: [
-                          TextSpan(
-                              text: "Off ",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  shadows: [])),
-                          TextSpan(
-                              text: "Yaba",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold))
-                        ]),
-                      ),
-                      const Spacer(
-                        flex: 1,
-                      ),
-                      const SizedBox(
-                        width: 50,
-                      ),
-                    ],
-                  )),
+              AppBarModel(
+                backArrow: true,
+                bell: false,
+                search: false,
+                cameraSettings: false,
+              ),
               Expanded(
                 child: SizedBox(
                   child: Padding(
@@ -130,45 +81,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                               "sec_id": sections[index].id
                                             });
                                       },
-                                      child: Container(
-                                        margin: const EdgeInsets.only(top: 8),
-                                        decoration: BoxDecoration(
-                                            image: const DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/categories.jpg"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.3),
-                                                spreadRadius: 5,
-                                                blurRadius: 20,
-                                                offset: const Offset(0,
-                                                    3), // changes position of shadow
-                                              ),
-                                            ],
-                                            color: appColor,
-                                            borderRadius:
-                                                BorderRadius.circular(30)),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              color:
-                                                  Colors.grey.withOpacity(0.6)),
-                                          child: Center(
-                                              child: Text(
-                                            // sections[index].name!,
-                                            sectionNames[index],
-                                            style: const TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily:
-                                                    "cocon-next-arabic"),
-                                          )),
-                                        ),
-                                      ),
+                                      child: CategoryModel(
+                                          sectionName: sectionNames[index]),
                                     );
                                   });
                             }
