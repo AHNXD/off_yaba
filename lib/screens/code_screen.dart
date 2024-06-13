@@ -77,12 +77,14 @@ class _CodeScreenState extends State<CodeScreen> {
                     child: Image.asset("assets/offYaba.png"),
                   ),
                   if (showError)
-                    Text(
-                      errorMessage,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: Colors.red),
+                    Center(
+                      child: Text(
+                        errorMessage,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: Colors.red),
+                      ),
                     ),
                   Container(
                     padding: const EdgeInsets.all(16),

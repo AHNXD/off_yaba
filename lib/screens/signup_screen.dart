@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:off_yaba/constant.dart';
@@ -115,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30)),
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: TextDirection.ltr,
                       child: IntlPhoneField(
                         controller: phoneController,
                         disableLengthCheck: true,

@@ -1,8 +1,8 @@
 name: off_yaba
-description: 'A new Flutter project.'
+description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: none # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -54,6 +54,9 @@ dependencies:
   uni_color_name: ^0.7.0
   sqflite: ^2.3.3+1
 
+  path: any
+dependency_overrides:
+  test_api: 0.6.1
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +91,5 @@ flutter:
     - family: Hacen Beirut
       fonts:
         - asset: fonts/Hacen Beirut.ttf
-  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

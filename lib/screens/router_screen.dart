@@ -8,7 +8,6 @@ import 'package:off_yaba/screens/home_screen.dart';
 
 import 'package:off_yaba/screens/offers_screen.dart';
 import 'package:off_yaba/screens/reports_screen.dart';
-import 'package:off_yaba/screens/scanner_screen.dart';
 import 'package:off_yaba/screens/settings_screen.dart';
 
 class RouterScreen extends StatefulWidget {
