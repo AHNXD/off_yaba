@@ -18,7 +18,7 @@ class DetailsListTile extends StatelessWidget {
     return ListTile(
       leading: Text(
         value,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -27,7 +27,7 @@ class DetailsListTile extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .titleLarge!
+                .bodyLarge!
                 .copyWith(color: appColor),
           ),
           Icon(

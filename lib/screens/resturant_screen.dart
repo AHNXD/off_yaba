@@ -40,18 +40,25 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.topLeft,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 32.0, right: 16, left: 16),
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                        )),
+                        const EdgeInsets.only(top: 10.0, right: 10, left: 10),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: appColor,
+                      ),
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                            textDirection: TextDirection.ltr,
+                          )),
+                    ),
                   ),
                 ),
                 Column(
@@ -182,7 +189,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
             child: Text(
               // lang == "ar" ? "النوع" : "Type",
               store.section!.name!,
-              style: const TextStyle(color: Colors.grey, fontSize: 25),
+              style: const TextStyle(color: Colors.grey, fontSize: 15),
             ),
           ),
           const Divider(
@@ -194,7 +201,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
               Center(
                 child: Text(
                   lang == "ar" ? "العروض" : "Offers",
-                  style: const TextStyle(color: Colors.grey, fontSize: 25),
+                  style: const TextStyle(color: Colors.grey, fontSize: 15),
                 ),
               ),
               FutureBuilder(

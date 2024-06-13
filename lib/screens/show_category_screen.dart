@@ -100,9 +100,14 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                                 );
                               }
                               List<StoreModel> stores = snapshot.data!;
-                              return ListView.builder(
+                              return ListView.separated(
                                   shrinkWrap: true,
                                   itemCount: stores.length,
+                                  separatorBuilder: (context, index) =>
+                                      const Divider(
+                                        thickness: 2,
+                                        color: Colors.grey,
+                                      ),
                                   itemBuilder: (BC, index) {
                                     return StoreCard(store: stores[index]);
                                   });

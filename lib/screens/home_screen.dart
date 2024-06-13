@@ -283,9 +283,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                                  height: 25,
+                            separatorBuilder: (context, index) => const Divider(
+                                  thickness: 2,
+                                  color: Colors.grey,
                                 ),
                             itemBuilder: (BC, index) {
                               return StoreCard(store: stores[index]);
