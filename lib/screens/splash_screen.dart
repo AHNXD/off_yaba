@@ -36,17 +36,17 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkTokenAndNavigate() async {
     String? token = await CacheHelper.getData(key: "token");
     String? userType = await CacheHelper.getData(key: "user_type");
-    if (token != null) {
-      if (userType == "emp") {
-        Navigator.of(context)
-            .pushReplacement(goRoute(x: const EmployeeScreen()));
-        return;
-      }
-      Navigator.of(context).pushReplacement(goRoute(x: const RouterScreen()));
-      return;
-    } else {
-      Navigator.of(context).pushReplacement(goRoute(x: const AuthScreen()));
-    }
+    // if (token != null) {
+    //   if (userType == "emp") {
+    //     Navigator.of(context)
+    //         .pushReplacement(goRoute(x: const EmployeeScreen()));
+    //     return;
+    //   }
+    Navigator.of(context).pushReplacement(goRoute(x: const RouterScreen()));
+    //   return;
+    // } else {
+    //   Navigator.of(context).pushReplacement(goRoute(x: const AuthScreen()));
+    // }
   }
 
   @override
