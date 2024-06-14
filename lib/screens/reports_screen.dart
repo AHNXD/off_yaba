@@ -26,7 +26,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomAppBar(
-                isBackable: false,
+                backArrow: false,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15.0, right: 30, left: 30),

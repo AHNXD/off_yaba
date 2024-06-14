@@ -12,7 +12,7 @@ class CartScreen extends StatelessWidget {
     return Column(
       children: [
         const CustomAppBar(
-          isBackable: false,
+          backArrow: false,
         ),
         Expanded(
           child: FutureBuilder(

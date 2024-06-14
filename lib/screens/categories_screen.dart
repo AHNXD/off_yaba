@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/models/app_bar_model.dart';
+import 'package:off_yaba/widgets/custom_appbar.dart';
 import 'package:off_yaba/models/category_model.dart';
 import 'package:off_yaba/models/section_model.dart';
 import 'package:off_yaba/screens/clothes_section.dart';
@@ -27,7 +27,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              AppBarModel(
+              CustomAppBar(
                 backArrow: true,
                 bell: false,
                 search: false,
