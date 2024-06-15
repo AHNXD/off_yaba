@@ -29,15 +29,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller!.pauseCamera();
+      camController!.pauseCamera();
     } else if (Platform.isIOS) {
-      controller!.resumeCamera();
+      camController!.resumeCamera();
     }
   }
 
   @override
   void dispose() {
-    controller?.dispose();
+    camController?.dispose();
     super.dispose();
   }
 
@@ -115,9 +115,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
                                 camOn = !camOn;
                                 camOncolor = camOn ? Colors.green : Colors.red;
                                 if (camOn) {
-                                  controller?.resumeCamera();
+                                  camController?.resumeCamera();
                                 } else {
-                                  controller?.stopCamera();
+                                  camController?.stopCamera();
                                 }
                               });
                             },
@@ -127,11 +127,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
                             )),
                         IconButton(
                           onPressed: () async {
-                            await controller?.toggleFlash();
+                            await camController?.toggleFlash();
                             setState(() {});
                           },
                           icon: FutureBuilder<bool?>(
-                            future: controller?.getFlashStatus(),
+                            future: camController?.getFlashStatus(),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.data != null) {
@@ -155,7 +155,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         ),
                         IconButton(
                             onPressed: () async {
-                              await controller?.flipCamera();
+                              await camController?.flipCamera();
                               setState(() {});
                             },
                             icon: const Icon(
@@ -226,8 +226,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   void _onQRViewCreated(QRViewController controller) async {
-    controller.scannedDataStream.listen((scanData) async {
-      controller.pauseCamera();
+    camController = controller;
+    camController!.scannedDataStream.listen((scanData) async {
+      camController!.pauseCamera();
       await player.play(AssetSource(audioasset));
 
       QRService.scanUserCode(code: scanData.code!)
@@ -236,13 +237,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 builder: (context) => const AlertDialog(
                   title: Center(child: Text("تمت العملية بنجاح")),
                 ),
-              ).then((value) => controller.resumeCamera()))
+              ).then((value) => camController!.resumeCamera()))
           .onError((error, stackTrace) => showDialog(
                 context: context,
                 builder: (context) => const AlertDialog(
                   title: Center(child: Text("قد تم استهلاك هذا الرمز")),
                 ),
-              ).then((value) => controller.resumeCamera()));
+              ).then((value) => camController!.resumeCamera()));
 
       print(scanData.code!);
     });

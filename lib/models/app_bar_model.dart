@@ -181,9 +181,9 @@ class _AppBarModelState extends State<AppBarModel> {
                                 camOn = !camOn;
                                 camOncolor = camOn ? Colors.green : Colors.red;
                                 if (camOn) {
-                                  controller?.resumeCamera();
+                                  camController?.resumeCamera();
                                 } else {
-                                  controller?.stopCamera();
+                                  camController?.stopCamera();
                                 }
                               });
                             },
@@ -193,11 +193,11 @@ class _AppBarModelState extends State<AppBarModel> {
                             )),
                         IconButton(
                           onPressed: () async {
-                            await controller?.toggleFlash();
+                            await camController?.toggleFlash();
                             setState(() {});
                           },
                           icon: FutureBuilder<bool?>(
-                            future: controller?.getFlashStatus(),
+                            future: camController?.getFlashStatus(),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.data != null) {
@@ -221,7 +221,7 @@ class _AppBarModelState extends State<AppBarModel> {
                         ),
                         IconButton(
                             onPressed: () async {
-                              await controller?.flipCamera();
+                              await camController?.flipCamera();
                               setState(() {});
                             },
                             icon: const Icon(

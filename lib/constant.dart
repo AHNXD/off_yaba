@@ -4,7 +4,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 const appColor = Color(0xFF58aad6);
 String lang = "ar";
 // for camera
-QRViewController? controller;
+QRViewController? camController;
 bool camOn = true;
 Color camOncolor = Colors.blue;
 
