@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/models/app_bar_model.dart';
+import 'package:off_yaba/widgets/custom_appbar.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        AppBarModel(
+        CustomAppBar(
             backArrow: false, bell: true, search: true, cameraSettings: false),
         SizedBox(
           child: Padding(
