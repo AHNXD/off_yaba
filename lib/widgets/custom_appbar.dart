@@ -4,10 +4,10 @@ import 'package:off_yaba/screens/categories_screen.dart';
 import 'package:off_yaba/widgets/custom_search_deleget.dart';
 
 class CustomAppBar extends StatefulWidget {
-  final bool backArrow ;
-  final bool bell ;
-  final bool search ;
-  final bool cameraSettings ;
+  final bool backArrow;
+  final bool bell;
+  final bool search;
+  final bool cameraSettings;
 
   const CustomAppBar({
     super.key,
@@ -181,9 +181,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                 camOn = !camOn;
                                 camOncolor = camOn ? Colors.green : Colors.red;
                                 if (camOn) {
-                                  controller?.resumeCamera();
+                                  camController?.resumeCamera();
                                 } else {
-                                  controller?.stopCamera();
+                                  camController?.stopCamera();
                                 }
                               });
                             },
@@ -193,11 +193,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                             )),
                         IconButton(
                           onPressed: () async {
-                            await controller?.toggleFlash();
+                            await camController?.toggleFlash();
                             setState(() {});
                           },
                           icon: FutureBuilder<bool?>(
-                            future: controller?.getFlashStatus(),
+                            future: camController?.getFlashStatus(),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.data != null) {
@@ -221,7 +221,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         ),
                         IconButton(
                             onPressed: () async {
-                              await controller?.flipCamera();
+                              await camController?.flipCamera();
                               setState(() {});
                             },
                             icon: const Icon(
