@@ -20,14 +20,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(
-                backArrow: false,
-              ),
+              const CustomAppBar(),
               Padding(
                 padding: const EdgeInsets.only(top: 15.0, right: 30, left: 30),
                 child: TextFormField(

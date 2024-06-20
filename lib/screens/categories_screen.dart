@@ -27,11 +27,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              CustomAppBar(
+              const CustomAppBar(
                 backArrow: true,
-                bell: false,
-                search: false,
-                cameraSettings: false,
               ),
               Expanded(
                 child: SizedBox(
