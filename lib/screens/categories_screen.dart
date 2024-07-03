@@ -29,9 +29,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             children: [
               const CustomAppBar(
                 backArrow: true,
-                bell: false,
-                search: false,
-                cameraSettings: false,
               ),
               Expanded(
                 child: SizedBox(

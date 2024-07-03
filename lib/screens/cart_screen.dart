@@ -20,7 +20,7 @@ class _CartScreenState extends State<CartScreen> {
     return Column(
       children: [
         const CustomAppBar(
-          backArrow: false,
+          bell: true,
         ),
         Expanded(
           child: FutureBuilder(

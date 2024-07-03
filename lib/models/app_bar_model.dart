@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
-import 'package:off_yaba/screens/scanner_screen.dart';
 import 'package:off_yaba/widgets/custom_search_deleget.dart';
 
-class CustomAppBar extends StatefulWidget {
-  final bool backArrow;
-  final bool bell;
-  final bool search;
-  final bool cameraSettings;
-  final bool scanner;
+class AppBarModel extends StatefulWidget {
+  bool backArrow = false;
+  bool bell = false;
+  bool search = false;
+  bool cameraSettings = false;
 
-  const CustomAppBar({
+  AppBarModel({
     super.key,
-    this.backArrow = false,
-    this.bell = false,
-    this.search = false,
-    this.cameraSettings = false,
-    this.scanner = false,
+    required this.backArrow,
+    required this.bell,
+    required this.search,
+    required this.cameraSettings,
   });
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
+  State<AppBarModel> createState() => _AppBarModelState();
 }
 
-class _CustomAppBarState extends State<CustomAppBar> {
+class _AppBarModelState extends State<AppBarModel> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,77 +36,84 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
-            gradient: const LinearGradient(colors: [Colors.blue, appColor]),
+            color: appColor,
             borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50))),
         width: double.infinity,
         child: Column(
           children: [
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                widget.backArrow
-                    ? IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 30,
-                        ))
-                    : widget.bell
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.notifications_active,
-                              color: Colors.white,
-                            ))
-                        : widget.scanner
-                            ? IconButton(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed(ScannerScreen.routeName);
-                                },
-                                icon: const Icon(
-                                  Icons.qr_code_scanner,
-                                  color: Colors.white,
-                                  weight: 2,
-                                ),
-                              )
-                            : const SizedBox(
-                                width: 50,
-                              ),
-                const Spacer(
-                  flex: 1,
-                ),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(children: [
-                    TextSpan(
-                        text: "Off ",
-                        style: TextStyle(
+            widget.backArrow && !widget.bell
+                ? Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
                             color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            shadows: [])),
-                    TextSpan(
-                        text: "Yaba",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold))
-                  ]),
-                ),
-                const Spacer(
-                  flex: 1,
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-              ],
-            ),
+                            size: 30,
+                          )),
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: [
+                          TextSpan(
+                              text: "Off ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: [])),
+                          TextSpan(
+                              text: "Yaba",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold))
+                        ]),
+                      ),
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.notifications_active,
+                            color: Colors.white,
+                          )),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: [
+                          TextSpan(
+                              text: "Off ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: [])),
+                          TextSpan(
+                              text: "Yaba",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold))
+                        ]),
+                      ),
+                    ],
+                  ),
             widget.search
                 ? Container(
                     padding: const EdgeInsets.only(left: 12, right: 12),
