@@ -44,7 +44,7 @@ class DatabaseHelper {
     final db = await _getDB();
 
     final List<Map<String, dynamic>> items = await db.query("Cart");
-    print("itemmmmsssss $items");
+
     if (items.isEmpty) {
       return null;
     }

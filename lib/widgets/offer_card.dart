@@ -102,11 +102,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
+import 'package:off_yaba/screens/order_item_details_screen.dart';
 import 'package:off_yaba/services/local/database_helper.dart';
 
 class OfferCard extends StatefulWidget {
-  const OfferCard({super.key, required this.offer});
+  const OfferCard({super.key, required this.offer, this.isDeleteable = false});
   final StoreOfferModel offer;
+  final bool isDeleteable;
 
   @override
   State<OfferCard> createState() => _OfferCardState();
@@ -115,140 +117,71 @@ class OfferCard extends StatefulWidget {
 class _OfferCardState extends State<OfferCard> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          margin: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-              border: Border.all(color: appColor, width: 2),
-              borderRadius: BorderRadius.circular(30)),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            widget.offer.title!,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            "9000 دينار",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: Colors.red),
-                          ),
-                        ],
-                      ),
-                      Wrap(
-                        children: [
-                          Text(
-                            widget.offer.body!,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: Colors.grey.shade600),
-                          ),
-                        ],
-                      ),
-                    ],
+    return GestureDetector(
+      onTap: () => Navigator.of(context)
+          .pushNamed(OrderItemDeatils.routeName, arguments: {
+        "offer": widget.offer,
+      }),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(widget.offer.image!)),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                  flex: 2,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.network(widget.offer.image!))),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 35,
-            decoration: BoxDecoration(
-              color: appColor,
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () async {
-                    widget.offer.itemCount++;
-                    print(widget.offer.itemCount);
-                    if (widget.offer.itemCount == 1) {
-                      await DatabaseHelper.addCartItem(widget.offer).then(
-                        (value) {
-                          print(value);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("تمت الإضافة للسلة بنجاح")));
-                          setState(() {});
-                          return;
-                        },
-                      );
-                    }
-                    await DatabaseHelper.updateCartItem(widget.offer);
-                    setState(() {});
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.add,
-                    size: 20,
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.offer.title!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Colors.grey.shade700),
+                        ),
+                        Text(
+                          widget.offer.body!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   ),
-                  color: Colors.white,
-                ),
-                const VerticalDivider(
-                  color: Colors.white,
-                ),
-                Text(
-                  widget.offer.itemCount.toString(),
+                ],
+              )),
+          if (widget.offer.price != null)
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  "${widget.offer.price} دينار",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyLarge!
-                      .copyWith(color: Colors.white),
+                      .bodyMedium!
+                      .copyWith(color: Colors.grey.shade700),
                 ),
-                const VerticalDivider(
-                  color: Colors.white,
-                ),
-                IconButton(
-                  onPressed: widget.offer.itemCount == 0
-                      ? null
-                      : () async {
-                          widget.offer.itemCount--;
-                          if (widget.offer.itemCount == 0) {
-                            await DatabaseHelper.deleteCartItem(widget.offer)
-                                .then((va) => setState(() {}));
-                          }
-                          await DatabaseHelper.updateCartItem(widget.offer)
-                              .then((value) => setState(() {}));
-                        },
-                  icon: const Icon(
-                    CupertinoIcons.minus,
-                    size: 20,
-                  ),
-                  color: Colors.white,
-                ),
-              ],
+              ),
             ),
-          ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }
+
 
 
 // Container(

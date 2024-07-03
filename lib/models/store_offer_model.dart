@@ -10,6 +10,7 @@ class StoreOfferModel {
   String? title;
   String? body;
   int itemCount;
+  double? price;
 
   StoreOfferModel({
     this.id,
@@ -17,6 +18,7 @@ class StoreOfferModel {
     this.image,
     this.title,
     this.body,
+    this.price,
     this.itemCount = 0,
   });
 
@@ -51,6 +53,7 @@ class StoreOfferModel {
 
   factory StoreOfferModel.fromMap(Map<String, dynamic> map,
       {String source = "web"}) {
+    print(map);
     return StoreOfferModel(
       id: map['id'] != null ? map['id'] as int : null,
       discount: map['discount'] != null ? map['discount'] as int : null,
@@ -59,6 +62,7 @@ class StoreOfferModel {
           : map["image"],
       title: map['title'] != null ? map['title'] as String : null,
       body: map['body'] != null ? map['body'] as String : null,
+      price: map['price']?.toDouble(),
       itemCount: map['itemCount'] != null ? map['itemCount'] as int : 0,
     );
   }

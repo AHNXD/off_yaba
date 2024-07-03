@@ -27,7 +27,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              CustomAppBar(
+              const CustomAppBar(
                 backArrow: true,
                 bell: false,
                 search: false,
@@ -45,15 +45,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               List<SectionModel> sections = snapshot.data!;
-                              print(sections);
-                              //FIXME:
-                              List<String> sectionNames = [
-                                "المطاعم",
-                                "الصيدليات",
-                                "المتاجر",
-                                "الأحذية",
-                                "الملابس"
-                              ];
+
                               return GridView.builder(
                                   shrinkWrap: true,
                                   itemCount: sections.length,
@@ -70,7 +62,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   itemBuilder: (BuildContext, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        if (sectionNames[index] == "الملابس") {
+                                        if (sections[index].name == "ملابس") {
                                           Navigator.of(context).pushNamed(
                                               ClothesSectionScreen.routeName);
                                           return;
@@ -82,7 +74,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                             });
                                       },
                                       child: CategoryModel(
-                                          sectionName: sectionNames[index]),
+                                          sectionName: sections[index].name!),
                                     );
                                   });
                             }

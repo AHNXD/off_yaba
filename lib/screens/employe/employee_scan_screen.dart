@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/services/network/qr_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -46,6 +47,20 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: appColor,
+            shape: const BeveledRectangleBorder(),
+            minimumSize: const Size.fromHeight(kToolbarHeight),
+            maximumSize: const Size.fromHeight(kToolbarHeight),
+          ),
+          onPressed: () {
+            Navigator.of(context).pushNamed(StoreOrdersScreen.routeName);
+          },
+          child: const Text(
+            "طلباتي",
+            style: TextStyle(color: Colors.white),
+          )),
       body: Column(
         children: [
           Container(
@@ -209,7 +224,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -220,7 +235,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
       await player.play(AssetSource(audioasset));
-      log("codeee");
+
       QRService.scanEmployeeCode(code: scanData.code!)
           .then((value) => showDialog(
                 context: context,
