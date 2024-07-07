@@ -11,7 +11,6 @@ class AuthApiService {
   static Future<Either<void, ApiFailure>> register(
       {required String name, required String phone}) async {
     try {
-      log(phone);
       Response? response =
           await DioHelper.postData(path: 'user/register', data: {
         "phone_number": "+964$phone",
@@ -20,8 +19,6 @@ class AuthApiService {
 
       return const Left(null);
     } on DioException catch (e) {
-      print(e);
-
       int statusCode = e.response!.statusCode!;
       if (e.response!.statusCode == 400) {
         return Right(ApiFailure(
@@ -45,7 +42,6 @@ class AuthApiService {
       await CacheHelper.setString(key: "token", value: "Bearer ${user.token!}");
       return Left(user);
     } on DioException catch (e) {
-      print(e.response!.data);
       return Right(ApiFailure());
       // if (e.response!.statusCode == 400) {
       //   return Right(ApiFailure(
@@ -59,14 +55,12 @@ class AuthApiService {
   static Future<Either<void, ApiFailure>> loginUser(
       {required String phoneNumber}) async {
     try {
-      log(phoneNumber);
       var response = await DioHelper.postData(path: 'user/login', data: {
         "phone_number": "+964$phoneNumber",
       });
 
       return const Left(null);
     } on DioException catch (e) {
-      print(e.response!.data);
       return Right(ApiFailure(
           message: e.response!.data["message"],
           statusCode: e.response!.statusCode));
@@ -77,14 +71,12 @@ class AuthApiService {
   static Future<Either<void, ApiFailure>> loginUserWithoutVerify(
       {required String phoneNumber}) async {
     try {
-      log(phoneNumber);
       var response = await DioHelper.postData(path: 'user/login', data: {
         "phone_number": "+964$phoneNumber",
       });
 
       return const Left(null);
     } on DioException catch (e) {
-      print(e.response!.data);
       return Right(ApiFailure(
           message: e.response!.data["message"],
           statusCode: e.response!.statusCode));
@@ -94,7 +86,6 @@ class AuthApiService {
   static Future<Either<UserModel, ApiFailure>> loginEmployee(
       {required String phoneNumber}) async {
     try {
-      log(phoneNumber);
       Response? response =
           await DioHelper.postData(path: 'employee/login', data: {
         "phone_number": phoneNumber,

@@ -174,8 +174,6 @@ class _CodeScreenState extends State<CodeScreen> {
                                   padding: const EdgeInsets.all(16)),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  log(userType);
-                                  log(authType);
                                   Map<String, dynamic> data = {
                                     "code": code,
                                     "phone_number":

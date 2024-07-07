@@ -10,7 +10,7 @@ class DioHelper {
   // static String baseUrl = "https://3c5d-169-150-218-138.ngrok-free.app/api/";
   static String baseUrl = "http://rnw.f0d.mytemp.website/api/";
   static String token =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYzVkOWI0MjA5NWY4NWFjNDc2ZThmZDUxMWI2MWU0ZjRhMjcyMTY4ODgxZTkzZjlmNDNlMmU3ZjFhNTU1N2UxZWY1ZTdlNjFiODA0ZWVmMjMiLCJpYXQiOjE3MTc2OTEwNDQuNDYyMDY1LCJuYmYiOjE3MTc2OTEwNDQuNDYyMDY2LCJleHAiOjE3NDkyMjcwNDQuNDU4ODUsInN1YiI6IjQiLCJzY29wZXMiOlsidXNlciJdfQ.YQRhIqC_ruIIhQEL5UbzEC0sjtPiTw-jby1SqIH_u3-wJ_RJjwTKJzwYbkYEgOIgjBRDiFJ5HslE14cuwLd1p31qOYObJVc1-fnvqchrZojht8Ptx2nxgX68_iclYqhCPO9aHbCcVTK5v0uzOvoWSCy_Fcv8ZsgORBP6uEmaQpwu-ACbMdt7vLR6-KhXe_bidyAAcDWecRreiM9Nc-7br_KQMPufDE-6kIUsyqkUjz-Y30XFIXS3dhvSrh3k6CZmn-PlTdiGLv0tV9l-B6JZWMy-KBR0AybCUIGa3YL7yeeb6a16DNgLfDfTKZ9zR3H9EYoWKNUk-MlIQwEyw0vCrpOHm33YJlkaCrwZg2sgVsb-aYGBYIaeotye2aBhX1MrCBfwbrFeUuww3mzWR-ELApc4rGymHxMpnciUknW-QTFbV6pN80WL32ITCSmDvx5oCBL_M22rElWGqECunTyn6KCtOHP_NN6wdDd_baJNqLfZSuX1emjqbl5qNvb71kMIMsuDv181-d441JCldntF-T5p6faakW3fC6Pb6ZaOoRAqBLHJAmpwM2EHejDcfCHCo-2iKLFQurvw95jx3IvzoL9z3_j0CNRmZu_m2mqHPsrN0SPWHNagTD84pw3XwrRcas50_-85rAD27Z0JClEOVl0SVS9VZQKl0OLGsJWb8uk";
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODI5ZDhjOWY3MTlkYjQzOGVkNTM0Mzk5YWMwY2YzOGZmODAzY2Q1YjUzNWExODBkYTJkNjFhNDAxYTcwZTQ2YjI5M2MyYzJlNDY0OTlmMGUiLCJpYXQiOjE3MjAwMzQ0NTEuNDU4NzM3LCJuYmYiOjE3MjAwMzQ0NTEuNDU4NzM5LCJleHAiOjE3NTE1NzA0NTEuNDUyODM4LCJzdWIiOiI0Iiwic2NvcGVzIjpbInVzZXIiXX0.rXJDfrBWVPu8G6PlZjmqF4N-eqD9GwmsX0UVOtcu7B6XI8_sGwJGeXC8JT6VhnaSKS-Q5USiV3w-_MIT6ORwYOTO7tWm8y4lJBWDmr_TWoEohLw7F9kp-Hfunjr4Zip2riLPGSkatwFyFrnlpEmgL-4MqG5Y_bpF3IkHx-Qw9SgPq4DIdVEIIAuuAdsXvBDAgb2UBSdA7ncxFqLMP_KPPzJU32ZC403JaE5JxyR_zFJ_spl6P6NiMCdnjIOeX2SegGsUcWleRdZTZLS51aUegQqP7Bo0vupS0mHUiWJP0AsXfL91vvMsfddoW91TvnFjkbLVekwlK4RLa5Kw5cLKTMWn5CuE22nhvLVMj_0Bpo24Ww2jTSt4MzNba5sOAMY5dXX0V5AF6MpvpjwqsUPq6vhClo4mhfut0WMFtU-vRQFJ1gebXh4-lGB02ddaRg3NSO5YCCvb-98JnC18W6FVOObmWd3umMlx9rnXwW8NcToLGJshZzwQbWC0QqYzJejU1b3ISBnQJL7UG3o4WueTFcOKriUDC_IfhbZ2cXcJuucNx42ThAbJp6wKkFuM2B1FuUGD_nXpRKsE8zKsHHTaDyrMunpuNyyqi4Vpdgw3s6LqlTQM5aB4T_XneT16rr6GIni9OVBrStElhgBPElPLxJFO8xfh1zQkh0v6sbuHHSk";
   static init() async {
     dio = Dio(BaseOptions(
       baseUrl: baseUrl,
@@ -66,7 +66,6 @@ class DioHelper {
     headers['Authorization'] = token;
 
     headers["Accept"] = "application/json";
-    log(headers["Authorization"]);
     return await dio?.get(path,
         queryParameters: queryParameters, options: Options(headers: headers));
   }

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
 import 'package:off_yaba/screens/clothes_section.dart';
 import 'package:off_yaba/screens/clothing_item_details.dart';
 import 'package:off_yaba/screens/code_screen.dart';
+import 'package:off_yaba/screens/confirm_order_screen.dart';
+import 'package:off_yaba/screens/employe/order_details_screen.dart';
+import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/screens/offer_details_screen.dart';
+import 'package:off_yaba/screens/order_item_details_screen.dart';
 import 'package:off_yaba/screens/reports_screen.dart';
 import 'package:off_yaba/screens/resturant_screen.dart';
 import 'package:off_yaba/screens/scanner_screen.dart';
@@ -37,7 +42,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Off-Yaba',
       theme: ThemeData(
-        fontFamily: 'Hacen Beirut',
+        fontFamily: GoogleFonts.cairo.call().fontFamily,
         colorScheme: ColorScheme.fromSeed(seedColor: appColor),
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.grey.shade200,
@@ -65,6 +70,10 @@ class MyApp extends StatelessWidget {
         ClothingItemDetailsScreen.routeName: (context) =>
             const ClothingItemDetailsScreen(),
         ScannerScreen.routeName: (context) => const ScannerScreen(),
+        OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
+        ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
+        StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
+        OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
       },
     );
   }
