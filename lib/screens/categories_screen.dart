@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
-import 'package:off_yaba/models/category_model.dart';
+import 'package:off_yaba/widgets/category_card.dart';
 import 'package:off_yaba/models/section_model.dart';
 import 'package:off_yaba/screens/clothes_section.dart';
 import 'package:off_yaba/screens/show_category_screen.dart';
 import 'package:off_yaba/services/network/sections_service.dart';
-import 'package:off_yaba/widgets/custom_search_deleget.dart';
 
 class CategoriesScreen extends StatefulWidget {
   static const routeName = '/category';
@@ -48,30 +47,28 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   itemCount: sections.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2, // Number of columns
-                                    crossAxisSpacing:
-                                        10.0, // Spacing between columns
-                                    mainAxisSpacing:
-                                        10.0, // Spacing between rows
-                                    childAspectRatio:
-                                        1.0, // Aspect ratio of items
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10.0,
+                                    mainAxisSpacing: 10.0,
+                                    childAspectRatio: 1.0,
                                   ),
                                   itemBuilder: (BuildContext, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        if (sections[index].name == "ملابس") {
-                                          Navigator.of(context).pushNamed(
-                                              ClothesSectionScreen.routeName);
-                                          return;
-                                        }
+                                        // if (sections[index].name == "ملابس") {
+                                        //   Navigator.of(context).pushNamed(
+                                        //       ClothesSectionScreen.routeName);
+                                        //   return;
+                                        // }
                                         Navigator.pushNamed(context,
                                             ShowCategoryScreen.routeName,
                                             arguments: {
                                               "sec_id": sections[index].id
                                             });
                                       },
-                                      child: CategoryModel(
-                                          sectionName: sections[index].name!),
+                                      child: CategoryCard(
+                                        section: sections[index],
+                                      ),
                                     );
                                   });
                             }

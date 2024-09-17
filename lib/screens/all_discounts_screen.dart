@@ -13,6 +13,7 @@ class AllDiscountsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const CustomAppBar(),
               const SizedBox(
@@ -37,7 +38,7 @@ class AllDiscountsScreen extends StatelessWidget {
                 future: StoreService.getStoresWithBestOffers(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return const Expanded(
+                    return const Flexible(
                       child: Center(
                         child: Text("لقد حدثت مشكلة ما يرجى المحاولة لاحقا"),
                       ),

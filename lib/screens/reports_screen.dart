@@ -79,27 +79,27 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      textDirection: TextDirection.rtl,
-                      maxLines: null,
-                      readOnly: true,
-                      initialValue:
-                          'Occaecat sunt nulla et esse est incididunt sunt laborum qui.. Lorem Lorem aliqua sit adipisicing. Laborum ipsum dolore ipsum cupidatat id et id nulla.',
-                      decoration: InputDecoration(
-                        filled: true,
-                        border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: appColor, width: 2),
-                            borderRadius: BorderRadius.circular(20)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: appColor, width: 2),
-                            borderRadius: BorderRadius.circular(20)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: appColor),
-                            borderRadius: BorderRadius.circular(20)),
-                      ),
-                    ),
+                    // TextFormField(
+                    //   textDirection: TextDirection.rtl,
+                    //   maxLines: null,
+                    //   readOnly: true,
+                    //   initialValue:
+                    //       'Occaecat sunt nulla et esse est incididunt sunt laborum qui.. Lorem Lorem aliqua sit adipisicing. Laborum ipsum dolore ipsum cupidatat id et id nulla.',
+                    //   decoration: InputDecoration(
+                    //     filled: true,
+                    //     border: OutlineInputBorder(
+                    //         borderSide:
+                    //             const BorderSide(color: appColor, width: 2),
+                    //         borderRadius: BorderRadius.circular(20)),
+                    //     enabledBorder: OutlineInputBorder(
+                    //         borderSide:
+                    //             const BorderSide(color: appColor, width: 2),
+                    //         borderRadius: BorderRadius.circular(20)),
+                    //     focusedBorder: OutlineInputBorder(
+                    //         borderSide: const BorderSide(color: appColor),
+                    //         borderRadius: BorderRadius.circular(20)),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

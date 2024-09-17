@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/code_scanner_model.dart';
 import 'package:off_yaba/screens/offer_details_screen.dart';
-import 'package:off_yaba/screens/scanner_screen.dart';
 import 'package:off_yaba/services/network/qr_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 
@@ -39,7 +38,7 @@ class _OffersScreenState extends State<OffersScreen> {
                       return ListView.builder(
                           shrinkWrap: true,
                           itemCount: codes.length,
-                          itemBuilder: (BuildContext, index) {
+                          itemBuilder: (buildContext, index) {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(

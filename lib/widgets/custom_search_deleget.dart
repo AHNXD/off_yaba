@@ -12,11 +12,9 @@ class StoreSearchDelegate extends SearchDelegate {
       if (response!.data['success']) {
         return response.data['data']['stores'];
       } else {
-        print('Search failed: ${response.data['message']}');
         return [];
       }
-    } on DioException catch (e) {
-      print('DioError: $e');
+    } on DioException {
       return [];
     }
   }

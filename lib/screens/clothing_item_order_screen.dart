@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/clothing_item_model.dart';
-import 'package:off_yaba/screens/clothing_item_order_screen.dart';
-import 'package:off_yaba/screens/resturant_screen.dart';
+import 'package:off_yaba/screens/clothing_item_details.dart';
 import 'package:off_yaba/services/network/cart_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 import 'package:uni_color_name/uni_color_name.dart';
 
-class ClothingItemDetailsScreen extends StatelessWidget {
-  const ClothingItemDetailsScreen({super.key});
-  static String routeName = '/clothing-item-details';
+class ClothingItemOrderScreen extends StatefulWidget {
+  final ClothingItemModel clothingItem;
+
+  const ClothingItemOrderScreen({super.key, required this.clothingItem});
+
+  @override
+  _ClothingItemOrderScreenState createState() =>
+      _ClothingItemOrderScreenState();
+}
+
+class _ClothingItemOrderScreenState extends State<ClothingItemOrderScreen> {
+  String extraNotes = '';
+  String? selectedSize;
+  Color? selectedColor;
 
   @override
   Widget build(BuildContext context) {
-    final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    ClothingItemModel clothingItem = arguments['item'];
-
     return Scaffold(
       bottomNavigationBar: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
@@ -25,11 +32,23 @@ class ClothingItemDetailsScreen extends StatelessWidget {
           maximumSize: const Size.fromHeight(kToolbarHeight),
         ),
         onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                ClothingItemOrderScreen(clothingItem: clothingItem),
-          ));
+          CartService.addItemToCart(
+                  itemId: widget.clothingItem.itemId!,
+                  itemCount: widget.clothingItem.itemCount == 0
+                      ? 1
+                      : widget.clothingItem.itemCount,
+                  extra_notes: extraNotes)
+              .then(
+            (value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("تمت الإضافة للسلة بنجاح"),
+                ),
+              );
+              Navigator.pop(context);
+              return;
+            },
+          );
         },
         label: const Text(
           "إضافة الى السلة",
@@ -59,30 +78,25 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: clothingItem.image != 'no-image'
+                          child: widget.clothingItem.image != 'no-image'
                               ? Image.network(
-                                  clothingItem.image!,
-                                  // Set a fixed height for the image
-
-                                  width: double
-                                      .infinity, // Ensure image takes full width
+                                  widget.clothingItem.image!,
+                                  width: double.infinity,
                                 )
                               : Container(
-                                  height:
-                                      200, // Set a fixed height for the placeholder
+                                  height: 200,
                                   decoration: BoxDecoration(
                                     color: Colors.grey[300],
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  width: double
-                                      .infinity, // Ensure container takes full width
+                                  width: double.infinity,
                                   child: const Center(
                                     child: Text('No Image Available'),
                                   ),
                                 ),
                         ),
-                        if (clothingItem.discount != null &&
-                            clothingItem.discount! > 0)
+                        if (widget.clothingItem.discount != null &&
+                            widget.clothingItem.discount! > 0)
                           Positioned(
                             top: 5,
                             right: 5,
@@ -96,7 +110,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
-                                '-${clothingItem.discount!.toStringAsFixed(0)}%',
+                                '-${widget.clothingItem.discount!.toStringAsFixed(0)}%',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -117,7 +131,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                clothingItem.name!,
+                                widget.clothingItem.name!,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -127,7 +141,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: Text(
-                                  clothingItem.store!.name!,
+                                  widget.clothingItem.store!.name!,
                                   maxLines: 3,
                                   style: TextStyle(
                                     color: Colors.grey[600],
@@ -141,7 +155,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                '${(clothingItem.price! - (clothingItem.price! * clothingItem.discount! / 100)).toStringAsFixed(2)}د.ع',
+                                '${(widget.clothingItem.price! - (widget.clothingItem.price! * widget.clothingItem.discount! / 100)).toStringAsFixed(2)}د.ع',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -151,7 +165,8 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    clothingItem.price?.toStringAsFixed(2) ??
+                                    widget.clothingItem.price
+                                            ?.toStringAsFixed(2) ??
                                         "N/A",
                                     style: const TextStyle(
                                       color: Colors.grey,
@@ -162,7 +177,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 8.0),
                                   Text(
-                                    "${clothingItem.discount!.toString()}%-",
+                                    "${widget.clothingItem.discount!.toString()}%-",
                                     style: const TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold,
@@ -177,26 +192,6 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    ListTile(
-                      selectedTileColor: Colors.white,
-                      selected: true,
-                      onTap: () => Navigator.of(context).pushNamed(
-                          RestaurantScreen.routeName,
-                          arguments: {"store": clothingItem.store}),
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(clothingItem.store!.image!),
-                      ),
-                      title: Text(clothingItem.store!.name!),
-                      subtitle: Text(
-                        clothingItem.store!.address!,
-                        style: TextStyle(color: Colors.grey.shade600),
-                      ),
-                      trailing: const Icon(Icons.link),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    const SizedBox(height: 10),
                     Container(
                       color: Colors.white,
                       padding: const EdgeInsets.all(10),
@@ -205,7 +200,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'المقاسات:',
+                            "يرجى اختيار المقاس",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.normal,
@@ -214,9 +209,20 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: clothingItem.sizes!
+                            children: widget.clothingItem.sizes!
                                 .map(
-                                  (e) => Expanded(child: SizeBox(size: e)),
+                                  (e) => Expanded(
+                                    child: SizeBox(
+                                      size: e,
+                                      isSelected: selectedSize == e,
+                                      onTap: () {
+                                        setState(() {
+                                          selectedSize = e;
+                                          extraNotes = 'Size: $selectedSize';
+                                        });
+                                      },
+                                    ),
+                                  ),
                                 )
                                 .toList(),
                           ),
@@ -234,7 +240,7 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'الألوان:',
+                            'يرجى إختيار اللون',
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -242,46 +248,10 @@ class ClothingItemDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: _buildColorWidgets(clothingItem.colors!),
+                            children:
+                                _buildColorWidgets(widget.clothingItem.colors!),
                           ),
                           const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(10),
-                      width: double.infinity,
-                      child: Text(
-                        'القماش: ${clothingItem.material ?? "N/A"}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(10),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "التفاصيل:",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Voluptate nostrud qui minim labore eu magna enim veniam. Ipsum ea fugiat proident aliqua veniam culpa et. Aute nulla enim quis dolor pariatur proident duis ad enim eiusmod quis. Aliquip consectetur velit ad veniam pariatur pariatur. Sit cupidatat id esse pariatur sit est anim do do excepteur enim laborum nostrud. Adipisicing et et occaecat officia.',
-                            style: TextStyle(wordSpacing: 5),
-                          )
                         ],
                       ),
                     ),
@@ -297,56 +267,30 @@ class ClothingItemDetailsScreen extends StatelessWidget {
 
   List<Widget> _buildColorWidgets(List colors) {
     var pallete = UniColorName(zeplinPalette);
-    return (colors).map((color) {
-      return Container(
-        width: 40,
-        height: 40,
-        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-        decoration: BoxDecoration(
+    return colors.map((color) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedColor = Color(pallete.value(color)!.argbInt8);
+            extraNotes += ', Color: $color';
+          });
+        },
+        child: Container(
+          width: 40,
+          height: 40,
+          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+          decoration: BoxDecoration(
             color: Color(pallete.value(color)!.argbInt8),
-            border: Border.all(color: Colors.grey.shade600, width: 2),
-            borderRadius: BorderRadius.circular(10)),
+            border: Border.all(
+              color: selectedColor == Color(pallete.value(color)!.argbInt8)
+                  ? Colors.green
+                  : Colors.grey.shade600,
+              width: 3,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
       );
     }).toList();
-  }
-}
-
-class SizeBox extends StatelessWidget {
-  final String size;
-  final bool isSelected;
-  final VoidCallback? onTap;
-
-  const SizeBox({
-    super.key,
-    required this.size,
-    this.isSelected = false,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.green : Colors.grey[200],
-          border: Border.all(
-            color: isSelected ? Colors.green : Colors.grey,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          size,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
   }
 }

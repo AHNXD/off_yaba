@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
-import 'package:off_yaba/services/local/database_helper.dart';
 import 'package:off_yaba/services/network/cart_service.dart';
-import 'package:off_yaba/widgets/custom_appbar.dart';
 
 class OrderItemDeatils extends StatefulWidget {
   static String routeName = '/order-item-details';
@@ -31,7 +29,9 @@ class _OrderItemDeatilsState extends State<OrderItemDeatils> {
             ? null
             : () {
                 CartService.addItemToCart(
-                        itemId: offer.id!, itemCount: offer.itemCount)
+                        itemId: offer.id!,
+                        itemCount: offer.itemCount,
+                        extra_notes: offer.name)
                     .then(
                   (value) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -89,19 +89,19 @@ class _OrderItemDeatilsState extends State<OrderItemDeatils> {
               height: 10,
             ),
             Text(
-              offer.title!,
+              offer.name!,
               style: Theme.of(context).textTheme.titleLarge!,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              offer.body!,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Colors.grey.shade600),
-            ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Text(
+            //   offer.body!,
+            //   style: Theme.of(context)
+            //       .textTheme
+            //       .bodyMedium!
+            //       .copyWith(color: Colors.grey.shade600),
+            // ),
             const SizedBox(
               height: 10,
             ),

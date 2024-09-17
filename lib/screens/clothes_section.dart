@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/clothing_item_model.dart';
 import 'package:off_yaba/services/network/clothing_service.dart';
-import 'package:off_yaba/widgets/clothing_item.dart';
+import 'package:off_yaba/widgets/clothing_item_card.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 
 class ClothesSectionScreen extends StatefulWidget {

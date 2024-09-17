@@ -108,7 +108,7 @@ class _ShowCategoryScreenState extends State<ShowCategoryScreen> {
                                         thickness: 2,
                                         color: Colors.grey,
                                       ),
-                                  itemBuilder: (BC, index) {
+                                  itemBuilder: (buildContext, index) {
                                     return StoreCard(store: stores[index]);
                                   });
                             }

@@ -4,7 +4,7 @@ class CartModel {
   int? id;
   int? userId;
   int? storeId;
-  int? total;
+  double? total;
   String? createdAt;
   String? updatedAt;
   List<Items>? items;
@@ -22,7 +22,7 @@ class CartModel {
     id = json['id'];
     userId = json['user_id'];
     storeId = json['store_id'];
-    total = json['total'];
+    total = json['total'] as double;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     if (json['items'] != null) {

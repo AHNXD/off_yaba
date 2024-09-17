@@ -78,7 +78,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: appColor, fontWeight: FontWeight.bold),
                       ),
-                      titleText: cart!.items![index].item!.title!,
+                      titleText: cart!.items![index].item!.name!,
                       trailingText:
                           '${cart!.items![index].item!.price! * cart!.items![index].quantity!}د.ع',
                     ),

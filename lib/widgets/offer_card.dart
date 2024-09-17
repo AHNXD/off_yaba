@@ -97,13 +97,9 @@
 //   bool shouldRepaint(CustomPainter oldDelegate) => false;
 // }
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
 import 'package:off_yaba/screens/order_item_details_screen.dart';
-import 'package:off_yaba/services/local/database_helper.dart';
 
 class OfferCard extends StatefulWidget {
   const OfferCard({super.key, required this.offer, this.isDeleteable = false});
@@ -118,51 +114,53 @@ class _OfferCardState extends State<OfferCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context)
-          .pushNamed(OrderItemDeatils.routeName, arguments: {
-        "offer": widget.offer,
-      }),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-              flex: 2,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Image.network(widget.offer.image!)),
+        onTap: () => Navigator.of(context)
+                .pushNamed(OrderItemDeatils.routeName, arguments: {
+              "offer": widget.offer,
+            }),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+                flex: 2,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              widget.offer.image!,
+                              height: MediaQuery.of(context).size.height * 0.1,
+                            )),
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.offer.title!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: Colors.grey.shade700),
-                        ),
-                        Text(
-                          widget.offer.body!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.grey),
-                        ),
-                      ],
+                    Flexible(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.offer.name!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: Colors.grey.shade700),
+                          ),
+                          // Text(
+                          //   widget.offer.body!,
+                          //   style: Theme.of(context)
+                          //       .textTheme
+                          //       .bodySmall!
+                          //       .copyWith(color: Colors.grey),
+                          // ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
-          if (widget.offer.price != null)
+                  ],
+                )),
             Expanded(
               flex: 1,
               child: Align(
@@ -176,9 +174,8 @@ class _OfferCardState extends State<OfferCard> {
                 ),
               ),
             ),
-        ],
-      ),
-    );
+          ],
+        ));
   }
 }
 

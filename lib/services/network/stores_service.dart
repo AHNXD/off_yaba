@@ -13,26 +13,24 @@ class StoreService {
     required int latitude,
   }) async {
     try {
-      Position? position;
+      // Position? position;
       //TODO: Move Location to splash
-      if (await LocationService.checkGps()) {
-        position = await LocationService.getLocation();
-      }
+      // if (await LocationService.checkGps()) {
+      //   position = await LocationService.getLocation();
+      // }
 
       Response? response =
           await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
         "page": page.toString(),
-        "longitude": position != null ? position.longitude : longitude,
-        "latitude": position != null ? position.latitude : latitude,
+        "longitude": 44.3308333333,
+        "latitude": 31.9997222222,
       });
-
       List<dynamic> dynamicStores = response!.data["data"]["stores"];
 
       List<StoreModel> stores =
           dynamicStores.map((e) => StoreModel.fromMap(e)).toList();
       return stores;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -44,14 +42,12 @@ class StoreService {
           await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
         "section_ids": sectionId,
       });
-
       List<dynamic> dynamicStores = response!.data["data"]["stores"];
 
       List<StoreModel> stores =
           dynamicStores.map((e) => StoreModel.fromMap(e)).toList();
       return stores;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -68,8 +64,7 @@ class StoreService {
       List<StoreModel> stores =
           dynamicStores.map((e) => StoreModel.fromMap(e)).toList();
       return stores;
-    } catch (e) {
-      print(e);
+    } on DioException catch (e) {
       rethrow;
     }
   }
@@ -78,15 +73,14 @@ class StoreService {
       {required int storeId}) async {
     try {
       Response? response =
-          await DioHelper.getAuthorizedData(path: 'offers/$storeId');
+          await DioHelper.getAuthorizedData(path: 'stores/$storeId/items');
 
       List<dynamic> dynamicOffers = response!.data["data"];
-
       List<StoreOfferModel> offers =
           dynamicOffers.map((e) => StoreOfferModel.fromMap(e)).toList();
+
       return offers;
     } on DioException catch (e) {
-      print(e.response!.data);
       rethrow;
     }
   }
@@ -94,18 +88,19 @@ class StoreService {
   static Future<StoreDetailsModel> getStoreDetails(
       {required int storeId}) async {
     try {
-      Position? position;
+      // Position? position;
       //TODO: Move Location to splash
-      if (await LocationService.checkGps()) {
-        position = await LocationService.getLocation();
-      }
+      // if (await LocationService.checkGps()) {
+      //   position = await LocationService.getLocation();
+      // }
 
       Response? response = await DioHelper.getAuthorizedData(
           path: 'stores/$storeId',
           queryParameters: {
-            "longitude": position?.longitude,
-            "latitude": position?.latitude,
+            "longitude": 44.3308333333,
+            "latitude": 31.9997222222,
           });
+
       return StoreDetailsModel.fromMap(response!.data["data"]);
     } on DioException {
       rethrow;

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/models/section_model.dart';
 
-class CategoryModel extends StatelessWidget {
-  const CategoryModel({
+class CategoryCard extends StatelessWidget {
+  const CategoryCard({
     super.key,
-    required this.sectionName,
+    required this.section,
   });
 
-  final String sectionName;
+  final SectionModel section;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
       decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage("assets/images/categories.jpg"),
+          image: DecorationImage(
+            image: NetworkImage(section.image!),
             fit: BoxFit.fill,
           ),
           boxShadow: [
@@ -31,13 +32,12 @@ class CategoryModel extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Colors.grey.withOpacity(0.6)),
+            color: Colors.grey.withOpacity(0.5)),
         child: Center(
             child: Text(
-          // sections[index].name!,
-          sectionName,
+          section.name!,
           style: const TextStyle(
-              fontSize: 30,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               fontFamily: "cocon-next-arabic"),
         )),

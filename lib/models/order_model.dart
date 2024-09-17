@@ -5,7 +5,7 @@ class OrderModel {
   int? id;
   int? userId;
   int? storeId;
-  int? total;
+  double? total;
   String? createdAt;
   String? updatedAt;
   OrderStatus? status; // Updated to use OrderStatus enum
@@ -31,7 +31,7 @@ class OrderModel {
     id = json['id'];
     userId = json['user_id'];
     storeId = json['store_id'];
-    total = json['total'];
+    total = json['total'] != null ? json['total'].toDouble() : 0.0;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     status = json['status'] != null
@@ -132,7 +132,7 @@ class Items {
   int? orderId;
   int? itemId;
   int? quantity;
-  int? price;
+  double? price; // Changed to double
   String? createdAt;
   String? updatedAt;
   Item? item;
@@ -142,7 +142,7 @@ class Items {
       this.orderId,
       this.itemId,
       this.quantity,
-      this.price,
+      this.price, // Changed to double
       this.createdAt,
       this.updatedAt,
       this.item});
@@ -152,7 +152,9 @@ class Items {
     orderId = json['order_id'];
     itemId = json['item_id'];
     quantity = json['quantity'];
-    price = json['price'];
+    price = json['price'] != null
+        ? json['price'].toDouble()
+        : 0.0; // Safe conversion
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     item = json['item'] != null ? Item.fromJson(json['item']) : null;
@@ -183,7 +185,7 @@ class Item {
   String? image;
   String? createdAt;
   String? updatedAt;
-  int? price;
+  double? price; // Changed to double
 
   Item(
       {this.id,
@@ -194,18 +196,21 @@ class Item {
       this.image,
       this.createdAt,
       this.updatedAt,
-      this.price});
+      this.price // Changed to double
+      });
 
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     storeId = json['store_id'];
-    title = json['title'];
+    title = json['name'];
     body = json['body'];
     discount = json['discount'];
     image = json['image'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    price = json['price'];
+    price = json['price'] != null
+        ? json['price'].toDouble()
+        : 0.0; // Safe conversion
   }
 
   Map<String, dynamic> toJson() {

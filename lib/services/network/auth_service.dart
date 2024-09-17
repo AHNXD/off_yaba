@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -11,8 +12,8 @@ class AuthApiService {
   static Future<Either<void, ApiFailure>> register(
       {required String name, required String phone}) async {
     try {
-      Response? response =
-          await DioHelper.postData(path: 'user/register', data: {
+      log("+964$phone");
+      await DioHelper.postData(path: 'user/register', data: {
         "phone_number": "+964$phone",
         "name": name,
       });
@@ -20,7 +21,7 @@ class AuthApiService {
       return const Left(null);
     } on DioException catch (e) {
       int statusCode = e.response!.statusCode!;
-      if (e.response!.statusCode == 400) {
+      if (statusCode == 400) {
         return Right(ApiFailure(
             message: "هذا الحساب مسجل مسبقا", statusCode: statusCode));
       }
@@ -40,22 +41,23 @@ class AuthApiService {
           await DioHelper.postData(path: "user/register/verify", data: data);
       UserModel user = UserModel.fromMap(response!.data["data"]);
       await CacheHelper.setString(key: "token", value: "Bearer ${user.token!}");
+      await CacheHelper.setString(
+          key: "user", value: json.encode(response.data["data"]));
       return Left(user);
     } on DioException catch (e) {
-      return Right(ApiFailure());
-      // if (e.response!.statusCode == 400) {
-      //   return Right(ApiFailure(
-      //       message: "الرمز المدخل خاطء", statusCode: e.response!.statusCode));
-      // }
-      // return Right(ApiFailure(
-      //     message: "لقد حدث خطأ ما يرجى المحاولة لاحقا", statusCode: 500));
+      if (e.response!.statusCode == 400) {
+        return Right(ApiFailure(
+            message: "الرمز المدخل خاطء", statusCode: e.response!.statusCode));
+      }
+      return Right(ApiFailure(
+          message: "لقد حدث خطأ ما يرجى المحاولة لاحقا", statusCode: 500));
     }
   }
 
   static Future<Either<void, ApiFailure>> loginUser(
       {required String phoneNumber}) async {
     try {
-      var response = await DioHelper.postData(path: 'user/login', data: {
+      await DioHelper.postData(path: 'user/login', data: {
         "phone_number": "+964$phoneNumber",
       });
 
@@ -67,36 +69,14 @@ class AuthApiService {
     }
   }
 
-  // FIXME:: REMOVE THIS BULLSHIT
-  static Future<Either<void, ApiFailure>> loginUserWithoutVerify(
+  static Future<Either<void, ApiFailure>> loginEmployee(
       {required String phoneNumber}) async {
     try {
-      var response = await DioHelper.postData(path: 'user/login', data: {
-        "phone_number": "+964$phoneNumber",
-      });
-
-      return const Left(null);
-    } on DioException catch (e) {
-      return Right(ApiFailure(
-          message: e.response!.data["message"],
-          statusCode: e.response!.statusCode));
-    }
-  }
-
-  static Future<Either<UserModel, ApiFailure>> loginEmployee(
-      {required String phoneNumber}) async {
-    try {
-      Response? response =
-          await DioHelper.postData(path: 'employee/login', data: {
+      await DioHelper.postData(path: 'employee/login', data: {
         "phone_number": phoneNumber,
       });
-      Response? getCodeResponse =
-          await DioHelper.getAuthorizedData(path: 'get-code/$phoneNumber');
-      print(getCodeResponse!.data);
-      return verifyUserLogin(
-          code: getCodeResponse.data, phoneNumber: phoneNumber);
+      return const Left(null);
     } on DioException catch (e) {
-      print(e);
       return Right(ApiFailure(
           message: e.response!.data["message"],
           statusCode: e.response!.statusCode));
@@ -113,10 +93,11 @@ class AuthApiService {
       });
       UserModel user = UserModel.fromMap(response!.data["data"]);
       await CacheHelper.setString(key: "token", value: "Bearer ${user.token!}");
-      await CacheHelper.setString(key: "user_type", value: "user");
+      await CacheHelper.setString(key: "userType", value: "user");
+      await CacheHelper.setString(
+          key: "user", value: json.encode(response.data["data"]));
       return Left(user);
     } on DioException catch (e) {
-      print(e.response!.data);
       return Right(ApiFailure(
           message: e.response!.data["message"],
           statusCode: e.response!.statusCode));
@@ -134,18 +115,74 @@ class AuthApiService {
       });
       String token = response!.data["data"]["token"];
       await CacheHelper.setString(key: "token", value: "Bearer $token");
-      await CacheHelper.setString(key: "user_type", value: "enp");
+      await CacheHelper.setString(key: "userType", value: "emp");
       return const Left(null);
     } on DioException catch (e) {
-      print(e.response!.data);
       return Right(ApiFailure(
           message: e.response!.data["message"],
           statusCode: e.response!.statusCode));
     }
   }
 
-// FIXME:
   static Future<void> logoutUser() async {
-    await CacheHelper.removeData();
+    // DioHelper.postAuthorized(path: '/user/logout')
+    //     .then((res) async => );
+    await CacheHelper.clearData();
+  }
+
+  static Future<bool> updateUser(Map<String, dynamic> data) async {
+    try {
+      Response? response =
+          await DioHelper.putAuthorized(path: '/user', data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioException catch (e) {
+      log('Failed to update user info: ${e.response}');
+      return false;
+    }
+  }
+
+  static Future<bool> uploadUserProfileImage(MultipartFile image) async {
+    try {
+      FormData formData = FormData.fromMap({
+        "image": image,
+      });
+
+      Response? response = await DioHelper.postAuthorized(
+        path: "/image",
+        data: formData,
+      );
+      var user = UserModel.fromJson(CacheHelper.getData(key: "user"));
+      user.image = response!.data["data"];
+      await CacheHelper.setString(
+          key: "user", value: json.encode(user.toMap()));
+      return true;
+    } on DioException {
+      return false;
+    }
+  }
+
+  static Future<bool> deleteImage() async {
+    try {
+      await DioHelper.deleteAuthorized(path: "/image");
+
+      var userJson = CacheHelper.getData(key: "user");
+      if (userJson == null) {
+        return false;
+      }
+
+      var user = UserModel.fromJson(userJson);
+      user.image = null;
+
+      await CacheHelper.setString(
+          key: "user", value: json.encode(user.toMap()));
+
+      return true;
+    } on DioException {
+      return false;
+    }
   }
 }

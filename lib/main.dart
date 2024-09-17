@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/firebase_options.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
 import 'package:off_yaba/screens/clothes_section.dart';
@@ -17,18 +19,24 @@ import 'package:off_yaba/screens/scanner_screen.dart';
 import 'package:off_yaba/screens/search_screen.dart';
 import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/show_category_screen.dart';
-import 'package:off_yaba/screens/signIn_screen.dart';
+import 'package:off_yaba/screens/signin_screen.dart';
 import 'package:off_yaba/screens/signup_screen.dart';
 import 'package:off_yaba/screens/splash_screen.dart';
 import 'package:off_yaba/screens/router_screen.dart';
 import 'package:off_yaba/screens/subscriptions_screen.dart';
+import 'package:off_yaba/screens/update_user_info_screen.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 import 'package:off_yaba/services/cache_helper.dart';
+import 'package:off_yaba/services/network/firebase_api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DioHelper.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await CacheHelper.init();
+  await DioHelper.init();
+  await FirebaseApi().initNotifications();
 
   runApp(const MyApp());
 }
@@ -39,6 +47,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Off-Yaba',
       theme: ThemeData(
@@ -46,8 +55,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: appColor),
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.grey.shade200,
-
-        // scaffoldBackgroundColor: Colors.white,
       ),
       initialRoute: SplashScreen.routeName,
       routes: {
@@ -74,6 +81,7 @@ class MyApp extends StatelessWidget {
         ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
         StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
         OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
+        UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
       },
     );
   }

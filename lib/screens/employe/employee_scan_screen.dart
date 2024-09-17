@@ -1,11 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/employe/store_orders_screen.dart';
+import 'package:off_yaba/services/network/auth_service.dart';
 import 'package:off_yaba/services/network/qr_service.dart';
+import 'package:off_yaba/widgets/settings_button.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class EmployeeScreen extends StatefulWidget {
@@ -61,6 +63,22 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
             "طلباتي",
             style: TextStyle(color: Colors.white),
           )),
+      // bottomNavigationBar: ElevatedButton(
+      //   style: ElevatedButton.styleFrom(
+      //     backgroundColor: appColor,
+      //     shape: const BeveledRectangleBorder(),
+      //     minimumSize: const Size.fromHeight(kToolbarHeight),
+      //     maximumSize: const Size.fromHeight(kToolbarHeight),
+      //   ),
+      //   onPressed: () {
+      //     AuthApiService.logoutUser().then((value) =>
+      //         Navigator.of(context).pushReplacementNamed(AuthScreen.routeName));
+      //   },
+      //   child: const Text(
+      //     'logout',
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      // ),
       body: Column(
         children: [
           Container(
@@ -114,6 +132,15 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        IconButton(
+                            onPressed: () => AuthApiService.logoutUser().then(
+                                (value) => Navigator.of(context)
+                                    .pushReplacementNamed(
+                                        AuthScreen.routeName)),
+                            icon: const Icon(
+                              Icons.logout,
+                              color: appColor,
+                            )),
                         IconButton(
                             onPressed: () {
                               setState(() {

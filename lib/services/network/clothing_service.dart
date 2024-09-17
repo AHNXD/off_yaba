@@ -7,7 +7,6 @@ class ClothingService {
     try {
       Response? response =
           await DioHelper.getAuthorizedData(path: 'clothing-items');
-      print(response);
       List<dynamic> dynamicItems = response!.data["data"]["clothes"];
       List<ClothingItemModel> items = dynamicItems
           .map(
@@ -15,8 +14,24 @@ class ClothingService {
           )
           .toList();
       return items;
-    } catch (e) {
-      print(e);
+    } on DioException catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<List<ClothingItemModel>> getClothingItemsByStore(
+      int storeId) async {
+    try {
+      Response? response = await DioHelper.getAuthorizedData(
+          path: 'clothing-items', queryParameters: {"store_id": storeId});
+      List<dynamic> dynamicItems = response!.data["data"]["clothes"];
+      List<ClothingItemModel> items = dynamicItems
+          .map(
+            (e) => ClothingItemModel.fromMap(e),
+          )
+          .toList();
+      return items;
+    } on DioException catch (e) {
       rethrow;
     }
   }

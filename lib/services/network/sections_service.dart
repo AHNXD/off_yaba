@@ -11,7 +11,6 @@ class SectionsService {
           dynamicSections.map((e) => SectionModel.fromMap(e)).toList();
       return sections;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -23,7 +22,6 @@ class SectionsService {
       SectionModel section = SectionModel.fromMap(response!.data["data"]);
       return section;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/screens/signIn_screen.dart';
+import 'package:off_yaba/screens/signin_screen.dart';
 import 'package:off_yaba/widgets/circular_button.dart';
 
 class PickUserScreen extends StatelessWidget {
@@ -37,6 +37,7 @@ class PickUserScreen extends StatelessWidget {
                 Center(
                     child: Text(
                   "اختر نوع الحساب",
+                  // "Login As",
                   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w100,
@@ -51,13 +52,13 @@ class PickUserScreen extends StatelessWidget {
                     CircularButtonWithTitle(
                       backgroundColor: appColor,
                       title: "صاحب مشروع",
+                      // title: "Project owner",
                       icon: Icon(
                         Icons.storefront,
                         color: Colors.white,
                         size: MediaQuery.of(context).size.width * 0.099,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
                         Navigator.of(context).pushNamed(SignInScreen.routeName,
                             arguments: {"user_type": "emp"});
                       },
@@ -65,13 +66,13 @@ class PickUserScreen extends StatelessWidget {
                     CircularButtonWithTitle(
                       backgroundColor: appColor,
                       title: "مستخدم",
+                      // title: "user",
                       icon: Icon(
                         Icons.person,
                         color: Colors.white,
                         size: MediaQuery.of(context).size.width * 0.099,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
                         Navigator.of(context).pushNamed(SignInScreen.routeName,
                             arguments: {"user_type": "user"});
                       },

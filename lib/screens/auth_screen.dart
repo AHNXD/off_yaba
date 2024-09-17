@@ -45,7 +45,6 @@ class AuthScreen extends StatelessWidget {
                               backgroundColor: Colors.white,
                               padding: const EdgeInsets.all(16)),
                           onPressed: () {
-                            Navigator.pop(context);
                             Navigator.of(context)
                                 .push(goRoute(x: const PickUserScreen()));
                           },
@@ -70,7 +69,6 @@ class AuthScreen extends StatelessWidget {
                               backgroundColor: appColor,
                               padding: const EdgeInsets.all(16)),
                           onPressed: () {
-                            Navigator.pop(context);
                             Navigator.of(context)
                                 .push(goRoute(x: const SignUpScreen()));
                           },

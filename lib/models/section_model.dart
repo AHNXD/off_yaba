@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:off_yaba/services/network/api_service.dart';
+
 class SectionModel {
   int? id;
   String? name;
-  SectionModel({
-    this.id,
-    this.name,
-  });
+  String? image;
+  SectionModel({this.id, this.name, this.image});
 
   SectionModel copyWith({
     int? id,
@@ -30,6 +30,9 @@ class SectionModel {
     return SectionModel(
       id: map['id'] != null ? map['id'] as int : null,
       name: map['name'] != null ? map['name'] as String : null,
+      image: map['image'] != null
+          ? "${DioHelper.baseUrl}image?path=${map['image']}"
+          : null,
     );
   }
 

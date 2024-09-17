@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 const appColor = Color(0xFF58aad6);
 String lang = "ar";
 // for camera

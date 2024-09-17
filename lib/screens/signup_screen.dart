@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/code_screen.dart';
-import 'package:off_yaba/screens/signIn_screen.dart';
+import 'package:off_yaba/screens/signin_screen.dart';
 import 'package:off_yaba/services/network/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -149,7 +149,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               phone: phoneController.text,
                             ).then((value) {
                               value.fold((l) {
-                                Navigator.pop(context);
                                 Navigator.of(context).pushNamed(
                                     CodeScreen.routeName,
                                     arguments: {
@@ -161,7 +160,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 return;
                               }, (failure) {
                                 if (failure.statusCode == 400) {
-                                  Navigator.pop(context);
                                   Navigator.of(context).pushNamed(
                                       SignInScreen.routeName,
                                       arguments: {"user_type": "user"});

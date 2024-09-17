@@ -145,25 +145,25 @@ class _CodeScreenState extends State<CodeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shadowColor: appColor,
-                                  backgroundColor: Colors.white,
-                                  padding: const EdgeInsets.all(16)),
-                              onPressed: () {},
-                              child: Text(
-                                lang == "ar" ? "إعادة ارسال الرمز" : "Confirm",
-                                style: const TextStyle(
-                                    color: appColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "cocon-next-arabic"),
-                              )),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      //     child: ElevatedButton(
+                      //         style: ElevatedButton.styleFrom(
+                      //             shadowColor: appColor,
+                      //             backgroundColor: Colors.white,
+                      //             padding: const EdgeInsets.all(16)),
+                      //         onPressed: () {},
+                      //         child: Text(
+                      //           lang == "ar" ? "إعادة ارسال الرمز" : "Confirm",
+                      //           style: const TextStyle(
+                      //               color: appColor,
+                      //               fontSize: 14,
+                      //               fontWeight: FontWeight.bold,
+                      //               fontFamily: "cocon-next-arabic"),
+                      //         )),
+                      //   ),
+                      // ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -174,20 +174,21 @@ class _CodeScreenState extends State<CodeScreen> {
                                   padding: const EdgeInsets.all(16)),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  Map<String, dynamic> data = {
-                                    "code": code,
-                                    "phone_number":
-                                        "+964" + arguments["phone_number"],
-                                    "name": arguments["name"]
-                                  };
-
                                   if (authType == "reg") {
+                                    Map<String, dynamic> data = {
+                                      "code": code,
+                                      "phone_number":
+                                          "+964${arguments["phone_number"]}",
+                                      "name": arguments["name"]
+                                    };
                                     AuthApiService.verifyRegister(data: data)
                                         .then((value) => value.fold((user) {
-                                              Navigator.pop(context);
-                                              Navigator.of(context).push(
-                                                  goRoute(
-                                                      x: const RouterScreen()));
+                                              Navigator.of(context)
+                                                  .pushAndRemoveUntil(
+                                                goRoute(
+                                                    x: const RouterScreen()),
+                                                (route) => false,
+                                              );
                                             }, (failure) {
                                               setState(() {
                                                 showError = true;
@@ -204,13 +205,22 @@ class _CodeScreenState extends State<CodeScreen> {
                                   }
                                   if (authType == "login") {
                                     if (userType == "emp") {
+                                      Map<String, dynamic> data = {
+                                        "code": code,
+                                        "phone_number":
+                                            "${arguments["phone_number"]}",
+                                        "name": arguments["name"]
+                                      };
+                                      log(data.toString());
                                       AuthApiService.verifyEmployeeLogin(
                                               code: code,
                                               phoneNumber: data["phone_number"])
                                           .then((value) => value.fold((user) {
                                                 Navigator.of(context)
-                                                    .pushReplacement(goRoute(
-                                                        x: const EmployeeScreen()));
+                                                    .pushAndRemoveUntil(
+                                                        goRoute(
+                                                            x: const EmployeeScreen()),
+                                                        (route) => false);
                                               }, (failure) {
                                                 setState(() {
                                                   showError = true;
@@ -220,13 +230,22 @@ class _CodeScreenState extends State<CodeScreen> {
                                               }));
                                     }
                                     if (userType == "user") {
+                                      Map<String, dynamic> data = {
+                                        "code": code,
+                                        "phone_number":
+                                            "+964${arguments["phone_number"]}",
+                                        "name": arguments["name"]
+                                      };
                                       AuthApiService.verifyUserLogin(
                                               code: code,
                                               phoneNumber: data["phone_number"])
                                           .then((value) => value.fold((user) {
                                                 Navigator.of(context)
-                                                    .pushReplacement(goRoute(
-                                                        x: const RouterScreen()));
+                                                    .pushAndRemoveUntil(
+                                                  goRoute(
+                                                      x: const RouterScreen()),
+                                                  (route) => false,
+                                                );
                                               }, (failure) {
                                                 setState(() {
                                                   showError = true;

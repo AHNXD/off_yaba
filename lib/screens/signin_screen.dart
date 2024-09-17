@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/screens/code_screen.dart';
@@ -75,6 +76,39 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Directionality(
                     textDirection: TextDirection.ltr,
                     child: IntlPhoneField(
+                      countries: const [
+                        Country(
+                          name: "Iraq",
+                          nameTranslations: {
+                            "sk": "Irak",
+                            "se": "Irak",
+                            "pl": "Irak",
+                            "no": "Irak",
+                            "ja": "イラク",
+                            "it": "Iraq",
+                            "zh": "伊拉克",
+                            "nl": "Irak",
+                            "de": "Irak",
+                            "fr": "Irak",
+                            "es": "Irak",
+                            "en": "Iraq",
+                            "pt_BR": "Iraque",
+                            "sr-Cyrl": "Ирак",
+                            "sr-Latn": "Irak",
+                            "zh_TW": "伊拉克",
+                            "tr": "Irak",
+                            "ro": "Irak",
+                            "ar": "العراق",
+                            "fa": "عراق",
+                            "yue": "伊拉克"
+                          },
+                          flag: "🇮🇶",
+                          code: "IQ",
+                          dialCode: "964",
+                          minLength: 10,
+                          maxLength: 10,
+                        ),
+                      ],
                       controller: phoneController,
                       disableLengthCheck: true,
                       languageCode: lang,
@@ -104,7 +138,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           backgroundColor: Colors.white,
                           padding: const EdgeInsets.all(16)),
                       onPressed: () {
-                        print(userType);
                         if (userType == "emp") {
                           AuthApiService.loginEmployee(
                                   phoneNumber:

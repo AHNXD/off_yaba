@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/order_model.dart';
@@ -16,6 +18,7 @@ class StoreOrdersScreen extends StatefulWidget {
 
 class _StoreOrdersScreenState extends State<StoreOrdersScreen> {
   late Future<List<OrderModel>?> _futureData;
+  List<OrderModel>? orders;
   @override
   void initState() {
     super.initState();
@@ -25,6 +28,26 @@ class _StoreOrdersScreenState extends State<StoreOrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: appColor,
+          child: const Icon(
+            Icons.attach_money,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            double total = 0;
+            for (var i = 0; i < orders!.length; i++) {
+              total += orders![i].total! + 2000;
+            }
+
+            setState(() {});
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: const Text("المبلغ الكلي"),
+                      content: Text(total.toString()),
+                    ));
+          }),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Column(
@@ -40,15 +63,18 @@ class _StoreOrdersScreenState extends State<StoreOrdersScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasData) {
-                    List<OrderModel>? orders = snapshot.data;
+                    orders = snapshot.data;
                     return ListView.separated(
                         itemCount: orders!.length,
                         separatorBuilder: (context, index) => const Divider(),
                         itemBuilder: (context, index) {
-                          return StoreOrderTile(order: orders[index]);
+                          return StoreOrderTile(order: orders![index]);
                         });
                   }
-
+                  if (snapshot.hasError) {
+                    log(snapshot.stackTrace.toString());
+                    // print("snapshotttt errrorr: ${snapshot.error.}");
+                  }
                   return const Center(
                       child: Text("لم يتم إضافة أي عنصر للسلة"));
                 },

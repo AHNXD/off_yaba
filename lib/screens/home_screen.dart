@@ -3,10 +3,8 @@ import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/screens/all_discounts_screen.dart';
-import 'package:off_yaba/screens/categories_screen.dart';
 import 'package:off_yaba/screens/resturant_screen.dart';
 import 'package:off_yaba/services/network/stores_service.dart';
-import 'package:off_yaba/widgets/custom_search_deleget.dart';
 import 'package:off_yaba/widgets/store_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,8 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        CustomAppBar(
-            backArrow: false, bell: true, search: true, cameraSettings: false),
+        const CustomAppBar(
+            backArrow: false, bell: false, search: true, cameraSettings: false),
         SizedBox(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
@@ -170,7 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         page: 1, longitude: 33, latitude: 30),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        print(snapshot.error);
                         return Container(
                           color: Colors.red,
                           child: const Text("حدث خطأ يرجى المحاولة مرة أخرى"),
@@ -187,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   thickness: 2,
                                   color: Colors.grey,
                                 ),
-                            itemBuilder: (BC, index) {
+                            itemBuilder: (buildContext, index) {
                               return StoreCard(store: stores[index]);
                             });
                       }

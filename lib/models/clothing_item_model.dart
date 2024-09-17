@@ -1,8 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 
@@ -10,7 +5,7 @@ class ClothingItemModel {
   int? id;
   String? name;
   double? price;
-  double? discount;
+  int? discount;
   StoreModel? store;
   String? image;
   String? type;
@@ -18,6 +13,9 @@ class ClothingItemModel {
   String? targetGroup;
   List<String>? colors;
   String? material;
+  int itemCount;
+  int? itemId; // Added item_id field
+
   ClothingItemModel({
     this.id,
     this.name,
@@ -30,20 +28,24 @@ class ClothingItemModel {
     this.targetGroup,
     this.colors,
     this.material,
+    this.itemCount = 0,
+    this.itemId, // Initialize item_id
   });
 
   ClothingItemModel copyWith({
     int? id,
     String? name,
     double? price,
-    double? discount,
+    int? discount,
     StoreModel? store,
     String? image,
     String? type,
     List<String>? sizes,
-    String? target_group,
+    String? targetGroup,
     List<String>? colors,
     String? material,
+    int? itemCount,
+    int? itemId, // Added item_id to copyWith
   }) {
     return ClothingItemModel(
       id: id ?? this.id,
@@ -54,9 +56,11 @@ class ClothingItemModel {
       image: image ?? this.image,
       type: type ?? this.type,
       sizes: sizes ?? this.sizes,
-      targetGroup: target_group ?? targetGroup,
+      targetGroup: targetGroup ?? this.targetGroup,
       colors: colors ?? this.colors,
       material: material ?? this.material,
+      itemCount: itemCount ?? this.itemCount,
+      itemId: itemId ?? this.itemId, // Copy item_id
     );
   }
 
@@ -73,6 +77,8 @@ class ClothingItemModel {
       'target_group': targetGroup,
       'colors': colors,
       'material': material,
+      'itemCount': itemCount,
+      'item_id': itemId, // Map item_id
     };
   }
 
@@ -81,7 +87,7 @@ class ClothingItemModel {
       id: map['id'] != null ? map['id'] as int : null,
       name: map['name'] != null ? map['name'] as String : null,
       price: map['price']?.toDouble(),
-      discount: map['discount'] != null ? map['discount'] as double : null,
+      discount: map['discount'] != null ? map['discount'] as int : null,
       store: map['store'] != null
           ? StoreModel.fromMap(map['store'] as Map<String, dynamic>)
           : null,
@@ -98,17 +104,15 @@ class ClothingItemModel {
           ? (map['colors'] as List).map((item) => item as String).toList()
           : [],
       material: map['material'] != null ? map['material'] as String : null,
+      itemCount: map['itemCount'] != null ? map['itemCount'] as int : 0,
+      itemId:
+          map['item_id'] != null ? map['item_id'] as int : null, // Map item_id
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory ClothingItemModel.fromJson(String source) =>
-      ClothingItemModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
   @override
   String toString() {
-    return 'ClothingItemModel(id: $id, name: $name, price: $price, discount: $discount, store: $store, image: $image, type: $type, sizes: $sizes, target_group: $targetGroup, colors: $colors, material: $material)';
+    return 'ClothingItemModel(id: $id, name: $name, price: $price, discount: $discount, store: $store, image: $image, type: $type, sizes: $sizes, target_group: $targetGroup, colors: $colors, material: $material, itemCount: $itemCount, item_id: $itemId)';
   }
 
   @override
@@ -122,10 +126,11 @@ class ClothingItemModel {
         other.store == store &&
         other.image == image &&
         other.type == type &&
-        listEquals(other.sizes, sizes) &&
         other.targetGroup == targetGroup &&
         other.colors == colors &&
-        other.material == material;
+        other.material == material &&
+        other.itemCount == itemCount &&
+        other.itemId == itemId; // Compare item_id
   }
 
   @override
@@ -140,6 +145,8 @@ class ClothingItemModel {
         sizes.hashCode ^
         targetGroup.hashCode ^
         colors.hashCode ^
-        material.hashCode;
+        material.hashCode ^
+        itemCount.hashCode ^
+        itemId.hashCode; // Hash item_id
   }
 }

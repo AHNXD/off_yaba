@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/clothing_item_model.dart';
 import 'package:off_yaba/screens/clothing_item_details.dart';
-import 'package:uni_color_name/uni_color_name.dart';
 
 class ClothingItemCard extends StatelessWidget {
   final ClothingItemModel clothingItem;

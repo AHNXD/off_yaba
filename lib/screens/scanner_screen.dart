@@ -15,7 +15,6 @@ class ScannerScreen extends StatefulWidget {
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
-  final bool _isloading = false;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   String audioasset = "audios/beep.mp3";
@@ -135,8 +134,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   title: Center(child: Text("قد تم استهلاك هذا الرمز")),
                 ),
               ).then((value) => camController!.resumeCamera()));
-
-      print(scanData.code!);
     });
   }
 }

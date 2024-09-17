@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/cart_model.dart';
+import 'package:off_yaba/models/clothing_item_model.dart';
 import 'package:off_yaba/models/store_details_model.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
 import 'package:off_yaba/screens/confirm_order_screen.dart';
-import 'package:off_yaba/services/local/database_helper.dart';
 import 'package:off_yaba/services/network/cart_service.dart';
+import 'package:off_yaba/services/network/clothing_service.dart';
 import 'package:off_yaba/services/network/stores_service.dart';
+import 'package:off_yaba/widgets/clothing_item_card.dart';
 import 'package:off_yaba/widgets/details_list_tile.dart';
 import 'package:off_yaba/widgets/offer_card.dart';
 
@@ -70,8 +72,8 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 cart = snapshot.data!;
-                if (snapshot.data!.items != null &&
-                    snapshot.data!.items!.isNotEmpty) {
+                print("cartttt ${cart!.items}");
+                if (cart!.items != null && cart!.items!.isNotEmpty) {
                   return ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: appColor,
@@ -89,10 +91,13 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                       ));
                 }
               }
+              if (snapshot.hasError) {
+                print("cartttt error: ${snapshot.error}");
+              }
               return const SizedBox();
             },
           ),
-          body: ListView(shrinkWrap: true, children: [
+          body: ListView(shrinkWrap: false, children: [
             Container(
               width: double.infinity,
               height: 300,
@@ -267,49 +272,90 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                     style: const TextStyle(color: Colors.grey, fontSize: 15),
                   ),
                 ),
-                FutureBuilder(
-                    future: StoreService.getStoreOffers(storeId: store.id!),
+                if (store.section!.name == "ملابس")
+                  FutureBuilder<List<ClothingItemModel>>(
+                    future: ClothingService.getClothingItemsByStore(store.id!),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          child: Center(
-                            child: Text(
-                              "لا يوجد عروض بعد.",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
+                        return Center(
+                            child: Text('Error: ${snapshot.stackTrace}'));
+                      }
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: appColor,
                           ),
                         );
                       }
-                      if (snapshot.hasData) {
-                        List<StoreOfferModel> offers = snapshot.data!;
+                      var items = snapshot.data!;
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(10),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: items.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: _getCrossAxisCount(context),
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                          childAspectRatio: 0.48,
+                        ),
+                        itemBuilder: (context, index) => ClothingItemCard(
+                          clothingItem: items[index],
+                        ),
+                      );
+                    },
+                  ),
+                if (store.section!.name != "ملابس")
+                  FutureBuilder(
+                      future: StoreService.getStoreOffers(storeId: store.id!),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: Center(
+                              child: Text(
+                                "لا يوجد عروض بعد.",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<StoreOfferModel> offers = snapshot.data!;
 
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16),
-                          child: ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: offers.length,
-                              separatorBuilder: (context, index) =>
-                                  const Divider(
-                                    color: appColor,
-                                  ),
-                              itemBuilder: (context, index) {
-                                return OfferCard(offer: offers[index]);
-                              }),
-                        );
-                      }
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          child:
-                              const Center(child: CircularProgressIndicator()));
-                    }),
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: offers.length,
+                                separatorBuilder: (context, index) =>
+                                    const Divider(
+                                      color: appColor,
+                                    ),
+                                itemBuilder: (context, index) {
+                                  return OfferCard(offer: offers[index]);
+                                }),
+                          );
+                        }
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: const Center(
+                                child: CircularProgressIndicator()));
+                      }),
               ],
             ),
           ]),
         ),
       ),
     );
+  }
+
+  int _getCrossAxisCount(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth >= 1200) return 4;
+    if (screenWidth >= 800) return 3;
+    return 2;
   }
 
   Future<dynamic> _showDetailsBottomSheet(
@@ -363,11 +409,12 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                           title: "النوع",
                           value: details.store!.section!.name!,
                           icon: Icons.category),
-                      DetailsListTile(
-                          title: "ساعات العمل",
-                          value:
-                              "${details.workHours!.first.day!} - ${details.workHours!.last.day}",
-                          icon: Icons.map),
+                      if (details.workHours!.isNotEmpty)
+                        DetailsListTile(
+                            title: "ساعات العمل",
+                            value:
+                                "${details.workHours!.first.day!} - ${details.workHours!.last.day}",
+                            icon: Icons.map),
                     ],
                   );
                 }

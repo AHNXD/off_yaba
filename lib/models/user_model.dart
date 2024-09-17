@@ -1,17 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:off_yaba/services/network/api_service.dart';
+
 class UserModel {
   int? id;
   String? token;
   String? name;
   String? phoneNumber;
-  UserModel({
-    this.id,
-    this.token,
-    this.name,
-    this.phoneNumber,
-  });
+  String? image;
+  UserModel({this.id, this.token, this.name, this.phoneNumber, this.image});
 
   UserModel copyWith({
     int? id,
@@ -33,6 +31,7 @@ class UserModel {
       'token': token,
       'name': name,
       'phone_number': phoneNumber,
+      if (image != null) 'image': image,
     };
   }
 
@@ -43,6 +42,9 @@ class UserModel {
       name: map['name'] != null ? map['name'] as String : null,
       phoneNumber:
           map['phone_number'] != null ? map['phone_number'] as String : null,
+      image: map['image'] != null
+          ? "${DioHelper.baseUrl}image?path=${map['image']}"
+          : null,
     );
   }
 

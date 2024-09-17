@@ -7,7 +7,7 @@ class StoreOfferModel {
   int? id;
   int? discount;
   String? image;
-  String? title;
+  String? name;
   String? body;
   int itemCount;
   double? price;
@@ -16,7 +16,7 @@ class StoreOfferModel {
     this.id,
     this.discount,
     this.image,
-    this.title,
+    this.name,
     this.body,
     this.price,
     this.itemCount = 0,
@@ -26,7 +26,7 @@ class StoreOfferModel {
     int? id,
     int? discount,
     String? image,
-    String? title,
+    String? name,
     String? body,
     int? itemCount,
   }) {
@@ -34,7 +34,7 @@ class StoreOfferModel {
       id: id ?? this.id,
       discount: discount ?? this.discount,
       image: image ?? this.image,
-      title: title ?? this.title,
+      name: name ?? name,
       body: body ?? this.body,
       itemCount: itemCount ?? this.itemCount,
     );
@@ -45,7 +45,7 @@ class StoreOfferModel {
       'id': id,
       'discount': discount,
       'image': image,
-      'title': title,
+      'name': name,
       'body': body,
       'itemCount': itemCount,
     };
@@ -53,14 +53,13 @@ class StoreOfferModel {
 
   factory StoreOfferModel.fromMap(Map<String, dynamic> map,
       {String source = "web"}) {
-    print(map);
     return StoreOfferModel(
       id: map['id'] != null ? map['id'] as int : null,
       discount: map['discount'] != null ? map['discount'] as int : null,
       image: source == "web"
           ? "${DioHelper.baseUrl}image?path=${map['image']}"
           : map["image"],
-      title: map['title'] != null ? map['title'] as String : null,
+      name: map['name'] != null ? map['name'] as String : null,
       body: map['body'] != null ? map['body'] as String : null,
       price: map['price']?.toDouble(),
       itemCount: map['itemCount'] != null ? map['itemCount'] as int : 0,
@@ -74,7 +73,7 @@ class StoreOfferModel {
 
   @override
   String toString() {
-    return 'StoreOfferModel(id: $id, discount: $discount, image: $image, title: $title, body: $body, itemCount: $itemCount)';
+    return 'StoreOfferModel(id: $id, discount: $discount, image: $image, name: $name, body: $body, itemCount: $itemCount)';
   }
 
   @override
@@ -84,7 +83,7 @@ class StoreOfferModel {
     return other.id == id &&
         other.discount == discount &&
         other.image == image &&
-        other.title == title &&
+        other.name == name &&
         other.body == body &&
         other.itemCount == itemCount;
   }
@@ -94,7 +93,7 @@ class StoreOfferModel {
     return id.hashCode ^
         discount.hashCode ^
         image.hashCode ^
-        title.hashCode ^
+        name.hashCode ^
         body.hashCode ^
         itemCount.hashCode;
   }

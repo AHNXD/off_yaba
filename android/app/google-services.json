@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "434503037457",
+    "project_id": "offyaba-e65c5",
+    "storage_bucket": "offyaba-e65c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434503037457:android:a040d889aec509172fb7b0",
+        "android_client_info": {
+          "package_name": "com.example.off_yaba"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZGTf5T46Z6Ww9is527QkVoiLc_AM9wBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434503037457:android:a93ce59f67058a372fb7b0",
+        "android_client_info": {
+          "package_name": "com.offyaba.bundleId"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZGTf5T46Z6Ww9is527QkVoiLc_AM9wBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

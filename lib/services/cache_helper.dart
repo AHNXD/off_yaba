@@ -11,11 +11,15 @@ class CacheHelper {
     await sharedPreferences?.setString(key, value);
   }
 
+  static setBool({required String key, required bool value}) async {
+    await sharedPreferences?.setBool(key, value);
+  }
+
   static getData({required String key}) {
     return sharedPreferences?.get(key);
   }
 
-  static removeData() {
+  static clearData() {
     sharedPreferences?.clear();
   }
 }
