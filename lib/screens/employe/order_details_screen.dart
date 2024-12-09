@@ -105,6 +105,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       onPressed: () {
                         OrdersService.acceptOrder(orderId: order.id!).then(
                           (value) {
+                            Navigator.pop(context);
                             return Navigator.of(context).pushReplacementNamed(
                               StoreOrdersScreen.routeName,
                             );
