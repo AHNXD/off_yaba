@@ -29,8 +29,9 @@ class FirebaseApi {
 
   Future initLocalNotifications() async {
     const android = AndroidInitializationSettings('@drawable/off_yaba');
+    const ios = DarwinInitializationSettings();
 
-    const settings = InitializationSettings(android: android);
+    const settings = InitializationSettings(android: android, iOS: ios);
 
     await _localNotifications.initialize(settings);
     final platform = _localNotifications.resolvePlatformSpecificImplementation<
@@ -71,7 +72,7 @@ class FirebaseApi {
   Future<void> saveToken() async {
     final bool? hasToken = await CacheHelper.getData(key: "hasFCMToken");
     log(hasToken.toString());
-    final fCMToken = await _firebaseMessaging.getToken();
+    final fCMToken = await _firebaseMessaging.getAPNSToken();
     final String? token = await CacheHelper.getData(key: "token");
     if (token != null) {
       if (hasToken == null || !hasToken) {
