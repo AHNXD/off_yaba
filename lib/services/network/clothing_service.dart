@@ -14,7 +14,7 @@ class ClothingService {
           )
           .toList();
       return items;
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }
@@ -31,7 +31,7 @@ class ClothingService {
           )
           .toList();
       return items;
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }

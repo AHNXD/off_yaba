@@ -3,7 +3,6 @@ import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/clothing_item_model.dart';
 import 'package:off_yaba/screens/clothing_item_order_screen.dart';
 import 'package:off_yaba/screens/resturant_screen.dart';
-import 'package:off_yaba/services/network/cart_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 import 'package:uni_color_name/uni_color_name.dart';
 

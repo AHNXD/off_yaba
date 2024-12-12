@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:off_yaba/models/store_details_model.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
-import 'package:off_yaba/services/location_service.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 
 class StoreService {
@@ -64,7 +62,7 @@ class StoreService {
       List<StoreModel> stores =
           dynamicStores.map((e) => StoreModel.fromMap(e)).toList();
       return stores;
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }
@@ -80,7 +78,7 @@ class StoreService {
           dynamicOffers.map((e) => StoreOfferModel.fromMap(e)).toList();
 
       return offers;
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }

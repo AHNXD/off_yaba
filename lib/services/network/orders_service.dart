@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:off_yaba/models/order_model.dart';
@@ -13,7 +12,7 @@ class OrdersService {
           dynamicData.map((e) => OrderModel.fromJson(e)).toList();
 
       return orders;
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }

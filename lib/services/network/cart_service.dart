@@ -17,7 +17,7 @@ class CartService {
         "quantity": itemCount,
         "extra_notes": extra_notes ?? ' ',
       });
-    } on DioException catch (e) {}
+    } on DioException {}
   }
 
   static Future<void> deleteItem({required int itemId}) async {

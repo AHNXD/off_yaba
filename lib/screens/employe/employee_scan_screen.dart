@@ -7,7 +7,6 @@ import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/services/network/auth_service.dart';
 import 'package:off_yaba/services/network/qr_service.dart';
-import 'package:off_yaba/widgets/settings_button.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class EmployeeScreen extends StatefulWidget {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:off_yaba/constant.dart';
-import 'package:off_yaba/screens/auth_screen.dart';
 import 'package:off_yaba/screens/categories_screen.dart';
 import 'package:off_yaba/screens/scanner_screen.dart';
-import 'package:off_yaba/services/network/auth_service.dart';
 import 'package:off_yaba/widgets/custom_search_deleget.dart';
 
 class CustomAppBar extends StatefulWidget {
