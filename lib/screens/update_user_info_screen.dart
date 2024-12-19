@@ -48,37 +48,39 @@ class _UpdateUserInfoScreenState extends State<UpdateUserInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const CustomAppBar(
-                backArrow: true,
-              ),
-              const SizedBox(height: 32),
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                    labelText: 'الاسم',
-                    hintText: "الاسم",
-                    border: OutlineInputBorder()),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  } else if (value.length > 50) {
-                    return 'Name must be less than 50 characters';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _updateUserInfo,
-                child: const Text("تعديل الحساب"),
-              ),
-            ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const CustomAppBar(
+                  backArrow: true,
+                ),
+                const SizedBox(height: 32),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                      labelText: 'الاسم',
+                      hintText: "الاسم",
+                      border: OutlineInputBorder()),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    } else if (value.length > 50) {
+                      return 'Name must be less than 50 characters';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: _updateUserInfo,
+                  child: const Text("تعديل الحساب"),
+                ),
+              ],
+            ),
           ),
         ),
       ),

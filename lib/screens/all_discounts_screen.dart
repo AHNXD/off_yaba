@@ -15,7 +15,9 @@ class AllDiscountsScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CustomAppBar(),
+              const CustomAppBar(
+                backArrow: true,
+              ),
               const SizedBox(
                 height: 10,
               ),

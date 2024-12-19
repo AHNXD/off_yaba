@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -72,7 +73,10 @@ class FirebaseApi {
   Future<void> saveToken() async {
     final bool? hasToken = await CacheHelper.getData(key: "hasFCMToken");
     log(hasToken.toString());
-    final fCMToken = await _firebaseMessaging.getAPNSToken();
+    final fCMToken = Platform.isAndroid
+        ? await _firebaseMessaging.getToken()
+        : await _firebaseMessaging.getAPNSToken();
+    log("The FCMToken : ${fCMToken!}");
     final String? token = await CacheHelper.getData(key: "token");
     if (token != null) {
       if (hasToken == null || !hasToken) {
@@ -93,7 +97,7 @@ class FirebaseApi {
     await _firebaseMessaging.requestPermission();
     String? userType = CacheHelper.getData(key: "userType");
     if (userType != null) {
-      await _firebaseMessaging.subscribeToTopic(userType);
+      // await _firebaseMessaging.subscribeToTopic(userType);
     }
     await saveToken();
     await initPushNotifications();

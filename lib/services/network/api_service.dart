@@ -6,7 +6,7 @@ import 'package:off_yaba/services/cache_helper.dart';
 class DioHelper {
   static Dio? dio;
 
-  static String baseUrl = "http://rnw.f0d.mytemp.website/api/";
+  static String baseUrl = "http://92.205.186.203/api/";
   // static String baseUrl = "http://192.168.1.113:8000/api/";
   // static String token =
   //     // "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMWM1NmZkNDIzNmZkOTQyYjQzMmE0MzdmZmRiZjdiMTYxYmYzYmM0NThhODhkYzQ5MTc5NmFlNTg1ZGE0YzQ2ZThjZDczNDc3Nzg4Zjc1MzkiLCJpYXQiOjE3MjA1NTA2NTcuMTA0Mjk4LCJuYmYiOjE3MjA1NTA2NTcuMTA0MywiZXhwIjoxNzUyMDg2NjU3LjA5MzgyMSwic3ViIjoiMSIsInNjb3BlcyI6WyJlbXBsb3llZSJdfQ.uLigolosccd7o0iYKwqrHcU0oLKv0mbJ-kqagz2loCakCjVWAzVnGOiY0xJr8S0I3YfuGbqWqLmZgFDQEbjd-4FyYyELeI6qh505Jy-IChpiZQL_PtLFewLGoSVMUmsZRqx_F5NkfsNA5l8ibkOrZw9Uzz4kmDd_7HkTJ5fVdDWsIG7aosgQUPBLtG_NUSkTAbTTvapypTVnpsrrBiJgCodY0wMNXiFl55JTv5_UMzpZvzyssgbcfovH0NpD09ssKdPLwIIfvTdPwYCEKBPURz2VrmgdgV5s9vBrXJPIVaGLiIVGHF86wfKHXXy4QGlVnQRcms8X_z38wBYQou5XKr1J0sc3p7Wv2O1HJ466Gvn9ENL4AEq7VUXre1f7A51z-VU_gUrziDhUWyUB1KxZwtR1PHaIFlhrLTpzEXw-yIEuvshrREm9BwgMsabeyBQCdk08-CTSTqBPkDqFMNPLi6QWsjVSZGQ-ShOLdUtfPtaUTPFB4cZQCUr5KR1f8yhp5ECeo_WNUKpehO5DRXpPkA8o7OyjqPFCvbYadIcNUtKZscZOQq8Mw6CnSokTzbHS2cTpN46iE7hbc_ST-Qv1hlIfnNNnJ-ejHgVjE9B2kaAglfMAnBHEJdA7GGID88qR73Qqvs7X4b9tfcQn-9xUEN5-qt3xYBO5-oM9tFbTSSc";
