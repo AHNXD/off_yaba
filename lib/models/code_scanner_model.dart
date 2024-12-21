@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 class CodeScannerModel {
+  int? id;
   String? code;
   String? expAt;
   int? numberOfUsage;
   bool? isValid;
   CodeScannerModel({
+    this.id,
     this.code,
     this.expAt,
     this.numberOfUsage,
@@ -13,12 +15,14 @@ class CodeScannerModel {
   });
 
   CodeScannerModel copyWith({
+    int? id,
     String? code,
     String? expAt,
     int? numberOfUsage,
     bool? isValid,
   }) {
     return CodeScannerModel(
+      id: id ?? this.id,
       code: code ?? this.code,
       expAt: expAt ?? this.expAt,
       numberOfUsage: numberOfUsage ?? this.numberOfUsage,
@@ -28,6 +32,7 @@ class CodeScannerModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'code': code,
       'expiration_date': expAt,
       'number_of_usage': numberOfUsage,
@@ -37,6 +42,7 @@ class CodeScannerModel {
 
   factory CodeScannerModel.fromMap(Map<String, dynamic> map) {
     return CodeScannerModel(
+      id: map['id'],
       code: map['code'] != null ? map['code'] as String : null,
       expAt: map['expiration_date'] != null
           ? map['expiration_date'] as String

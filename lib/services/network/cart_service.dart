@@ -28,13 +28,12 @@ class CartService {
     await DioHelper.deleteAuthorized(path: '/cart/clear');
   }
 
-  static Future<void> checkoutCart({
-    required String location,
-    required String phone,
-  }) async {
-    await DioHelper.postAuthorized(path: "/cart/checkout", data: {
-      "location": location,
-      "phone": phone,
-    });
+  static Future<void> checkoutCart(
+      {required String location,
+      required String phone,
+      required int? code_id}) async {
+    await DioHelper.postAuthorized(
+        path: "/cart/checkout",
+        data: {"location": location, "phone": phone, 'code_id': code_id});
   }
 }

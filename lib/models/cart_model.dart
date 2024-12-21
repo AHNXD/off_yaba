@@ -22,7 +22,7 @@ class CartModel {
     id = json['id'];
     userId = json['user_id'];
     storeId = json['store_id'];
-    total = json['total'] as double;
+    total = double.parse(json['total'].toString());
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     if (json['items'] != null) {
