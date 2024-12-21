@@ -182,12 +182,19 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
                     } else if (snapshot.hasError) {
-                      return const Text('No QR codes found.');
+                      return const Text('لا يوجد كوبونات صالحة');
                       // return Text('Error: ${snapshot.error}');
                     } else if (snapshot.hasData) {
-                      List<CodeScannerModel> qrCodes = snapshot.data!;
-                      print('qrCodes: $qrCodes');
-                      print('selectedQrCode: $selectedQrCode');
+                      List<CodeScannerModel> validQrCodes =
+                          snapshot.data!.where((qrCode) {
+                        print(qrCode.toString());
+                        return qrCode.isValid! as bool;
+                      }).toList();
+
+                      if (validQrCodes.isEmpty) {
+                        return const Text('لا يوجد كوبونات صالحة');
+                      }
+
                       return DropdownButton<int>(
                         value: selectedQrCode,
                         onChanged: (int? newValue) {
@@ -195,7 +202,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                             selectedQrCode = newValue;
                           });
                         },
-                        items: qrCodes.map((qrCode) {
+                        items: validQrCodes.map((qrCode) {
                           return DropdownMenuItem<int>(
                             value: qrCode.id,
                             child: Text(
@@ -204,7 +211,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                         }).toList(),
                       );
                     } else {
-                      return const Text('No QR codes found.');
+                      return const Text('لا يوجد كوبونات صالحة');
                     }
                   },
                 ),
