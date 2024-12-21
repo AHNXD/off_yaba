@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/cart_model.dart';
 import 'package:off_yaba/models/code_scanner_model.dart';
@@ -6,6 +10,8 @@ import 'package:off_yaba/screens/router_screen.dart';
 import 'package:off_yaba/services/network/cart_service.dart';
 import 'package:off_yaba/services/network/qr_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
+
+import '../services/location_service.dart';
 
 class ConfirmOrderScreen extends StatefulWidget {
   static String routeName = '/confirm-order';
@@ -20,6 +26,8 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
   TextEditingController location = TextEditingController();
   TextEditingController phone = TextEditingController();
   int? selectedQrCode;
+  String? long;
+  String? lat;
   @override
   void initState() {
     super.initState();
@@ -38,35 +46,41 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
           minimumSize: const Size.fromHeight(kToolbarHeight),
           maximumSize: const Size.fromHeight(kToolbarHeight),
         ),
-        onPressed: (location.text.isNotEmpty && phone.text.isNotEmpty)
-            ? () {
-                CartService.checkoutCart(
-                        location: location.text,
-                        phone: phone.text,
-                        code_id: selectedQrCode)
-                    .then(
-                  (value) {
+        onPressed: (long == null && lat == null)
+            ? () async {
+                await getLocation(context);
+              }
+            : (location.text.isNotEmpty && phone.text.isNotEmpty)
+                ? () {
+                    CartService.checkoutCart(
+                      location: location.text,
+                      phone: phone.text,
+                      code_id: selectedQrCode,
+                      latitude: lat!,
+                      longitude: long!,
+                    ).then(
+                      (value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("تمت عملية الطلب بنجاح"),
+                            showCloseIcon: true,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                        Navigator.of(context)
+                            .pushReplacementNamed(RouterScreen.routeName);
+                      },
+                    );
+                  }
+                : () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("تمت عملية الطلب بنجاح"),
+                        content: Text("قم بتحديد جميع البيانات"),
                         showCloseIcon: true,
                         duration: Duration(seconds: 2),
                       ),
                     );
-                    Navigator.of(context)
-                        .pushReplacementNamed(RouterScreen.routeName);
                   },
-                );
-              }
-            : () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("قم بتحديد جميع البيانات"),
-                    showCloseIcon: true,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              },
         child: const Text(
           "تأكيد الطلب",
           style: TextStyle(color: Colors.white),
@@ -140,18 +154,34 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                       ),
                       titleText: "المبلغ الكلي",
                       trailingText: "${cart!.total! + 2000}د.ع"),
-                TextFormField(
-                  controller: location,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade300,
-                    hintText: "العنوان بالكامل",
-                    hintStyle: TextStyle(color: Colors.grey.shade500),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: BorderSide.none,
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: location,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey.shade300,
+                          hintText: "العنوان بالكامل",
+                          hintStyle: TextStyle(color: Colors.grey.shade500),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                        icon: const Icon(
+                          Icons.pin_drop_outlined,
+                          color: Colors.blue,
+                          size: 35,
+                        ),
+                        onPressed: () async {
+                          await getLocation(context);
+                        }),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -221,6 +251,81 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> getLocation(BuildContext context) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          backgroundColor: Colors.grey.shade500,
+          content: const Text(
+            "يتم تحديد الموقع",
+            style: TextStyle(color: Colors.black),
+          )),
+    );
+    bool status = await LocationService.checkGps();
+    if (status) {
+      Position? position = await LocationService.getLocation();
+      print("postion:$position");
+      if (position != null) {
+        long = position.longitude.toString();
+        lat = position.latitude.toString();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(
+                "تم الحصول على الموقع بنجاح",
+                style: TextStyle(color: Colors.white),
+              )),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                "فشل قي الحصول على الموقع الرجاء المحاولة مجددا",
+                style: TextStyle(color: Colors.white),
+              )),
+        );
+      }
+      // if (position != null) {
+      //   try {
+      //     // Use Geocoding to get the address
+      //     List<Placemark> placemarks = await placemarkFromCoordinates(
+      //       position.latitude,
+      //       position.longitude,
+      //     );
+      //     print("plac: $placemarks");
+      //     if (placemarks.isNotEmpty) {
+      //       Placemark place = placemarks.first;
+      //       String address =
+      //           "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+
+      //       setState(() {
+      //         location.text = address;
+      //       });
+      //     } else {
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         const SnackBar(content: Text("فشل قي الحصول على الموقع")),
+      //       );
+      //     }
+      //   } catch (e) {
+      //     print("Error in reverse geocoding: $e");
+      //   }
+      // } else {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     const SnackBar(content: Text("فشل قي الحصول على الموقع")),
+      //   );
+      // }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              " الرجاء السماح للتطبيق بالوصول الى الموقع والمحاولة مجددا",
+              style: TextStyle(color: Colors.white),
+            )),
+      );
+    }
   }
 }
 
