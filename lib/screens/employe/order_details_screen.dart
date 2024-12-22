@@ -9,9 +9,16 @@ import 'package:off_yaba/services/network/orders_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key});
+class OrderDetailsScreen extends StatefulWidget {
+  OrderDetailsScreen({super.key});
   static String routeName = '/order-details';
+
+  @override
+  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+}
+
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  late GoogleMapController _mapController;
 
   void _showOrderItemDialog(BuildContext context, Items orderItem) {
     showDialog(
@@ -114,24 +121,25 @@ class OrderDetailsScreen extends StatelessWidget {
                 shape: Border.all(color: Colors.transparent),
                 children: [Text(order.phone!)],
               ),
-              // SizedBox(
-              //   height: 200,
-              //   width: 200,
-              //   child: GoogleMap(
-              //     markers: {
-              //       Marker(
-              //           markerId: MarkerId(order.location ?? ""),
-              //           position: LatLng(double.parse(order.latitude!),
-              //               double.parse(order.longitude!))),
-              //     },
-              //     initialCameraPosition: CameraPosition(
-              //       target: LatLng(double.parse(order.latitude!),
-              //           double.parse(order.longitude!)),
-              //       zoom: 15.0,
-              //     ),
-              //     onMapCreated: (GoogleMapController controller) {},
-              //   ),
-              // ),
+              SizedBox(
+                height: 300,
+                child: GoogleMap(
+                  markers: {
+                    Marker(
+                        markerId: MarkerId(order.location ?? ""),
+                        position: LatLng(double.parse(order.latitude!),
+                            double.parse(order.longitude!))),
+                  },
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(double.parse(order.latitude!),
+                        double.parse(order.longitude!)),
+                    zoom: 15.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _mapController = controller;
+                  },
+                ),
+              ),
               Expanded(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
