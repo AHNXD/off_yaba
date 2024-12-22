@@ -36,7 +36,15 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
         },
       ))
       ..loadRequest(Uri.parse(
-          'https://www.google.com/maps/search/?api=1&query=${widget.long},${widget.lati}'));
+          'https://www.google.com/maps/search/?api=1&query=${widget.long},${widget.lati}'))
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel(
+        'SnackBar',
+        onMessageReceived: (message) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(message.message)));
+        },
+      );
   }
 
   @override
