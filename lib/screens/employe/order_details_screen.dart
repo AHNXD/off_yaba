@@ -122,11 +122,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               if (order.longitude != null && order.latitude != null)
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, ShowMapScreen.routeName,
-                          arguments: {
-                            'long': order.longitude,
-                            'lati': order.latitude
-                          });
+                      Navigator.push(
+                          context,
+                          goRoute(
+                              x: ShowMapScreen(
+                            lati: order.latitude!,
+                            long: order.longitude!,
+                          )));
                     },
                     child: Text(
                         lang == "ar" ? "اظهار على الخريطة" : "Show on Map")),
