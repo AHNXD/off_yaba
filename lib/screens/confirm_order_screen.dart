@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -59,25 +62,19 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
               longitude: long!,
             ).then(
               (value) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("تمت عملية الطلب بنجاح"),
-                    showCloseIcon: true,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+                showSnakBar(
+                    context: context,
+                    color: Colors.green,
+                    msg: "تمت عملية الطلب بنجاح");
                 Navigator.of(context)
                     .pushReplacementNamed(RouterScreen.routeName);
               },
             );
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("قم بتحديد جميع البيانات"),
-                showCloseIcon: true,
-                duration: Duration(seconds: 2),
-              ),
-            );
+            showSnakBar(
+                context: context,
+                color: Colors.red,
+                msg: "قم بتحديد جميع البيانات");
           }
         },
         child: const Text(
@@ -252,78 +249,69 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
     );
   }
 
-  Future<void> getLocation(BuildContext context) async {
+  void showSnakBar(
+      {required BuildContext context, Color? color, required String msg}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-          backgroundColor: Colors.grey.shade500,
-          content: const Text(
-            "يتم تحديد الموقع",
-            style: TextStyle(color: Colors.black),
+          backgroundColor: color,
+          content: Text(
+            msg,
           )),
     );
+  }
+
+  Future<void> getLocation(BuildContext context) async {
+    showSnakBar(context: context, msg: "يتم تحديد الموقع");
     bool status = await LocationService.checkGps();
     if (status) {
       Position? position = await LocationService.getLocation();
-      print("postion:$position");
       if (position != null) {
         long = position.longitude.toString();
         lat = position.latitude.toString();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              backgroundColor: Colors.green,
-              content: Text(
-                "تم الحصول على الموقع بنجاح",
-                style: TextStyle(color: Colors.white),
-              )),
-        );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                "فشل قي الحصول على الموقع الرجاء المحاولة مجددا",
-                style: TextStyle(color: Colors.white),
-              )),
-        );
+        showSnakBar(
+            context: context,
+            color: Colors.red,
+            msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
       }
-      // if (position != null) {
-      //   try {
-      //     // Use Geocoding to get the address
-      //     List<Placemark> placemarks = await placemarkFromCoordinates(
-      //       position.latitude,
-      //       position.longitude,
-      //     );
-      //     print("plac: $placemarks");
-      //     if (placemarks.isNotEmpty) {
-      //       Placemark place = placemarks.first;
-      //       String address =
-      //           "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
-
-      //       setState(() {
-      //         location.text = address;
-      //       });
-      //     } else {
-      //       ScaffoldMessenger.of(context).showSnackBar(
-      //         const SnackBar(content: Text("فشل قي الحصول على الموقع")),
-      //       );
-      //     }
-      //   } catch (e) {
-      //     print("Error in reverse geocoding: $e");
-      //   }
-      // } else {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     const SnackBar(content: Text("فشل قي الحصول على الموقع")),
-      //   );
-      // }
+      if (position != null) {
+        try {
+          // Use Geocoding to get the address
+          List<Placemark> placemarks = await placemarkFromCoordinates(
+            position.latitude,
+            position.longitude,
+          );
+          if (placemarks.isNotEmpty) {
+            Placemark place = placemarks.first;
+            String address =
+                "${place.country}, ${place.administrativeArea}, ${place.locality}, ${place.street}";
+            setState(() {
+              location.text = address;
+            });
+          } else {
+            showSnakBar(
+                context: context,
+                color: Colors.red,
+                msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+          }
+        } catch (e) {
+          log("Error in reverse geocoding: $e");
+          showSnakBar(
+              context: context,
+              color: Colors.red,
+              msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+        }
+      } else {
+        showSnakBar(
+            context: context,
+            color: Colors.red,
+            msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+      }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              " الرجاء السماح للتطبيق بالوصول الى الموقع والمحاولة مجددا",
-              style: TextStyle(color: Colors.white),
-            )),
-      );
+      showSnakBar(
+          context: context,
+          color: Colors.red,
+          msg: "الرجاء السماح للتطبيق بالوصول الى الموقع والمحاولة مجددا");
     }
   }
 }

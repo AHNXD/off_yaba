@@ -11,6 +11,9 @@
         android:label="offyaba"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <service
+            android:name="com.offyaba.bundleId.LocationService"
+            android:foregroundServiceType="location" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
