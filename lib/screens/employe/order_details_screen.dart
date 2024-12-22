@@ -3,11 +3,11 @@ import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/order_model.dart';
 import 'package:off_yaba/models/order_status.dart';
 import 'package:off_yaba/screens/confirm_order_screen.dart';
+import 'package:off_yaba/screens/employe/show_map.dart';
 import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 import 'package:off_yaba/services/network/orders_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   OrderDetailsScreen({super.key});
@@ -18,8 +18,6 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
-  late GoogleMapController _mapController;
-
   void _showOrderItemDialog(BuildContext context, Items orderItem) {
     showDialog(
       context: context,
@@ -121,25 +119,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 shape: Border.all(color: Colors.transparent),
                 children: [Text(order.phone!)],
               ),
-              SizedBox(
-                height: 300,
-                child: GoogleMap(
-                  markers: {
-                    Marker(
-                        markerId: MarkerId(order.location ?? ""),
-                        position: LatLng(double.parse(order.latitude!),
-                            double.parse(order.longitude!))),
-                  },
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(double.parse(order.latitude!),
-                        double.parse(order.longitude!)),
-                    zoom: 15.0,
-                  ),
-                  onMapCreated: (GoogleMapController controller) {
-                    _mapController = controller;
-                  },
-                ),
-              ),
+              if (order.longitude != null && order.latitude != null)
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, ShowMapScreen.routeName,
+                          arguments: {
+                            'long': order.longitude,
+                            'lati': order.latitude
+                          });
+                    },
+                    child: Text(
+                        lang == "ar" ? "اظهار على الخريطة" : "Show on Map")),
               Expanded(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
