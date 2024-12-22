@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
           OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
           ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
           StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
-          OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
+          OrderDetailsScreen.routeName: (context) =>  OrderDetailsScreen(),
           UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
         },
       ),

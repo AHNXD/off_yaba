@@ -39,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkTokenAndNavigate() async {
     String? token = await CacheHelper.getData(key: "token");
     String? userType = await CacheHelper.getData(key: "userType");
+    log(userType.toString());
     if (token != null) {
       log(userType.toString());
       if (userType == "emp") {

@@ -7,6 +7,7 @@ import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 import 'package:off_yaba/services/network/orders_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen({super.key});
@@ -113,6 +114,24 @@ class OrderDetailsScreen extends StatelessWidget {
                 shape: Border.all(color: Colors.transparent),
                 children: [Text(order.phone!)],
               ),
+              // SizedBox(
+              //   height: 200,
+              //   width: 200,
+              //   child: GoogleMap(
+              //     markers: {
+              //       Marker(
+              //           markerId: MarkerId(order.location ?? ""),
+              //           position: LatLng(double.parse(order.latitude!),
+              //               double.parse(order.longitude!))),
+              //     },
+              //     initialCameraPosition: CameraPosition(
+              //       target: LatLng(double.parse(order.latitude!),
+              //           double.parse(order.longitude!)),
+              //       zoom: 15.0,
+              //     ),
+              //     onMapCreated: (GoogleMapController controller) {},
+              //   ),
+              // ),
               Expanded(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
