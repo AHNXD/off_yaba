@@ -55,7 +55,27 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
           onPressed: () {
             controller.reload();
           }),
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: RichText(
+          textAlign: TextAlign.center,
+          text: const TextSpan(children: [
+            TextSpan(
+                text: "Off ",
+                style: TextStyle(
+                    color: appColor,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    shadows: [])),
+            TextSpan(
+                text: "Yaba",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold))
+          ]),
+        ),
+      ),
       body: SafeArea(
           child: Directionality(
         textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
