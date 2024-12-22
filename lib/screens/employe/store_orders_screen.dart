@@ -36,51 +36,62 @@ class _StoreOrdersScreenState extends State<StoreOrdersScreen> {
           ),
           onPressed: () {
             double total = 0;
-            for (var i = 0; i < orders!.length; i++) {
-              total += orders![i].total! + 2000;
-            }
+            if (orders != null) {
+              for (var i = 0; i < orders!.length; i++) {
+                total += orders![i].total! + 2000;
+              }
 
-            setState(() {});
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                      title: const Text("المبلغ الكلي"),
-                      content: Text(total.toString()),
-                    ));
+              setState(() {});
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: const Text("المبلغ الكلي"),
+                        content: Text(total.toString()),
+                      ));
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                        title: Text("المبلغ الكلي"),
+                        content: Text("0"),
+                      ));
+            }
           }),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          children: [
-            const CustomAppBar(
-              backArrow: true,
-            ),
-            Expanded(
-              child: FutureBuilder(
-                future: _futureData,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasData) {
-                    orders = snapshot.data;
-                    return ListView.separated(
-                        itemCount: orders!.length,
-                        separatorBuilder: (context, index) => const Divider(),
-                        itemBuilder: (context, index) {
-                          return StoreOrderTile(order: orders![index]);
-                        });
-                  }
-                  if (snapshot.hasError) {
-                    log(snapshot.stackTrace.toString());
-                    // print("snapshotttt errrorr: ${snapshot.error.}");
-                  }
-                  return const Center(
-                      child: Text("لم يتم إضافة أي عنصر للسلة"));
-                },
+      body: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            children: [
+              const CustomAppBar(
+                backArrow: true,
               ),
-            ),
-          ],
+              Expanded(
+                child: FutureBuilder(
+                  future: _futureData,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasData) {
+                      orders = snapshot.data;
+                      return ListView.separated(
+                          itemCount: orders!.length,
+                          separatorBuilder: (context, index) => const Divider(),
+                          itemBuilder: (context, index) {
+                            return StoreOrderTile(order: orders![index]);
+                          });
+                    }
+                    if (snapshot.hasError) {
+                      log(snapshot.stackTrace.toString());
+                      // print("snapshotttt errrorr: ${snapshot.error.}");
+                    }
+                    return const Center(
+                        child: Text("لم يتم إضافة أي عنصر للسلة"));
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

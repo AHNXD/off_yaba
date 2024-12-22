@@ -72,7 +72,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 cart = snapshot.data!;
-                print("cartttt ${cart!.items}");
+                print("cart${cart!.items}");
                 if (cart!.items != null && cart!.items!.isNotEmpty) {
                   return ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -92,7 +92,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                 }
               }
               if (snapshot.hasError) {
-                print("cartttt error: ${snapshot.error}");
+                print("cart error: ${snapshot.error}");
               }
               return const SizedBox();
             },
@@ -276,6 +276,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                   FutureBuilder<List<ClothingItemModel>>(
                     future: ClothingService.getClothingItemsByStore(store.id!),
                     builder: (context, snapshot) {
+                      print("data: ${snapshot.data.toString()}");
                       if (snapshot.hasError) {
                         return Center(
                             child: Text('Error: ${snapshot.stackTrace}'));
@@ -288,6 +289,8 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                         );
                       }
                       var items = snapshot.data!;
+                      print('items: ${items}');
+
                       return GridView.builder(
                         padding: const EdgeInsets.all(10),
                         shrinkWrap: true,
@@ -320,9 +323,10 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                             ),
                           );
                         }
+
                         if (snapshot.hasData) {
                           List<StoreOfferModel> offers = snapshot.data!;
-
+                          print('Offers: ${offers}');
                           return Container(
                             margin: const EdgeInsets.symmetric(horizontal: 16),
                             child: ListView.separated(

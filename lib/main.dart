@@ -46,43 +46,47 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Off-Yaba',
-      theme: ThemeData(
-        fontFamily: GoogleFonts.cairo.call().fontFamily,
-        colorScheme: ColorScheme.fromSeed(seedColor: appColor),
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.grey.shade200,
+    return Directionality(
+      textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: 'Off-Yaba',
+        theme: ThemeData(
+          fontFamily: GoogleFonts.cairo.call().fontFamily,
+          colorScheme: ColorScheme.fromSeed(seedColor: appColor),
+          useMaterial3: true,
+          scaffoldBackgroundColor: Colors.grey.shade200,
+        ),
+        initialRoute: SplashScreen.routeName,
+        routes: {
+          RouterScreen.routeName: (context) => const RouterScreen(),
+          SearchScreen.routeName: (context) => const SearchScreen(),
+          AuthScreen.routeName: (context) => const AuthScreen(),
+          CategoriesScreen.routeName: (context) => const CategoriesScreen(),
+          RestaurantScreen.routeName: (context) => const RestaurantScreen(),
+          SplashScreen.routeName: (context) => const SplashScreen(),
+          SignInScreen.routeName: (context) => const SignInScreen(),
+          SignUpScreen.routeName: (context) => const SignUpScreen(),
+          CodeScreen.routeName: (context) => const CodeScreen(),
+          OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen(),
+          ShowCategoryScreen.routeName: (context) => const ShowCategoryScreen(),
+          AllDiscountsScreen.routeName: (context) => const AllDiscountsScreen(),
+          ReportsScreen.routeName: (context) => const ReportsScreen(),
+          SubscriptionsScreen.routeName: (context) =>
+              const SubscriptionsScreen(),
+          ClothesSectionScreen.routeName: (context) =>
+              const ClothesSectionScreen(),
+          ClothingItemDetailsScreen.routeName: (context) =>
+              const ClothingItemDetailsScreen(),
+          ScannerScreen.routeName: (context) => const ScannerScreen(),
+          OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
+          ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
+          StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
+          OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
+          UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
+        },
       ),
-      initialRoute: SplashScreen.routeName,
-      routes: {
-        RouterScreen.routeName: (context) => const RouterScreen(),
-        SearchScreen.routeName: (context) => const SearchScreen(),
-        AuthScreen.routeName: (context) => const AuthScreen(),
-        CategoriesScreen.routeName: (context) => const CategoriesScreen(),
-        RestaurantScreen.routeName: (context) => const RestaurantScreen(),
-        SplashScreen.routeName: (context) => const SplashScreen(),
-        SignInScreen.routeName: (context) => const SignInScreen(),
-        SignUpScreen.routeName: (context) => const SignUpScreen(),
-        CodeScreen.routeName: (context) => const CodeScreen(),
-        OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen(),
-        ShowCategoryScreen.routeName: (context) => const ShowCategoryScreen(),
-        AllDiscountsScreen.routeName: (context) => const AllDiscountsScreen(),
-        ReportsScreen.routeName: (context) => const ReportsScreen(),
-        SubscriptionsScreen.routeName: (context) => const SubscriptionsScreen(),
-        ClothesSectionScreen.routeName: (context) =>
-            const ClothesSectionScreen(),
-        ClothingItemDetailsScreen.routeName: (context) =>
-            const ClothingItemDetailsScreen(),
-        ScannerScreen.routeName: (context) => const ScannerScreen(),
-        OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
-        ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
-        StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
-        OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
-        UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
-      },
     );
   }
 }

@@ -46,8 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
             .pushReplacement(goRoute(x: const EmployeeScreen()));
         return;
       }
-      Navigator.of(context)
-          .pushReplacement(goRoute(x: const ConfirmOrderScreen()));
+      Navigator.of(context).pushReplacement(goRoute(x: const RouterScreen()));
       return;
     } else {
       Navigator.of(context).pushReplacement(goRoute(x: const AuthScreen()));
