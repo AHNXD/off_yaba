@@ -22,12 +22,12 @@ class OrdersService {
       Response? response =
           await DioHelper.getAuthorizedData(path: "/employee/orders");
       List<dynamic> dynamicData = response!.data['data'];
-      print("dynamicccccccccccccccccC: $dynamicData");
+      print("dynamic: $dynamicData");
       List<OrderModel> orders =
           dynamicData.map((e) => OrderModel.fromJson(e)).toList();
       return orders;
     } catch (e, stackTrace) {
-      print("errorrrrR: $stackTrace");
+      print("error: $stackTrace");
     }
 
     return null;

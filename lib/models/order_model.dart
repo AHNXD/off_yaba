@@ -11,6 +11,8 @@ class OrderModel {
   OrderStatus? status; // Updated to use OrderStatus enum
   String? location;
   String? phone;
+  String? longitude;
+  String? latitude;
   Store? store;
   List<Items>? items;
 
@@ -23,6 +25,8 @@ class OrderModel {
       this.updatedAt,
       this.status,
       this.location,
+      this.longitude,
+      this.latitude,
       this.phone,
       this.store,
       this.items});
@@ -38,6 +42,8 @@ class OrderModel {
         ? getOrderStatusFromString(json['status'])
         : null; // Update fromJson
     location = json['location'];
+    longitude = json['longitude'];
+    latitude = json['latitude'];
     phone = json['phone'];
     store = json['store'] != null ? Store.fromJson(json['store']) : null;
     if (json['items'] != null) {
@@ -59,6 +65,8 @@ class OrderModel {
     data['status'] =
         status != null ? getOrderStatusString(status!) : null; // Update toJson
     data['location'] = location;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
     data['phone'] = phone;
     if (store != null) {
       data['store'] = store!.toJson();
@@ -133,6 +141,7 @@ class Items {
   int? itemId;
   int? quantity;
   double? price; // Changed to double
+  String? extraNotes;
   String? createdAt;
   String? updatedAt;
   Item? item;
@@ -143,6 +152,7 @@ class Items {
       this.itemId,
       this.quantity,
       this.price, // Changed to double
+      this.extraNotes,
       this.createdAt,
       this.updatedAt,
       this.item});
@@ -155,6 +165,7 @@ class Items {
     price = json['price'] != null
         ? json['price'].toDouble()
         : 0.0; // Safe conversion
+    extraNotes = json['extra_notes'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     item = json['item'] != null ? Item.fromJson(json['item']) : null;
@@ -167,6 +178,7 @@ class Items {
     data['item_id'] = itemId;
     data['quantity'] = quantity;
     data['price'] = price;
+    data['extra_notes'] = extraNotes;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     if (item != null) {
@@ -179,9 +191,8 @@ class Items {
 class Item {
   int? id;
   int? storeId;
-  String? title;
-  String? body;
-  int? discount;
+  String? name;
+  double? discount;
   String? image;
   String? createdAt;
   String? updatedAt;
@@ -190,8 +201,7 @@ class Item {
   Item(
       {this.id,
       this.storeId,
-      this.title,
-      this.body,
+      this.name,
       this.discount,
       this.image,
       this.createdAt,
@@ -202,8 +212,7 @@ class Item {
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     storeId = json['store_id'];
-    title = json['name'];
-    body = json['body'];
+    name = json['name'];
     discount = json['discount'];
     image = json['image'];
     createdAt = json['created_at'];
@@ -217,8 +226,7 @@ class Item {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['store_id'] = storeId;
-    data['title'] = title;
-    data['body'] = body;
+    data['name'] = name;
     data['discount'] = discount;
     data['image'] = image;
     data['created_at'] = createdAt;

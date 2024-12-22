@@ -17,7 +17,7 @@ class OrderDetailsScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(orderItem.item!.title!),
+          title: Text(orderItem.item!.name!),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -45,119 +45,140 @@ class OrderDetailsScreen extends StatelessWidget {
     final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
     OrderModel order = arguments['order'];
     return Scaffold(
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          children: [
-            const CustomAppBar(
-              backArrow: true,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: order.items!.length,
-                itemBuilder: (context, index) {
-                  print("orderrrssss: ${order.items![index].toJson()}");
-                  return GestureDetector(
-                    onTap: () {
-                      _showOrderItemDialog(context, order.items![index]);
-                    },
-                    child: OrderItemTile(
-                      leading: Text(
-                        order.items![index].quantity.toString(),
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            color: appColor, fontWeight: FontWeight.bold),
-                      ),
-                      titleText: order.items![index].item!.title!,
-                      trailingText:
-                          '${order.items![index].item!.price! * order.items![index].quantity!}د.ع',
-                    ),
-                  );
-                },
+      body: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            children: [
+              const CustomAppBar(
+                backArrow: true,
               ),
-            ),
-            ExpansionTile(
-              title: const Text("العنوان"),
-              leading: const Icon(Icons.location_pin),
-              dense: true,
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              expandedAlignment: Alignment.centerRight,
-              childrenPadding: const EdgeInsets.symmetric(horizontal: 15),
-              shape: Border.all(color: Colors.transparent),
-              children: [Text(order.location!)],
-            ),
-            ExpansionTile(
-              title: const Text("الرقم"),
-              leading: const Icon(Icons.phone),
-              dense: true,
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              expandedAlignment: Alignment.centerRight,
-              childrenPadding: const EdgeInsets.symmetric(horizontal: 15),
-              shape: Border.all(color: Colors.transparent),
-              children: [Text(order.phone!)],
-            ),
-            Expanded(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  if (order.status == OrderStatus.pendingConfirmation)
-                    ElevatedButton(
-                      onPressed: () {
-                        OrdersService.acceptOrder(orderId: order.id!).then(
-                          (value) {
-                            Navigator.pop(context);
-                            return Navigator.of(context).pushReplacementNamed(
+              Expanded(
+                child: ListView.builder(
+                  itemCount: order.items!.length,
+                  itemBuilder: (context, index) {
+                    print("order: ${order.items![index].toJson()}");
+                    return GestureDetector(
+                      onTap: () {
+                        _showOrderItemDialog(context, order.items![index]);
+                      },
+                      child: Column(
+                        children: [
+                          OrderItemTile(
+                            leading: Text(
+                              order.items![index].quantity.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: appColor,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            titleText: order.items![index].item!.name!,
+                            trailingText:
+                                '${order.items![index].item!.price! * order.items![index].quantity!}د.ع',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                  textAlign: TextAlign.start,
+                                  "ملاحظات: ${order.items![index].extraNotes ?? ""}"),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              ExpansionTile(
+                title: const Text("العنوان"),
+                leading: const Icon(Icons.location_pin),
+                dense: true,
+                expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                expandedAlignment: Alignment.centerRight,
+                childrenPadding: const EdgeInsets.symmetric(horizontal: 15),
+                shape: Border.all(color: Colors.transparent),
+                children: [Text(order.location!)],
+              ),
+              ExpansionTile(
+                title: const Text("الرقم"),
+                leading: const Icon(Icons.phone),
+                dense: true,
+                expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                expandedAlignment: Alignment.centerRight,
+                childrenPadding: const EdgeInsets.symmetric(horizontal: 15),
+                shape: Border.all(color: Colors.transparent),
+                children: [Text(order.phone!)],
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    if (order.status == OrderStatus.pendingConfirmation)
+                      ElevatedButton(
+                        onPressed: () {
+                          OrdersService.acceptOrder(orderId: order.id!).then(
+                            (value) {
+                              Navigator.pop(context);
+                              return Navigator.of(context).pushReplacementNamed(
+                                StoreOrdersScreen.routeName,
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        ),
+                        child: const Text(
+                          "قبول",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    if (order.status == OrderStatus.pendingConfirmation)
+                      ElevatedButton(
+                        onPressed: () {
+                          OrdersService.cancelOrder(orderId: order.id!).then(
+                            (value) =>
+                                Navigator.of(context).pushReplacementNamed(
                               StoreOrdersScreen.routeName,
-                            );
-                          },
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
+                        child: const Text(
+                          "الغاء",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                      child: const Text(
-                        "قبول",
-                        style: TextStyle(color: Colors.white),
+                    if (order.status == OrderStatus.confirmed &&
+                        order.status != OrderStatus.inTransit)
+                      ElevatedButton(
+                        onPressed: () {
+                          OrdersService.deliverOrder(orderId: order.id!).then(
+                            (value) =>
+                                Navigator.of(context).pushReplacementNamed(
+                              StoreOrdersScreen.routeName,
+                            ),
+                          );
+                        },
+                        style:
+                            ElevatedButton.styleFrom(backgroundColor: appColor),
+                        child: const Text(
+                          "تم التوصيل",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    ),
-                  if (order.status == OrderStatus.pendingConfirmation)
-                    ElevatedButton(
-                      onPressed: () {
-                        OrdersService.cancelOrder(orderId: order.id!).then(
-                          (value) => Navigator.of(context).pushReplacementNamed(
-                            StoreOrdersScreen.routeName,
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
-                      child: const Text(
-                        "الغاء",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  if (order.status == OrderStatus.confirmed &&
-                      order.status != OrderStatus.inTransit)
-                    ElevatedButton(
-                      onPressed: () {
-                        OrdersService.deliverOrder(orderId: order.id!).then(
-                          (value) => Navigator.of(context).pushReplacementNamed(
-                            StoreOrdersScreen.routeName,
-                          ),
-                        );
-                      },
-                      style:
-                          ElevatedButton.styleFrom(backgroundColor: appColor),
-                      child: const Text(
-                        "تم التوصيل",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
