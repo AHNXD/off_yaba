@@ -5,7 +5,7 @@ import 'package:off_yaba/services/network/api_service.dart';
 
 class StoreOfferModel {
   int? id;
-  int? discount;
+  double? discount;
   String? image;
   String? name;
   String? body;
@@ -24,7 +24,7 @@ class StoreOfferModel {
 
   StoreOfferModel copyWith({
     int? id,
-    int? discount,
+    double? discount,
     String? image,
     String? name,
     String? body,
@@ -55,7 +55,7 @@ class StoreOfferModel {
       {String source = "web"}) {
     return StoreOfferModel(
       id: map['id'] != null ? map['id'] as int : null,
-      discount: map['discount'] != null ? map['discount'] as int : null,
+      discount: map['discount'],
       image: source == "web"
           ? "${DioHelper.baseUrl}image?path=${map['image']}"
           : map["image"],

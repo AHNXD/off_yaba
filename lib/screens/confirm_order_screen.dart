@@ -26,8 +26,8 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
   TextEditingController location = TextEditingController();
   TextEditingController phone = TextEditingController();
   int? selectedQrCode;
-  String? long;
-  String? lat;
+  String? long = null;
+  String? lat = null;
   @override
   void initState() {
     super.initState();
@@ -46,41 +46,40 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
           minimumSize: const Size.fromHeight(kToolbarHeight),
           maximumSize: const Size.fromHeight(kToolbarHeight),
         ),
-        onPressed: (long == null && lat == null)
-            ? () async {
-                await getLocation(context);
-              }
-            : (location.text.isNotEmpty && phone.text.isNotEmpty)
-                ? () {
-                    CartService.checkoutCart(
-                      location: location.text,
-                      phone: phone.text,
-                      code_id: selectedQrCode,
-                      latitude: lat!,
-                      longitude: long!,
-                    ).then(
-                      (value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("تمت عملية الطلب بنجاح"),
-                            showCloseIcon: true,
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                        Navigator.of(context)
-                            .pushReplacementNamed(RouterScreen.routeName);
-                      },
-                    );
-                  }
-                : () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("قم بتحديد جميع البيانات"),
-                        showCloseIcon: true,
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                  },
+        onPressed: () async {
+          if (long == null && lat == null) {
+            await getLocation(context);
+          }
+          if (location.text.isNotEmpty && phone.text.isNotEmpty) {
+            CartService.checkoutCart(
+              location: location.text,
+              phone: phone.text,
+              code_id: selectedQrCode,
+              latitude: lat!,
+              longitude: long!,
+            ).then(
+              (value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("تمت عملية الطلب بنجاح"),
+                    showCloseIcon: true,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                Navigator.of(context)
+                    .pushReplacementNamed(RouterScreen.routeName);
+              },
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("قم بتحديد جميع البيانات"),
+                showCloseIcon: true,
+                duration: Duration(seconds: 2),
+              ),
+            );
+          }
+        },
         child: const Text(
           "تأكيد الطلب",
           style: TextStyle(color: Colors.white),

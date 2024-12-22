@@ -10,43 +10,47 @@ class SubscriptionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const CustomAppBar(),
-          Container(
-            margin: const EdgeInsets.only(top: 30),
-            child: Text(
-              "عروض الاشتراكات",
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: appColor,
-                  ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const CustomAppBar(
+              backArrow: true,
             ),
-          ),
-          Expanded(
-            child: FutureBuilder<List<SubscriptionModel>>(
-              future: QRService.getSubscriptions(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<SubscriptionModel> subs = snapshot.data!;
-                  return ListView.separated(
-                    itemCount: subs.length,
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 20,
+            Container(
+              margin: const EdgeInsets.only(top: 15, bottom: 8),
+              child: Text(
+                "عروض الاشتراكات",
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      color: appColor,
                     ),
-                    itemBuilder: (context, index) {
-                      SubscriptionModel sub = subs[index];
-                      return SubscriptionCard(
-                        sub: sub,
-                        isGold: sub == subs.last,
-                      );
-                    },
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
+              ),
             ),
-          )
-        ],
+            Expanded(
+              child: FutureBuilder<List<SubscriptionModel>>(
+                future: QRService.getSubscriptions(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<SubscriptionModel> subs = snapshot.data!;
+                    return ListView.separated(
+                      itemCount: subs.length,
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
+                      itemBuilder: (context, index) {
+                        SubscriptionModel sub = subs[index];
+                        return SubscriptionCard(
+                          sub: sub,
+                          isGold: sub == subs.last,
+                        );
+                      },
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
