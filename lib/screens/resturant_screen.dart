@@ -289,7 +289,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                         );
                       }
                       var items = snapshot.data!;
-                      print('items: ${items}');
+                      print('items: $items');
 
                       return GridView.builder(
                         padding: const EdgeInsets.all(10),
@@ -326,7 +326,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
 
                         if (snapshot.hasData) {
                           List<StoreOfferModel> offers = snapshot.data!;
-                          print('Offers: ${offers}');
+                          print('Offers: $offers');
                           return Container(
                             margin: const EdgeInsets.symmetric(horizontal: 16),
                             child: ListView.separated(

@@ -29,8 +29,8 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
   TextEditingController location = TextEditingController();
   TextEditingController phone = TextEditingController();
   int? selectedQrCode;
-  String? long = null;
-  String? lat = null;
+  String? long;
+  String? lat;
   @override
   void initState() {
     super.initState();

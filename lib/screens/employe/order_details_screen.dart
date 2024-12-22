@@ -10,7 +10,7 @@ import 'package:off_yaba/services/network/orders_service.dart';
 import 'package:off_yaba/widgets/custom_appbar.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  OrderDetailsScreen({super.key});
+  const OrderDetailsScreen({super.key});
   static String routeName = '/order-details';
 
   @override

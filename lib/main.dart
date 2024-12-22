@@ -10,7 +10,6 @@ import 'package:off_yaba/screens/clothing_item_details.dart';
 import 'package:off_yaba/screens/code_screen.dart';
 import 'package:off_yaba/screens/confirm_order_screen.dart';
 import 'package:off_yaba/screens/employe/order_details_screen.dart';
-import 'package:off_yaba/screens/employe/show_map.dart';
 import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/screens/offer_details_screen.dart';
 import 'package:off_yaba/screens/order_item_details_screen.dart';
@@ -84,7 +83,7 @@ class MyApp extends StatelessWidget {
           OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
           ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
           StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
-          OrderDetailsScreen.routeName: (context) => OrderDetailsScreen(),
+          OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
           UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
         },
       ),
