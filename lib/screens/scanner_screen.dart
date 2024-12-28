@@ -121,17 +121,24 @@ class _ScannerScreenState extends State<ScannerScreen> {
       camController!.pauseCamera();
       await player.play(AssetSource(audioasset));
 
-      QRService.scanUserCode(code: scanData.code!)
-          .then((value) => showDialog(
-                context: context,
-                builder: (context) => const AlertDialog(
-                  title: Center(child: Text("تمت العملية بنجاح")),
-                ),
-              ).then((value) => camController!.resumeCamera()))
+      await QRService.scanUserCode(code: scanData.code!)
+          .then((value) => value
+              ? showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                    title: Center(child: Text("تمت العملية بنجاح")),
+                  ),
+                ).then((value) => camController!.resumeCamera())
+              : showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                    title: Center(child: Text("قد تم استهلاك هذا الرمز")),
+                  ),
+                ).then((value) => camController!.resumeCamera()))
           .onError((error, stackTrace) => showDialog(
                 context: context,
                 builder: (context) => const AlertDialog(
-                  title: Center(child: Text("قد تم استهلاك هذا الرمز")),
+                  title: Center(child: Text("حدث خطا ما!")),
                 ),
               ).then((value) => camController!.resumeCamera()));
     });

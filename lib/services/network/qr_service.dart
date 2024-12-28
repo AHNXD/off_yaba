@@ -4,10 +4,14 @@ import 'package:off_yaba/models/coupon_offers_model.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 
 class QRService {
-  static Future<void> scanUserCode({required String code}) async {
+  static Future<bool> scanUserCode({required String code}) async {
     try {
-      await DioHelper.postAuthorized(
+      var res = await DioHelper.postAuthorized(
           path: "qr-code/user-scan", data: {"code": code});
+      if (res!.data['success']) {
+        return true;
+      }
+      return false;
     } on DioException {
       rethrow;
     }
