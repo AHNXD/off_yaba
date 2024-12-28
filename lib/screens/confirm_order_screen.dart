@@ -272,7 +272,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
         showSnakBar(
             context: context,
             color: Colors.red,
-            msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+            msg: "فشل في الحصول على الموقع الرجاء المحاولة مجددا");
       }
       if (position != null) {
         try {
@@ -283,29 +283,33 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
           );
           if (placemarks.isNotEmpty) {
             Placemark place = placemarks.first;
-            String address =
-                "${place.country}, ${place.administrativeArea}, ${place.locality}, ${place.street}";
+            String address = lang == "ar"
+                ? "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}"
+                : "${place.country}, ${place.administrativeArea}, ${place.locality}, ${place.street}";
             setState(() {
+              if (location.text.isNotEmpty) {
+                location.clear();
+              }
               location.text = address;
             });
           } else {
             showSnakBar(
                 context: context,
                 color: Colors.red,
-                msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+                msg: "فشل في الحصول على الموقع الرجاء المحاولة مجددا");
           }
         } catch (e) {
           log("Error in reverse geocoding: $e");
           showSnakBar(
               context: context,
               color: Colors.red,
-              msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+              msg: "فشل في الحصول على الموقع الرجاء المحاولة مجددا");
         }
       } else {
         showSnakBar(
             context: context,
             color: Colors.red,
-            msg: "فشل قي الحصول على الموقع الرجاء المحاولة مجددا");
+            msg: "فشل في الحصول على الموقع الرجاء المحاولة مجددا");
       }
     } else {
       showSnakBar(
