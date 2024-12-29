@@ -11,7 +11,9 @@ import 'package:off_yaba/screens/employe/store_orders_screen.dart';
 import 'package:off_yaba/services/cache_helper.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 
-Future<void> handleBackgroundMessage(RemoteMessage message) async {}
+Future<void> handleBackgroundMessage(RemoteMessage message) async {
+  log("Background message: ${message.data}");
+}
 
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
@@ -41,34 +43,80 @@ class FirebaseApi {
     await platform?.createNotificationChannel(_androidChannel);
   }
 
-  Future initPushNotifications() async {
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-            alert: true, badge: true, sound: true);
+  Future<void> initPushNotifications() async {
+    // Request permissions for iOS
+    NotificationSettings settings = await _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-    FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
-    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
-    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+    if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+      log("User declined or has not granted permissions for notifications");
+      return;
+    }
+
+    // Display notification in foreground
     FirebaseMessaging.onMessage.listen((message) {
       final notification = message.notification;
-      if (notification == null) return;
-      _localNotifications.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            _androidChannel.id,
-            _androidChannel.name,
-            channelDescription: _androidChannel.description,
-            icon: '@drawable/off_yaba',
-            autoCancel: true,
+      final android = message.notification?.android;
+      if (notification != null && android != null) {
+        _localNotifications.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              _androidChannel.id,
+              _androidChannel.name,
+              channelDescription: _androidChannel.description,
+              icon: '@drawable/ic_launcher',
+              importance: Importance.max,
+              priority: Priority.high,
+            ),
           ),
-        ),
-        payload: jsonEncode(message.toMap()),
-      );
+          payload: jsonEncode(message.data),
+        );
+      }
     });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      handleMessage(message);
+    });
+
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+
+    // Save the FCM token
+    await saveToken();
   }
+  // Future initPushNotifications() async {
+  //   await FirebaseMessaging.instance
+  //       .setForegroundNotificationPresentationOptions(
+  //           alert: true, badge: true, sound: true);
+
+  //   FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
+  //   FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+  //   FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+  //   FirebaseMessaging.onMessage.listen((message) {
+  //     final notification = message.notification;
+  //     if (notification == null) return;
+  //     _localNotifications.show(
+  //       notification.hashCode,
+  //       notification.title,
+  //       notification.body,
+  //       NotificationDetails(
+  //         android: AndroidNotificationDetails(
+  //           _androidChannel.id,
+  //           _androidChannel.name,
+  //           channelDescription: _androidChannel.description,
+  //           icon: '@drawable/off_yaba',
+  //           autoCancel: true,
+  //         ),
+  //       ),
+  //       payload: jsonEncode(message.toMap()),
+  //     );
+  //   });
+  // }
 
   Future<void> saveToken() async {
     final bool? hasToken = await CacheHelper.getData(key: "hasFCMToken");
@@ -88,18 +136,38 @@ class FirebaseApi {
                 "token": fCMToken,
               });
           await CacheHelper.setBool(key: "hasFCMToken", value: true);
-        } on DioException {}
+        } catch (e) {
+          log("Error saving FCM token: $e");
+        }
       }
     }
   }
 
-  Future<void> initNotifications() async {
-    await _firebaseMessaging.requestPermission();
-    String? userType = CacheHelper.getData(key: "userType");
-    if (userType != null) {
-      // await _firebaseMessaging.subscribeToTopic(userType);
+  Future<void> requestNotificationPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.denied) {
+      log("Notification permission denied");
+    } else if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      log("Notification permission granted");
+    } else {
+      log("Notification permission granted provisionally");
     }
-    await saveToken();
+  }
+
+  Future<void> initNotifications() async {
+    // await _firebaseMessaging.requestPermission();
+    // await saveToken();
+    await requestNotificationPermission();
     await initPushNotifications();
     await initLocalNotifications();
   }

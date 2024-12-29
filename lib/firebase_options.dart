@@ -50,19 +50,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZGTf5T46Z6Ww9is527QkVoiLc_AM9wBg',
-    appId: '1:434503037457:android:a040d889aec509172fb7b0',
-    messagingSenderId: '434503037457',
-    projectId: 'offyaba-e65c5',
-    storageBucket: 'offyaba-e65c5.appspot.com',
+    apiKey: 'AIzaSyDuvgGISktA1n-zc0cXpA9qIv7BybH0-Io',
+    appId: '1:649225477977:android:8f84290e0daff87b213648',
+    messagingSenderId: '649225477977',
+    projectId: 'offyaba-fa53f',
+    storageBucket: 'offyaba-fa53f.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDq3fHQDJfzOVB37JB8ee_-wJGAvpCcx48',
-    appId: '1:434503037457:ios:4a1cce27c6beb0322fb7b0',
-    messagingSenderId: '434503037457',
-    projectId: 'offyaba-e65c5',
-    storageBucket: 'offyaba-e65c5.appspot.com',
+    apiKey: 'AIzaSyDuvgGISktA1n-zc0cXpA9qIv7BybH0-Io',
+    appId: '1:649225477977:ios:58e5f3044930eb00213648',
+    messagingSenderId: '649225477977',
+    projectId: 'offyaba-fa53f',
+    storageBucket: 'offyaba-fa53f.firebasestorage.app',
     iosBundleId: 'com.example.offYaba',
   );
+
+  // this for back-end for web
+  static const FirebaseOptions web = FirebaseOptions(
+      apiKey: "AIzaSyDuvgGISktA1n-zc0cXpA9qIv7BybH0-Io",
+      authDomain: "offyaba-fa53f.firebaseapp.com",
+      projectId: "offyaba-fa53f",
+      storageBucket: "offyaba-fa53f.firebasestorage.app",
+      messagingSenderId: "649225477977",
+      appId: "1:649225477977:web:2a6efa355ca95729213648",
+      measurementId: "G-HRYN363ZTP");
 }
