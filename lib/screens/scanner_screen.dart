@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -120,7 +121,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
     camController!.scannedDataStream.listen((scanData) async {
       camController!.pauseCamera();
       await player.play(AssetSource(audioasset));
-
+      log("The QR is: ${scanData.code}");
       await QRService.scanUserCode(code: scanData.code!)
           .then((value) => value
               ? showDialog(
