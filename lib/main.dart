@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +29,7 @@ import 'package:off_yaba/screens/update_user_info_screen.dart';
 import 'package:off_yaba/services/network/api_service.dart';
 import 'package:off_yaba/services/cache_helper.dart';
 import 'package:off_yaba/services/network/firebase_api_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,47 +55,53 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
-      child: MaterialApp(
-        navigatorKey: navigatorKey,
-        debugShowCheckedModeBanner: false,
-        title: 'Off-Yaba',
-        theme: ThemeData(
-          fontFamily: GoogleFonts.cairo.call().fontFamily,
-          colorScheme: ColorScheme.fromSeed(seedColor: appColor),
-          useMaterial3: true,
-          scaffoldBackgroundColor: Colors.grey.shade200,
-        ),
-        initialRoute: SplashScreen.routeName,
-        routes: {
-          RouterScreen.routeName: (context) => const RouterScreen(),
-          SearchScreen.routeName: (context) => const SearchScreen(),
-          AuthScreen.routeName: (context) => const AuthScreen(),
-          CategoriesScreen.routeName: (context) => const CategoriesScreen(),
-          RestaurantScreen.routeName: (context) => const RestaurantScreen(),
-          SplashScreen.routeName: (context) => const SplashScreen(),
-          SignInScreen.routeName: (context) => const SignInScreen(),
-          SignUpScreen.routeName: (context) => const SignUpScreen(),
-          CodeScreen.routeName: (context) => const CodeScreen(),
-          OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen(),
-          ShowCategoryScreen.routeName: (context) => const ShowCategoryScreen(),
-          AllDiscountsScreen.routeName: (context) => const AllDiscountsScreen(),
-          ReportsScreen.routeName: (context) => const ReportsScreen(),
-          SubscriptionsScreen.routeName: (context) =>
-              const SubscriptionsScreen(),
-          ClothesSectionScreen.routeName: (context) =>
-              const ClothesSectionScreen(),
-          ClothingItemDetailsScreen.routeName: (context) =>
-              const ClothingItemDetailsScreen(),
-          ScannerScreen.routeName: (context) => const ScannerScreen(),
-          OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
-          ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
-          StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
-          OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
-          UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
-        },
+    return MaterialApp(
+      locale: Locale('en'),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('ar', ''), // Arabic - RTLg
+      ],
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Off-Yaba',
+      theme: ThemeData(
+        fontFamily: GoogleFonts.cairo.call().fontFamily,
+        colorScheme: ColorScheme.fromSeed(seedColor: appColor),
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.grey.shade200,
       ),
+      initialRoute: SplashScreen.routeName,
+      routes: {
+        RouterScreen.routeName: (context) => const RouterScreen(),
+        SearchScreen.routeName: (context) => const SearchScreen(),
+        AuthScreen.routeName: (context) => const AuthScreen(),
+        CategoriesScreen.routeName: (context) => const CategoriesScreen(),
+        RestaurantScreen.routeName: (context) => const RestaurantScreen(),
+        SplashScreen.routeName: (context) => const SplashScreen(),
+        SignInScreen.routeName: (context) => const SignInScreen(),
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
+        CodeScreen.routeName: (context) => const CodeScreen(),
+        OfferDetailsScreen.routeName: (context) => const OfferDetailsScreen(),
+        ShowCategoryScreen.routeName: (context) => const ShowCategoryScreen(),
+        AllDiscountsScreen.routeName: (context) => const AllDiscountsScreen(),
+        ReportsScreen.routeName: (context) => const ReportsScreen(),
+        SubscriptionsScreen.routeName: (context) => const SubscriptionsScreen(),
+        ClothesSectionScreen.routeName: (context) =>
+            const ClothesSectionScreen(),
+        ClothingItemDetailsScreen.routeName: (context) =>
+            const ClothingItemDetailsScreen(),
+        ScannerScreen.routeName: (context) => const ScannerScreen(),
+        OrderItemDeatils.routeName: (context) => const OrderItemDeatils(),
+        ConfirmOrderScreen.routeName: (context) => const ConfirmOrderScreen(),
+        StoreOrdersScreen.routeName: (context) => const StoreOrdersScreen(),
+        OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
+        UpdateUserInfoScreen.routeName: (ctx) => const UpdateUserInfoScreen(),
+      },
     );
   }
 }

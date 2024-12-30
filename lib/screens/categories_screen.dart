@@ -19,66 +19,63 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              const CustomAppBar(
-                backArrow: true,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            const CustomAppBar(
+              backArrow: true,
+            ),
+            Expanded(
+              child: SizedBox(
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: FutureBuilder(
+                        future: SectionsService.getSections(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<SectionModel> sections = snapshot.data!;
+    
+                            return GridView.builder(
+                                shrinkWrap: true,
+                                itemCount: sections.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10.0,
+                                  mainAxisSpacing: 10.0,
+                                  childAspectRatio: 1.0,
+                                ),
+                                itemBuilder: (BuildContext, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      // if (sections[index].name == "ملابس") {
+                                      //   Navigator.of(context).pushNamed(
+                                      //       ClothesSectionScreen.routeName);
+                                      //   return;
+                                      // }
+                                      Navigator.pushNamed(context,
+                                          ShowCategoryScreen.routeName,
+                                          arguments: {
+                                            "sec_id": sections[index].id
+                                          });
+                                    },
+                                    child: CategoryCard(
+                                      section: sections[index],
+                                    ),
+                                  );
+                                });
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        })),
               ),
-              Expanded(
-                child: SizedBox(
-                  child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                      ),
-                      child: FutureBuilder(
-                          future: SectionsService.getSections(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              List<SectionModel> sections = snapshot.data!;
-
-                              return GridView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: sections.length,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 10.0,
-                                    mainAxisSpacing: 10.0,
-                                    childAspectRatio: 1.0,
-                                  ),
-                                  itemBuilder: (BuildContext, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        // if (sections[index].name == "ملابس") {
-                                        //   Navigator.of(context).pushNamed(
-                                        //       ClothesSectionScreen.routeName);
-                                        //   return;
-                                        // }
-                                        Navigator.pushNamed(context,
-                                            ShowCategoryScreen.routeName,
-                                            arguments: {
-                                              "sec_id": sections[index].id
-                                            });
-                                      },
-                                      child: CategoryCard(
-                                        section: sections[index],
-                                      ),
-                                    );
-                                  });
-                            }
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          })),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

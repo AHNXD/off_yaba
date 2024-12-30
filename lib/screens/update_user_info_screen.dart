@@ -49,17 +49,17 @@ class _UpdateUserInfoScreenState extends State<UpdateUserInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const CustomAppBar(
-                  backArrow: true,
-                ),
-                const SizedBox(height: 32),
-                TextFormField(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const CustomAppBar(
+                backArrow: true,
+              ),
+              const SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
                       labelText: 'الاسم',
@@ -74,13 +74,13 @@ class _UpdateUserInfoScreenState extends State<UpdateUserInfoScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 32),
-                ElevatedButton(
-                  onPressed: _updateUserInfo,
-                  child: const Text("تعديل الحساب"),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: _updateUserInfo,
+                child: const Text("تعديل الحساب"),
+              ),
+            ],
           ),
         ),
       ),

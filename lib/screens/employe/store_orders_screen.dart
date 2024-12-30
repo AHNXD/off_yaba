@@ -58,40 +58,37 @@ class _StoreOrdersScreenState extends State<StoreOrdersScreen> {
             }
           }),
       body: SafeArea(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              const CustomAppBar(
-                backArrow: true,
+        child: Column(
+          children: [
+            const CustomAppBar(
+              backArrow: true,
+            ),
+            Expanded(
+              child: FutureBuilder(
+                future: _futureData,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasData) {
+                    orders = snapshot.data;
+                    return ListView.separated(
+                        itemCount: orders!.length,
+                        separatorBuilder: (context, index) => const Divider(),
+                        itemBuilder: (context, index) {
+                          return StoreOrderTile(order: orders![index]);
+                        });
+                  }
+                  if (snapshot.hasError) {
+                    log(snapshot.stackTrace.toString());
+                    // print("snapshotttt errrorr: ${snapshot.error.}");
+                  }
+                  return const Center(
+                      child: Text("لم يتم إضافة أي عنصر للسلة"));
+                },
               ),
-              Expanded(
-                child: FutureBuilder(
-                  future: _futureData,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasData) {
-                      orders = snapshot.data;
-                      return ListView.separated(
-                          itemCount: orders!.length,
-                          separatorBuilder: (context, index) => const Divider(),
-                          itemBuilder: (context, index) {
-                            return StoreOrderTile(order: orders![index]);
-                          });
-                    }
-                    if (snapshot.hasError) {
-                      log(snapshot.stackTrace.toString());
-                      // print("snapshotttt errrorr: ${snapshot.error.}");
-                    }
-                    return const Center(
-                        child: Text("لم يتم إضافة أي عنصر للسلة"));
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

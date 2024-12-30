@@ -150,18 +150,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Divider(
                   thickness: 2,
                 ),
-                Align(
-                  alignment: lang == "ar"
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Text(
-                      lang == "ar"
-                          ? "التخفيضات القريبة منك"
-                          : "Best Deals Near you",
-                      style: const TextStyle(
-                          fontFamily: "cocon-next-arabic",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
+                Row(
+                  children: [
+                    Text(
+                        lang == "ar"
+                            ? "التخفيضات القريبة منك"
+                            : "Best Deals Near you",
+                        style: const TextStyle(
+                            fontFamily: "cocon-next-arabic",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
+                  ],
                 ),
                 FutureBuilder<List<StoreModel>?>(
                     future: StoreService.getStoresByCoords(

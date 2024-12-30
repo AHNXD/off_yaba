@@ -123,18 +123,15 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
         ),
       ),
       body: SafeArea(
-          child: Directionality(
-        textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
-        child: Stack(
-          children: [
-            WebViewWidget(controller: controller),
-            if (loadingPercentage < 100)
-              LinearProgressIndicator(
-                value: loadingPercentage / 100.0,
-              ),
-          ],
-        ),
-      )),
+          child: Stack(
+            children: [
+              WebViewWidget(controller: controller),
+              if (loadingPercentage < 100)
+                LinearProgressIndicator(
+                  value: loadingPercentage / 100.0,
+                ),
+            ],
+          )),
     );
   }
 }

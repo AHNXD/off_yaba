@@ -60,206 +60,203 @@ class _ClothingItemOrderScreenState extends State<ClothingItemOrderScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CustomAppBar(),
-              // Image Section
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: widget.clothingItem.image != 'no-image'
-                              ? Image.network(
-                                  widget.clothingItem.image!,
-                                  width: double.infinity,
-                                )
-                              : Container(
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  width: double.infinity,
-                                  child: const Center(
-                                    child: Text('No Image Available'),
-                                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CustomAppBar(),
+            // Image Section
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: widget.clothingItem.image != 'no-image'
+                            ? Image.network(
+                                widget.clothingItem.image!,
+                                width: double.infinity,
+                              )
+                            : Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                        ),
-                        if (widget.clothingItem.discount != null &&
-                            widget.clothingItem.discount! > 0)
-                          Positioned(
-                            top: 5,
-                            right: 5,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                '-${widget.clothingItem.discount!.toStringAsFixed(0)}%',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                width: double.infinity,
+                                child: const Center(
+                                  child: Text('No Image Available'),
                                 ),
+                              ),
+                      ),
+                      if (widget.clothingItem.discount != null &&
+                          widget.clothingItem.discount! > 0)
+                        Positioned(
+                          top: 5,
+                          right: 5,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
+                              '-${widget.clothingItem.discount!.toStringAsFixed(0)}%',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.clothingItem.name!,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                widget.clothingItem.store!.name!,
+                                maxLines: 3,
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '${(widget.clothingItem.price! - (widget.clothingItem.price! * widget.clothingItem.discount! / 100)).toStringAsFixed(2)}د.ع',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  widget.clothingItem.price
+                                          ?.toStringAsFixed(2) ??
+                                      "N/A",
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationColor: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                const SizedBox(width: 8.0),
+                                Text(
+                                  "${widget.clothingItem.discount!.toString()}%-",
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      color: Colors.white,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.clothingItem.name!,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                child: Text(
-                                  widget.clothingItem.store!.name!,
-                                  maxLines: 3,
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "يرجى اختيار المقاس",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: widget.clothingItem.sizes!
+                              .map(
+                                (e) => Expanded(
+                                  child: SizeBox(
+                                    size: e,
+                                    isSelected: selectedSize == e,
+                                    onTap: () {
+                                      setState(() {
+                                        selectedSize = e;
+                                        extraNotes = 'Size: $selectedSize';
+                                      });
+                                    },
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '${(widget.clothingItem.price! - (widget.clothingItem.price! * widget.clothingItem.discount! / 100)).toStringAsFixed(2)}د.ع',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    widget.clothingItem.price
-                                            ?.toStringAsFixed(2) ??
-                                        "N/A",
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                      decorationColor: Colors.grey,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8.0),
-                                  Text(
-                                    "${widget.clothingItem.discount!.toString()}%-",
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                              )
+                              .toList(),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "يرجى اختيار المقاس",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                            ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'يرجى إختيار اللون',
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: widget.clothingItem.sizes!
-                                .map(
-                                  (e) => Expanded(
-                                    child: SizeBox(
-                                      size: e,
-                                      isSelected: selectedSize == e,
-                                      onTap: () {
-                                        setState(() {
-                                          selectedSize = e;
-                                          extraNotes = 'Size: $selectedSize';
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children:
+                              _buildColorWidgets(widget.clothingItem.colors!),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'يرجى إختيار اللون',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children:
-                                _buildColorWidgets(widget.clothingItem.colors!),
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

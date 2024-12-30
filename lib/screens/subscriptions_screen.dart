@@ -83,23 +83,20 @@ class SubscriptionCard extends StatelessWidget {
               : LinearGradient(colors: [Colors.blue.shade600, appColor]),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: Colors.grey.withOpacity(0.2), width: 4)),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: ListTile(
-          leading: Text(
-            "${sub.period} أشهر",
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(color: Colors.white),
-          ),
-          trailing: Text(
-            "${sub.totalWithDiscount} د.ع",
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .copyWith(color: Colors.white),
-          ),
+      child: ListTile(
+        leading: Text(
+          "${sub.period} أشهر",
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(color: Colors.white),
+        ),
+        trailing: Text(
+          "${sub.totalWithDiscount} د.ع",
+          style: Theme.of(context)
+              .textTheme
+              .headlineSmall!
+              .copyWith(color: Colors.white),
         ),
       ),
     );

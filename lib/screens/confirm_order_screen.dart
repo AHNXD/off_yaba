@@ -83,166 +83,163 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
         ),
       ),
       body: SafeArea(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CustomAppBar(
-                  backArrow: true,
-                ),
-                if (cart != null)
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    child: ListView.builder(
-                      itemCount: cart!.items!.length,
-                      itemBuilder: (context, index) => OrderItemTile(
-                        leading: Text(
-                          cart!.items![index].quantity.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(
-                                  color: appColor, fontWeight: FontWeight.bold),
-                        ),
-                        titleText: cart!.items![index].item!.name!,
-                        trailingText:
-                            '${cart!.items![index].item!.price! * cart!.items![index].quantity!}د.ع',
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CustomAppBar(
+                backArrow: true,
+              ),
+              if (cart != null)
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: ListView.builder(
+                    itemCount: cart!.items!.length,
+                    itemBuilder: (context, index) => OrderItemTile(
+                      leading: Text(
+                        cart!.items![index].quantity.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                                color: appColor, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    // child: FutureBuilder(
-                    //   future: CartService.getCart(),
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.connectionState == ConnectionState.waiting) {
-                    //       return const Center(
-                    //         child: CircularProgressIndicator(),
-                    //       );
-                    //     } else if (snapshot.hasError) {
-                    //       return Center(
-                    //         child: Text('Error: ${snapshot.error}'),
-                    //       );
-                    //     } else if (!snapshot.hasData ||
-                    //         snapshot.data!.items!.isEmpty) {
-                    //       return const Center(
-                    //         child: Text('No items in the cart'),
-                    //       );
-                    //     } else {
-                    //       setState(() {
-                    //         cart = snapshot.data;
-                    //       });
-                    //       return
-                    //     }
-                    //   },
-                    // ),
-                  ),
-                const OrderItemTile(
-                    leading: Icon(
-                      Icons.bike_scooter,
-                      color: appColor,
-                    ),
-                    titleText: "كلفة التوصيل",
-                    trailingText: "2000د.ع"),
-                if (cart != null)
-                  OrderItemTile(
-                      leading: const Icon(
-                        Icons.attach_money_sharp,
-                        color: appColor,
-                      ),
-                      titleText: "المبلغ الكلي",
-                      trailingText: "${cart!.total! + 2000}د.ع"),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: location,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey.shade300,
-                          hintText: "العنوان بالكامل",
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton(
-                        icon: const Icon(
-                          Icons.pin_drop_outlined,
-                          color: Colors.blue,
-                          size: 35,
-                        ),
-                        onPressed: () async {
-                          await getLocation(context);
-                        }),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: phone,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade300,
-                    hintText: "رقم الجوال",
-                    hintStyle: TextStyle(color: Colors.grey.shade500),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: BorderSide.none,
+                      titleText: cart!.items![index].item!.name!,
+                      trailingText:
+                          '${cart!.items![index].item!.price! * cart!.items![index].quantity!}د.ع',
                     ),
                   ),
+                  // child: FutureBuilder(
+                  //   future: CartService.getCart(),
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return const Center(
+                  //         child: CircularProgressIndicator(),
+                  //       );
+                  //     } else if (snapshot.hasError) {
+                  //       return Center(
+                  //         child: Text('Error: ${snapshot.error}'),
+                  //       );
+                  //     } else if (!snapshot.hasData ||
+                  //         snapshot.data!.items!.isEmpty) {
+                  //       return const Center(
+                  //         child: Text('No items in the cart'),
+                  //       );
+                  //     } else {
+                  //       setState(() {
+                  //         cart = snapshot.data;
+                  //       });
+                  //       return
+                  //     }
+                  //   },
+                  // ),
                 ),
-                const OrderItemTile(
-                    leading: Icon(
-                      Icons.qr_code,
+              const OrderItemTile(
+                  leading: Icon(
+                    Icons.bike_scooter,
+                    color: appColor,
+                  ),
+                  titleText: "كلفة التوصيل",
+                  trailingText: "2000د.ع"),
+              if (cart != null)
+                OrderItemTile(
+                    leading: const Icon(
+                      Icons.attach_money_sharp,
                       color: appColor,
                     ),
-                    titleText: "اختر كوبون:",
-                    trailingText: ""),
-                FutureBuilder(
-                  future: QRService.getUserCodes(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return const Text('لا يوجد كوبونات صالحة');
-                      // return Text('Error: ${snapshot.error}');
-                    } else if (snapshot.hasData) {
-                      List<CodeScannerModel> validQrCodes =
-                          snapshot.data!.where((qrCode) {
-                        print(qrCode.toString());
-                        return qrCode.isValid! as bool;
-                      }).toList();
-
-                      if (validQrCodes.isEmpty) {
-                        return const Text('لا يوجد كوبونات صالحة');
-                      }
-
-                      return DropdownButton<int>(
-                        value: selectedQrCode,
-                        onChanged: (int? newValue) {
-                          setState(() {
-                            selectedQrCode = newValue;
-                          });
-                        },
-                        items: validQrCodes.map((qrCode) {
-                          return DropdownMenuItem<int>(
-                            value: qrCode.id,
-                            child: Text(
-                                "مرات الاستخدام:${qrCode.numberOfUsage} | الصلاحية:${qrCode.expAt}"),
-                          );
-                        }).toList(),
-                      );
-                    } else {
+                    titleText: "المبلغ الكلي",
+                    trailingText: "${cart!.total! + 2000}د.ع"),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: location,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade300,
+                        hintText: "العنوان بالكامل",
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                      icon: const Icon(
+                        Icons.pin_drop_outlined,
+                        color: Colors.blue,
+                        size: 35,
+                      ),
+                      onPressed: () async {
+                        await getLocation(context);
+                      }),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: phone,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade300,
+                  hintText: "رقم الجوال",
+                  hintStyle: TextStyle(color: Colors.grey.shade500),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const OrderItemTile(
+                  leading: Icon(
+                    Icons.qr_code,
+                    color: appColor,
+                  ),
+                  titleText: "اختر كوبون:",
+                  trailingText: ""),
+              FutureBuilder(
+                future: QRService.getUserCodes(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return const Text('لا يوجد كوبونات صالحة');
+                    // return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    List<CodeScannerModel> validQrCodes =
+                        snapshot.data!.where((qrCode) {
+                      print(qrCode.toString());
+                      return qrCode.isValid! as bool;
+                    }).toList();
+        
+                    if (validQrCodes.isEmpty) {
                       return const Text('لا يوجد كوبونات صالحة');
                     }
-                  },
-                ),
-              ],
-            ),
+        
+                    return DropdownButton<int>(
+                      value: selectedQrCode,
+                      onChanged: (int? newValue) {
+                        setState(() {
+                          selectedQrCode = newValue;
+                        });
+                      },
+                      items: validQrCodes.map((qrCode) {
+                        return DropdownMenuItem<int>(
+                          value: qrCode.id,
+                          child: Text(
+                              "مرات الاستخدام:${qrCode.numberOfUsage} | الصلاحية:${qrCode.expAt}"),
+                        );
+                      }).toList(),
+                    );
+                  } else {
+                    return const Text('لا يوجد كوبونات صالحة');
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),

@@ -17,28 +17,25 @@ class ClothingItemCard extends StatelessWidget {
           arguments: {"item": clothingItem},
         );
       },
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              border: Border.all(
-                color: appColor,
-              ),
-              borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildImageSection(context),
-                const SizedBox(height: 10),
-                _buildPriceSection(context),
-                const SizedBox(height: 10),
-                _buildTextSection(context),
-              ],
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            border: Border.all(
+              color: appColor,
             ),
+            borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildImageSection(context),
+              const SizedBox(height: 10),
+              _buildPriceSection(context),
+              const SizedBox(height: 10),
+              _buildTextSection(context),
+            ],
           ),
         ),
       ),

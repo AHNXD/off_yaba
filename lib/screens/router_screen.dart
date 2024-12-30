@@ -32,45 +32,42 @@ class _RouterScreenState extends State<RouterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
-      child: Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          key: _bottomNavigationKey,
-          index: 2,
-          height: 60.0,
-          items: <Widget>[
-            const Icon(Icons.person, size: 30, color: Colors.white),
-            const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
-            Image.asset(
-              logo,
-              color: _page == 2 ? null : Colors.white,
-              width: _page == 2 ? 40 : 40,
-              height: _page == 2 ? 40 : 40,
-            ),
-            const Icon(Icons.card_giftcard, size: 30, color: Colors.white),
-            const Icon(Icons.chat, size: 30, color: Colors.white),
-          ],
-          color: appColor,
-          buttonBackgroundColor: Colors.black,
-          backgroundColor: Colors.white,
-          animationCurve: Curves.easeInOut,
-          animationDuration: const Duration(milliseconds: 600),
-          onTap: (index) {
-            setState(() {
-              _page = index;
-            });
-          },
-          letIndexChange: (index) => true,
-        ),
-        // Set background color
-        // backgroundColor: Colors.white,
-        body: Container(
-            color: Colors.grey.shade200,
-            width: double.infinity,
-            height: double.infinity,
-            child: SafeArea(child: pages[_page])),
+    return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        key: _bottomNavigationKey,
+        index: 2,
+        height: 60.0,
+        items: <Widget>[
+          const Icon(Icons.person, size: 30, color: Colors.white),
+          const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
+          Image.asset(
+            logo,
+            color: _page == 2 ? null : Colors.white,
+            width: _page == 2 ? 40 : 40,
+            height: _page == 2 ? 40 : 40,
+          ),
+          const Icon(Icons.card_giftcard, size: 30, color: Colors.white),
+          const Icon(Icons.chat, size: 30, color: Colors.white),
+        ],
+        color: appColor,
+        buttonBackgroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        animationCurve: Curves.easeInOut,
+        animationDuration: const Duration(milliseconds: 600),
+        onTap: (index) {
+          setState(() {
+            _page = index;
+          });
+        },
+        letIndexChange: (index) => true,
       ),
+      // Set background color
+      // backgroundColor: Colors.white,
+      body: Container(
+          color: Colors.grey.shade200,
+          width: double.infinity,
+          height: double.infinity,
+          child: SafeArea(child: pages[_page])),
     );
   }
 }

@@ -44,73 +44,70 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              const CustomAppBar(
-                backArrow: true,
-                cameraSettings: true,
-              ),
-              Expanded(
-                child: SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: ListView(
-                      primary: true,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Container(
-                            decoration: const BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: appColor,
-                                    blurRadius: 15.0,
-                                    offset: Offset(0.0, 0.75))
-                              ],
-                            ),
-                            height: MediaQuery.of(context).size.height / 2,
-                            width: double.infinity,
-                            child: Stack(
-                              children: [
-                                QRView(
-                                  key: qrKey,
-                                  onQRViewCreated: _onQRViewCreated,
-                                  overlay: QrScannerOverlayShape(
-                                      borderWidth: 15,
-                                      borderColor: appColor,
-                                      borderLength: 20,
-                                      borderRadius: 10,
-                                      cutOutSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.6),
-                                ),
-                                !camOn
-                                    ? Container(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                2,
-                                        width: double.infinity,
-                                        color: appColor)
-                                    : Container()
-                              ],
-                            )),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    ),
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const CustomAppBar(
+              backArrow: true,
+              cameraSettings: true,
+            ),
+            Expanded(
+              child: SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: ListView(
+                    primary: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                          decoration: const BoxDecoration(
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: appColor,
+                                  blurRadius: 15.0,
+                                  offset: Offset(0.0, 0.75))
+                            ],
+                          ),
+                          height: MediaQuery.of(context).size.height / 2,
+                          width: double.infinity,
+                          child: Stack(
+                            children: [
+                              QRView(
+                                key: qrKey,
+                                onQRViewCreated: _onQRViewCreated,
+                                overlay: QrScannerOverlayShape(
+                                    borderWidth: 15,
+                                    borderColor: appColor,
+                                    borderLength: 20,
+                                    borderRadius: 10,
+                                    cutOutSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.6),
+                              ),
+                              !camOn
+                                  ? Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              2,
+                                      width: double.infinity,
+                                      color: appColor)
+                                  : Container()
+                            ],
+                          )),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
