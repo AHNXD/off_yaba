@@ -130,11 +130,11 @@ class FirebaseApi {
       if (hasToken == null || !hasToken) {
         try {
           final String? userType = await CacheHelper.getData(key: "userType");
-          // await DioHelper.postAuthorized(
-          //     path: '/$userType/add-fcm-token',
-          //     data: {
-          //       "token": fCMToken,
-          //     });
+          await DioHelper.postAuthorized(
+              path: '/$userType/add-fcm-token',
+              data: {
+                "token": fCMToken,
+              });
           await CacheHelper.setBool(key: "hasFCMToken", value: true);
         } catch (e) {
           log("Error saving FCM token: $e");
