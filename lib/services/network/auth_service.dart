@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -141,6 +142,21 @@ class AuthApiService {
       }
     } on DioException catch (e) {
       log('Failed to update user info: ${e.response}');
+      return false;
+    }
+  }
+
+  static Future<bool> deleteUser() async {
+    try {
+      Response? response =
+          await DioHelper.deleteAuthorized(path: '/user/delete');
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioException catch (e) {
+      log('Failed to delete the user: ${e.response}');
       return false;
     }
   }

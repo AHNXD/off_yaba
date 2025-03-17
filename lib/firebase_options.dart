@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDuvgGISktA1n-zc0cXpA9qIv7BybH0-Io',
-    appId: '1:649225477977:ios:58e5f3044930eb00213648',
+    appId: '1:649225477977:ios:9b06018c17bead8c213648',
     messagingSenderId: '649225477977',
     projectId: 'offyaba-fa53f',
     storageBucket: 'offyaba-fa53f.firebasestorage.app',
-    iosBundleId: 'com.example.offYaba',
+    iosBundleId: 'com.TechToc.offYaba',
   );
 
   // this for back-end for web

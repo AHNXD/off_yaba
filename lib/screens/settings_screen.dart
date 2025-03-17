@@ -205,6 +205,16 @@ class _SettingsState extends State<Settings> {
                   .pushReplacementNamed(AuthScreen.routeName));
             },
           ),
+          SettingsButton(
+            title: 'حذف الحساب',
+            icon: const Icon(Icons.delete),
+            onPressed: () {
+              AuthApiService.deleteUser().then((value) => value == true
+                  ? Navigator.of(context)
+                      .pushReplacementNamed(AuthScreen.routeName)
+                  : message("حدث خطأ", Colors.red, context));
+            },
+          ),
         ],
       ),
     );
