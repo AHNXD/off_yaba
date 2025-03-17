@@ -19,14 +19,21 @@ class RouterScreen extends StatefulWidget {
 }
 
 class _RouterScreenState extends State<RouterScreen> {
-  List pages = [
-    const Settings(),
-    const CartScreen(),
-    const HomeScreen(),
-    const OffersScreen(),
-    const ReportsScreen(),
-  ];
-  int _page = 2;
+  List pages = is_guest
+      ? [
+          const Settings(),
+          const HomeScreen(),
+          const ReportsScreen(),
+        ]
+      : [
+          const Settings(),
+          const CartScreen(),
+          const HomeScreen(),
+          const OffersScreen(),
+          const ReportsScreen(),
+        ];
+  int _page = is_guest ? 1 : 2;
+  int mid = is_guest ? 1 : 2;
 
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
@@ -35,20 +42,31 @@ class _RouterScreenState extends State<RouterScreen> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
-        index: 2,
+        index: is_guest ? 1 : 2,
         height: 60.0,
-        items: <Widget>[
-          const Icon(Icons.person, size: 30, color: Colors.white),
-          const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
-          Image.asset(
-            logo,
-            color: _page == 2 ? null : Colors.white,
-            width: _page == 2 ? 40 : 40,
-            height: _page == 2 ? 40 : 40,
-          ),
-          const Icon(Icons.card_giftcard, size: 30, color: Colors.white),
-          const Icon(Icons.chat, size: 30, color: Colors.white),
-        ],
+        items: is_guest
+            ? <Widget>[
+                const Icon(Icons.person, size: 30, color: Colors.white),
+                Image.asset(
+                  logo,
+                  color: _page == mid ? null : Colors.white,
+                  width: _page == mid ? 40 : 40,
+                  height: _page == mid ? 40 : 40,
+                ),
+                const Icon(Icons.chat, size: 30, color: Colors.white),
+              ]
+            : <Widget>[
+                const Icon(Icons.person, size: 30, color: Colors.white),
+                const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
+                Image.asset(
+                  logo,
+                  color: _page == mid ? null : Colors.white,
+                  width: _page == mid ? 40 : 40,
+                  height: _page == mid ? 40 : 40,
+                ),
+                const Icon(Icons.card_giftcard, size: 30, color: Colors.white),
+                const Icon(Icons.chat, size: 30, color: Colors.white),
+              ],
         color: appColor,
         buttonBackgroundColor: Colors.black,
         backgroundColor: Colors.white,

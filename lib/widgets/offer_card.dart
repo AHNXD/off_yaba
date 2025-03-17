@@ -98,6 +98,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
 import 'package:off_yaba/screens/order_item_details_screen.dart';
 
@@ -114,10 +115,13 @@ class _OfferCardState extends State<OfferCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => Navigator.of(context)
+        onTap: () {
+          if (!is_guest)
+            Navigator.of(context)
                 .pushNamed(OrderItemDeatils.routeName, arguments: {
               "offer": widget.offer,
-            }),
+            });
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,

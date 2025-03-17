@@ -12,10 +12,11 @@ class ClothingItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          ClothingItemDetailsScreen.routeName,
-          arguments: {"item": clothingItem},
-        );
+        if (!is_guest)
+          Navigator.of(context).pushNamed(
+            ClothingItemDetailsScreen.routeName,
+            arguments: {"item": clothingItem},
+          );
       },
       child: Container(
         decoration: BoxDecoration(

@@ -31,25 +31,24 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
       return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text("سيتم حذف الأصناف"),
-            content:
-                const Text("هل أنت متأكد انك تريد الخروج من الصفحة ؟"),
-            actionsAlignment: MainAxisAlignment.spaceAround,
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('إلغاء'),
-              ),
-              TextButton(
-                onPressed: () {
-                  CartService.clearCart().then((value) {
-                    Navigator.of(context).pop(true);
-                  });
-                },
-                child: const Text("موافق"),
-              ),
-            ],
-          )));
+                title: const Text("سيتم حذف الأصناف"),
+                content: const Text("هل أنت متأكد انك تريد الخروج من الصفحة ؟"),
+                actionsAlignment: MainAxisAlignment.spaceAround,
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: const Text('إلغاء'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      CartService.clearCart().then((value) {
+                        Navigator.of(context).pop(true);
+                      });
+                    },
+                    child: const Text("موافق"),
+                  ),
+                ],
+              )));
     }
     return true;
   }
@@ -138,8 +137,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 16),
                               decoration: BoxDecoration(
-                                  color:
-                                      showDetails ? Colors.white : appColor,
+                                  color: showDetails ? Colors.white : appColor,
                                   borderRadius: BorderRadius.circular(30)),
                               child: Row(
                                 mainAxisAlignment:
@@ -155,9 +153,8 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                                   ),
                                   Icon(
                                     Icons.discount,
-                                    color: !showDetails
-                                        ? Colors.white
-                                        : appColor,
+                                    color:
+                                        !showDetails ? Colors.white : appColor,
                                   )
                                 ],
                               ),
@@ -178,8 +175,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 16),
                               decoration: BoxDecoration(
-                                  color:
-                                      !showDetails ? Colors.white : appColor,
+                                  color: !showDetails ? Colors.white : appColor,
                                   borderRadius: BorderRadius.circular(30)),
                               child: Row(
                                 mainAxisAlignment:
@@ -228,23 +224,25 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.pin_drop,
-                color: appColor,
-              ),
-              Text(
-                store.distance!.round().toString(),
-                style: const TextStyle(color: Colors.grey),
-              ),
-              Text(
-                lang == "ar" ? "كم" : "km",
-                style: const TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
+          store.distance == null
+              ? const SizedBox()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.pin_drop,
+                      color: appColor,
+                    ),
+                    Text(
+                      store.distance!.round().toString(),
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    Text(
+                      lang == "ar" ? "كم" : "km",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
           Center(
             child: Text(
               // lang == "ar" ? "النوع" : "Type",
@@ -282,7 +280,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                     }
                     var items = snapshot.data!;
                     print('items: $items');
-    
+
                     return GridView.builder(
                       padding: const EdgeInsets.all(10),
                       shrinkWrap: true,
@@ -315,7 +313,7 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                           ),
                         );
                       }
-    
+
                       if (snapshot.hasData) {
                         List<StoreOfferModel> offers = snapshot.data!;
                         print('Offers: $offers');
@@ -336,8 +334,8 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                       }
                       return SizedBox(
                           height: MediaQuery.of(context).size.height * 0.2,
-                          child: const Center(
-                              child: CircularProgressIndicator()));
+                          child:
+                              const Center(child: CircularProgressIndicator()));
                     }),
             ],
           ),
@@ -396,10 +394,11 @@ class _RestaurabtScreenState extends State<RestaurantScreen> {
                           title: "العنوان",
                           value: details.store!.address!,
                           icon: Icons.map),
-                      DetailsListTile(
-                          title: "المسافة",
-                          value: details.store!.distance!.round().toString(),
-                          icon: Icons.location_on_outlined),
+                      if (details.store!.distance != null)
+                        DetailsListTile(
+                            title: "المسافة",
+                            value: details.store!.distance!.round().toString(),
+                            icon: Icons.location_on_outlined),
                       DetailsListTile(
                           title: "النوع",
                           value: details.store!.section!.name!,

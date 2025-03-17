@@ -113,24 +113,26 @@ class StoreCard extends StatelessWidget {
                                   color: appColor, fontWeight: FontWeight.w900))
                     ]),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.pin_drop,
-                        color: appColor,
-                        size: 16,
-                      ),
-                      Text(
-                        store.distance!.round().toString(),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      Text(
-                        lang == "ar" ? "كم" : "km",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
-                  ),
+                  store.distance == null
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.pin_drop,
+                              color: appColor,
+                              size: 16,
+                            ),
+                            Text(
+                              store.distance!.round().toString(),
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            Text(
+                              lang == "ar" ? "كم" : "km",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
                 ],
               ),
             ),

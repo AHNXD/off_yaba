@@ -8,6 +8,7 @@ String lang = "ar";
 QRViewController? camController;
 bool camOn = true;
 Color camOncolor = Colors.blue;
+bool is_guest = false;
 
 const String bg = "assets/BG.jpg";
 const String logo = 'assets/offYaba.png';

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:off_yaba/constant.dart';
+import 'package:off_yaba/screens/router_screen.dart';
 import 'package:off_yaba/screens/signup_screen.dart';
 import 'package:off_yaba/screens/user_type_screen.dart';
 
@@ -59,8 +60,33 @@ class AuthScreen extends StatelessWidget {
                     .shimmer(duration: 1.seconds),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.only(right: 60.0, left: 60, top: 16),
+                padding: const EdgeInsets.only(
+                    right: 60.0, left: 60, top: 16, bottom: 16),
+                child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shadowColor: appColor,
+                            backgroundColor: Colors.white,
+                            padding: const EdgeInsets.all(16)),
+                        onPressed: () {
+                          is_guest = true;
+                          Navigator.pushReplacementNamed(
+                              context, RouterScreen.routeName,
+                              arguments: {"user_type": "user"});
+                        },
+                        child: Text(
+                          lang == "ar" ? "زائر" : "Guest",
+                          style: const TextStyle(
+                              color: appColor,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "cocon-next-arabic"),
+                        ))
+                    .animate()
+                    .slideX(duration: 0.7.seconds)
+                    .shimmer(duration: 1.seconds),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 60.0, left: 60, top: 16),
                 child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             shadowColor: Colors.black,

@@ -24,12 +24,13 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  late UserModel user;
+  late UserModel user = UserModel(name: lang == "en" ? "Guest" : "زائر");
   File? _pickedImage;
 
   @override
   void initState() {
-    user = UserModel.fromMap(json.decode(CacheHelper.getData(key: "user")));
+    if (!is_guest)
+      user = UserModel.fromMap(json.decode(CacheHelper.getData(key: "user")));
     super.initState();
   }
 
@@ -133,60 +134,74 @@ class _SettingsState extends State<Settings> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ListTile(
-                leading: GestureDetector(
-                  onTap: () {
-                    if (user.image != null) {
-                      _showImageDialog(user.image!);
-                    } else {
-                      _pickImage();
-                    }
-                  },
-                  child: CircleAvatar(
-                    radius: 45,
-                    backgroundImage: user.image != null
-                        ? NetworkImage(user.image!)
-                        : _pickedImage != null
-                            ? FileImage(_pickedImage!) as ImageProvider
-                            : const AssetImage(
-                                "assets/images/default-profile.png"),
+                  leading: is_guest
+                      ? CircleAvatar(
+                          radius: 45,
+                          backgroundImage: user.image != null
+                              ? NetworkImage(user.image!)
+                              : _pickedImage != null
+                                  ? FileImage(_pickedImage!) as ImageProvider
+                                  : const AssetImage(
+                                      "assets/images/default-profile.png"),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            if (user.image != null) {
+                              _showImageDialog(user.image!);
+                            } else {
+                              _pickImage();
+                            }
+                          },
+                          child: CircleAvatar(
+                            radius: 45,
+                            backgroundImage: user.image != null
+                                ? NetworkImage(user.image!)
+                                : _pickedImage != null
+                                    ? FileImage(_pickedImage!) as ImageProvider
+                                    : const AssetImage(
+                                        "assets/images/default-profile.png"),
+                          ),
+                        ),
+                  title: Text(
+                    user.name!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: Colors.white),
                   ),
-                ),
-                title: Text(
-                  user.name!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Colors.white),
-                ),
-                subtitle: Text(
-                  user.phoneNumber!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(color: Colors.white),
-                ),
-              ),
+                  subtitle: is_guest
+                      ? SizedBox()
+                      : Text(
+                          user.phoneNumber!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.white),
+                        )),
             ),
           ),
-          SettingsButton(
-            title: "تعديل الملف الشخصي",
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              Navigator.of(context).pushNamed(UpdateUserInfoScreen.routeName);
-            },
-          ),
-          SettingsButton(
-            title: "الاشتراكات",
-            icon: const Icon(Icons.attach_money),
-            onPressed: () {
-              Navigator.of(context).pushNamed(SubscriptionsScreen.routeName);
-            },
-          ),
-          SettingsButton(
-            title: "المفضلة",
-            icon: const Icon(Icons.favorite),
-            onPressed: () {},
-          ),
+          if (!is_guest)
+            SettingsButton(
+              title: "تعديل الملف الشخصي",
+              icon: const Icon(Icons.edit),
+              onPressed: () {
+                Navigator.of(context).pushNamed(UpdateUserInfoScreen.routeName);
+              },
+            ),
+          if (!is_guest)
+            SettingsButton(
+              title: "الاشتراكات",
+              icon: const Icon(Icons.attach_money),
+              onPressed: () {
+                Navigator.of(context).pushNamed(SubscriptionsScreen.routeName);
+              },
+            ),
+          if (!is_guest)
+            SettingsButton(
+              title: "المفضلة",
+              icon: const Icon(Icons.favorite),
+              onPressed: () {},
+            ),
           SettingsButton(
             title: "الخصوصية",
             icon: const Icon(Icons.privacy_tip),
@@ -198,23 +213,28 @@ class _SettingsState extends State<Settings> {
             onPressed: () {},
           ),
           SettingsButton(
-            title: 'تسجيل الخروج',
-            icon: const Icon(Icons.logout),
+            title: is_guest ? 'تسجيل دخول' : 'تسجيل الخروج',
+            icon: Icon(is_guest ? Icons.login : Icons.logout),
             onPressed: () {
-              AuthApiService.logoutUser().then((value) => Navigator.of(context)
-                  .pushReplacementNamed(AuthScreen.routeName));
-            },
-          ),
-          SettingsButton(
-            title: 'حذف الحساب',
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              AuthApiService.deleteUser().then((value) => value == true
+              is_guest
                   ? Navigator.of(context)
                       .pushReplacementNamed(AuthScreen.routeName)
-                  : message("حدث خطأ", Colors.red, context));
+                  : AuthApiService.logoutUser().then((value) =>
+                      Navigator.of(context)
+                          .pushReplacementNamed(AuthScreen.routeName));
             },
           ),
+          if (!is_guest)
+            SettingsButton(
+              title: 'حذف الحساب',
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                AuthApiService.deleteUser().then((value) => value == true
+                    ? Navigator.of(context)
+                        .pushReplacementNamed(AuthScreen.routeName)
+                    : message("حدث خطأ", Colors.red, context));
+              },
+            ),
         ],
       ),
     );

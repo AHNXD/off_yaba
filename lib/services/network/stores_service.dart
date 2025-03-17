@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:off_yaba/constant.dart';
 import 'package:off_yaba/models/store_details_model.dart';
 import 'package:off_yaba/models/store_model.dart';
 import 'package:off_yaba/models/store_offer_model.dart';
@@ -17,12 +18,17 @@ class StoreService {
       //   position = await LocationService.getLocation();
       // }
 
-      Response? response =
-          await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
-        "page": page.toString(),
-        "longitude": 44.3308333333,
-        "latitude": 31.9997222222,
-      });
+      Response? response = is_guest
+          ? await DioHelper.getData(path: 'stores', queryParameters: {
+              "page": page.toString(),
+              "longitude": 44.3308333333,
+              "latitude": 31.9997222222,
+            })
+          : await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
+              "page": page.toString(),
+              "longitude": 44.3308333333,
+              "latitude": 31.9997222222,
+            });
       List<dynamic> dynamicStores = response!.data["data"]["stores"];
 
       List<StoreModel> stores =
@@ -36,10 +42,13 @@ class StoreService {
   static Future<List<StoreModel>> getStoresBySection(
       {required int sectionId}) async {
     try {
-      Response? response =
-          await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
-        "section_ids": sectionId,
-      });
+      Response? response = is_guest
+          ? await DioHelper.getData(path: 'stores', queryParameters: {
+              "section_ids": sectionId,
+            })
+          : await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
+              "section_ids": sectionId,
+            });
       List<dynamic> dynamicStores = response!.data["data"]["stores"];
 
       List<StoreModel> stores =
@@ -52,11 +61,15 @@ class StoreService {
 
   static Future<List<StoreModel>> getStoresWithBestOffers() async {
     try {
-      Response? response =
-          await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
-        "page": 1,
-        "suggestion": true,
-      });
+      Response? response = is_guest
+          ? await DioHelper.getData(path: 'stores', queryParameters: {
+              "page": 1,
+              "suggestion": true,
+            })
+          : await DioHelper.getAuthorizedData(path: 'stores', queryParameters: {
+              "page": 1,
+              "suggestion": true,
+            });
       List<dynamic> dynamicStores = response!.data["data"]["stores"];
 
       List<StoreModel> stores =
@@ -70,8 +83,9 @@ class StoreService {
   static Future<List<StoreOfferModel>> getStoreOffers(
       {required int storeId}) async {
     try {
-      Response? response =
-          await DioHelper.getAuthorizedData(path: 'stores/$storeId/items');
+      Response? response = is_guest
+          ? await DioHelper.getData(path: 'stores/$storeId/items')
+          : await DioHelper.getAuthorizedData(path: 'stores/$storeId/items');
 
       List<dynamic> dynamicOffers = response!.data["data"];
       List<StoreOfferModel> offers =
@@ -92,12 +106,17 @@ class StoreService {
       //   position = await LocationService.getLocation();
       // }
 
-      Response? response = await DioHelper.getAuthorizedData(
-          path: 'stores/$storeId',
-          queryParameters: {
-            "longitude": 44.3308333333,
-            "latitude": 31.9997222222,
-          });
+      Response? response = is_guest
+          ? await DioHelper.getData(path: 'stores/$storeId', queryParameters: {
+              "longitude": 44.3308333333,
+              "latitude": 31.9997222222,
+            })
+          : await DioHelper.getAuthorizedData(
+              path: 'stores/$storeId',
+              queryParameters: {
+                  "longitude": 44.3308333333,
+                  "latitude": 31.9997222222,
+                });
 
       return StoreDetailsModel.fromMap(response!.data["data"]);
     } on DioException {
