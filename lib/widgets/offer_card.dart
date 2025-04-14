@@ -134,11 +134,22 @@ class _OfferCardState extends State<OfferCard> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: Image.network(
-                              widget.offer.image!,
-                              height: MediaQuery.of(context).size.height * 0.1,
-                            )),
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                            widget.offer.image!,
+                            height: MediaQuery.of(context).size.height * 0.1,
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return Image.asset(
+                                'assets/playstore.png',
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                fit: BoxFit.fill,
+                              );
+                            },
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                     Flexible(
